@@ -1,0 +1,20 @@
+<div class="login-wrapper " cg-busy="checkSubmit">
+    <h1 class="logo">监控管理系统</h1>
+
+    <div class="box">
+        <div class="content-wrap">
+            <h6>登录</h6>
+
+            <form action="#" method="post">
+                <input class="form-control" type="text" placeholder="用户名" name="userName" ng-model="userName">
+                <input class="form-control" style="margin-bottom: 30px;" type="password" name="passWord" ng-model="passWord" placeholder="密码">
+
+                <a class="btn-glow primary login" ng-click="checkSubmit()">登录</a>
+            </form>
+        </div>
+    </div>
+    <div class="no-account">
+        <p>还没账号?</p>
+        <a href="#/signup">注册</a>
+    </div>
+</div>
