@@ -9,7 +9,8 @@ var myApp = angular.module('monitor-frontend', [
     'monitor-frontend.webSocketService',
     "monitor-frontend.mainModule",
     "monitor-frontend.userListModule",
-    "monitor-frontend.loginModule"
+    "monitor-frontend.loginModule",
+    "monitor-frontend.addUserModule"
 ]);
 myApp.config(function($stateProvider, $urlRouterProvider) {
     //
