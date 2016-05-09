@@ -8,7 +8,7 @@ var myApp = angular.module('monitor-frontend', [
     'cgBusy',
     'monitor-frontend.webSocketService',
     "monitor-frontend.mainModule",
-    "monitor-frontend.testModule",
+    "monitor-frontend.userListModule",
     "monitor-frontend.loginModule"
 ]);
 myApp.config(function($stateProvider, $urlRouterProvider) {
@@ -32,10 +32,15 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             templateUrl: "../partials/main.html",
             controller:"MainCtrl"
         })
-        .state('main.test', {
-            url: "/test",
-            templateUrl: "../partials/main.test.html",
-            controller:"TestCtrl"
+        .state('main.userlist', {
+            url: "/userlist",
+            templateUrl: "../partials/main.userlist.html",
+            controller:"UserListCtrl"
 
+        })
+        .state('main.adduser', {
+            url: "/adduser",
+            templateUrl: "../partials/main.adduser.html",
+            controller:"AddUserCtrl"
         });
 });

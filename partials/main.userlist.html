@@ -1,0 +1,87 @@
+<div>
+    <div class="page-title" style="margin-left: 10px;margin-bottom: 10px;margin-top: 10px">
+        <div class="title_left">
+            <h3>用户信息查看</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row" style="margin-left: 10px" cg-busy="{promise:loadUserPromise,message:'加载中',backdrop:false}">
+        <div class="panel-group" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading row" role="tab">
+                    <div class="col-md-1"><h4 class="panel-title" align="center">ID</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">用户姓名</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">用户电话</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">用户备注</h4></div>
+                    <div class="col-md-3"><h4 class="panel-title" align="center">操作</h4></div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" ng-repeat="account in userList">
+                <div class="panel-heading row" role="tab">
+                    <div class="col-md-1"><h4 class="panel-title" align="center">{{account.id}}</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{account.userName}}</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{account.userPhone}}</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{account.note}}</h4></div>
+                    <!--<div class="col-md-3"><h4 class="panel-title" align="center"><a class="hand" ng-click="chkstfinfo(stf.id)">查看详细信息</a>-->
+                    <div class="col-md-3"><h4 class="panel-title" align="center"><a style="cursor: pointer"
+                                                                                    ng-click="modify(account.userName,account.userPhone,account.note,account.id)">修改信息</a>
+                    </h4></div>
+                </div>
+            </div>
+            <div style="text-align: right">
+                <ul id="page1"></ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- 修改用户信息Modal -->
+    <div class="modal fade bs-example-modal-lg" id="modifyModal" tabindex="-1" role="dialog"
+         aria-labelledby="modifyModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modifyModalLabel">用户信息</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><h3 class="panel-title">员工基本信息</h3></div>
+                            <div class="panel-body">
+                                <div class="col-md-6 form-group">
+                                    <label>姓名：</label>
+                                    <input type="text" class="form-control" ng-model="userName" value={{userName}}
+                                           required>
+                                </div>
+                                <div class="col-md-6 form-group">
+                                    <label>电话：</label>
+                                    <input type="text" class="form-control" ng-model="userPhone" value={{userPhone}}
+                                           required>
+                                </div>
+                                <div class="form-group">
+                                    <label>备注信息：（最多不超过100个字符）</label>
+                                    <textarea name="stf_remark" ng-model="note" value={{note}} rows="3"
+                                              cols="20" class="form-control"
+                                              required></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="modifyStaffInfo()">
+                        确认修改
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /修改拓展员信息Modal-->
+</div>
+

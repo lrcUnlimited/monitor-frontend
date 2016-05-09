@@ -1,0 +1,47 @@
+<div>
+    <div id="pad-wrapper" class="new-user">
+        <div class="row header">
+            <div class="col-md-12">
+                <h3>新增用户</h3>
+            </div>
+        </div>
+
+        <div class="row form-wrapper">
+            <!-- left column -->
+            <div class="col-md-9 with-sidebar">
+                <div class="container">
+                    <form class="new_user_form">
+                        <div class="col-md-12 field-box">
+                            <label>用户名:</label>
+                            <input class="form-control" type="text" required ng-model="userName"/>
+                        </div>
+
+                        <div class="col-md-12 field-box">
+                            <label>用户手机:</label>
+                            <input class="col-md-9 form-control" type="text"/>
+                        </div>
+                        <div class="col-md-12 field-box">
+                            <label>密码:</label>
+                            <input class="col-md-9 form-control" type="text"/>
+                        </div>
+                        <div class="col-md-12 field-box">
+                            <label>确认密码:</label>
+                            <input class="col-md-9 form-control" type="text"/>
+                        </div>
+
+                        <div class="col-md-12 field-box textarea">
+                            <label>备注:</label>
+                            <textarea class="col-md-9"></textarea>
+                            <span class="charactersleft">90 characters remaining. Field limited to 100 characters</span>
+                        </div>
+                        <div class="col-md-11 field-box actions">
+                            <input type="button" class="btn-glow primary" value="Create user">
+                            <spsan>OR</spsan>
+                            <input type="reset" value="Cancel" class="reset">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

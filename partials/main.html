@@ -37,7 +37,7 @@
 
 
                         <div class="footer">
-                            <a href="#" class="logout">查看所有消息</a>
+                            <a href="" class="logout">查看所有消息</a>
                         </div>
                     </div>
                 </div>
@@ -49,8 +49,7 @@
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
-                <li><a href="personal-info.html">个人信息</a></li>
-                <li><a href="#">退出登录</a></li>
+                <li><a href="" ng-click="inOutClick()">退出登录</a></li>
             </ul>
         </li>
 
@@ -79,16 +78,15 @@
                 <span>图表</span>
             </a>
         </li>
-        <li>
+        <li ng-show="showManage">
             <a class="dropdown-toggle" href="#">
                 <i class="icon-group"></i>
                 <span>用户</span>
                 <i class="icon-chevron-down"></i>
             </a>
             <ul class="submenu">
-                <li><a href="user-list.html">用户列表</a></li>
-                <li><a href="new-user.html">新用户</a></li>
-                <li><a href="user-profile.html">用户资料</a></li>
+                <li><a href="#main/userlist">用户列表</a></li>
+                <li><a href="#main/adduser">添加用户</a></li>
             </ul>
         </li>
         <li>
