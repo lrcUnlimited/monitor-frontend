@@ -4,10 +4,9 @@
 var webSocketProvider = angular.module("monitor-frontend.webSocketService", ["ngResource", 'ngWebSocket']);
 webSocketProvider.factory('Messages', function ($websocket, $cookieStore) {
     var userId = $cookieStore.get("USER_ID");
-    //if (userId) {
-        var ws = $websocket('ws://localhost:8080/WebSocketTest/websocket/' + userId);
+    if (userId) {
+        var ws = $websocket('ws://localhost:8080/monitor/websocket/' + userId);
         var collection = [];
-
         ws.onMessage(function (event) {
             var res;
             try {
@@ -15,7 +14,6 @@ webSocketProvider.factory('Messages', function ($websocket, $cookieStore) {
             } catch (e) {
                 res = {'username': 'anonymous', 'message': event.data};
             }
-
             collection.push({
                 username: res.username,
                 content: res.message,
@@ -37,9 +35,7 @@ webSocketProvider.factory('Messages', function ($websocket, $cookieStore) {
             ws.send('again');
             ws.send('and again');
         });
-        // setTimeout(function() {
-        //   ws.close();
-        // }, 500)
+
 
         return {
             collection: collection,
@@ -56,5 +52,5 @@ webSocketProvider.factory('Messages', function ($websocket, $cookieStore) {
             }
 
         };
-   // }
+    }
 })
