@@ -1,0 +1,38 @@
+<div>
+    <div id="pad-wrapper" class="new-user">
+        <div class="row header">
+            <div class="col-md-12">
+                <h3>新增设备</h3>
+            </div>
+        </div>
+
+        <div class="row form-wrapper">
+            <!-- left column -->
+            <div class="col-md-9 with-sidebar">
+                <div class="container">
+                    <form class="new_user_form" name="useradd" novalidate ng-submit="addUser()"
+                          cg-busy="{promise:addUserPromise,message:'加载中',backdrop:false}">
+                        <div class="col-md-12 field-box">
+                            <label>设备名称:</label>
+                            <input class="form-control" type="text" name="userName" required ng-model="userName"/>
+                        </div>
+
+                        <div class="col-md-12 field-box">
+                            <label>设备有效期限:</label>
+                                <div class=" col- input-group date" id="datepicker">
+                                    <input class="form-control" type="text" required ng-model="date">
+                                    <span class="input-group-addon" style="display: none"></span>
+                                </div>
+                        </div>
+
+                        <div class="col-md-11 field-box actions">
+                            <input type="submit" class="btn-glow primary" ng-disabled="useradd.$invalid" value="增加设备">
+                            <spsan>OR</spsan>
+                            <input type="reset" value="Cancel" class="reset">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

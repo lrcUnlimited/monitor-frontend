@@ -10,32 +10,32 @@
             <!-- left column -->
             <div class="col-md-9 with-sidebar">
                 <div class="container">
-                    <form class="new_user_form">
+                    <form class="new_user_form" name="useradd" novalidate ng-submit="addUser()" cg-busy="{promise:addUserPromise,message:'加载中',backdrop:false}">
                         <div class="col-md-12 field-box">
                             <label>用户名:</label>
-                            <input class="form-control" type="text"/>
+                            <input class="form-control" type="text" name="userName" required ng-model="userName"  />
                         </div>
 
                         <div class="col-md-12 field-box">
                             <label>用户手机:</label>
-                            <input class="col-md-9 form-control" type="text"/>
+                            <input class="col-md-9 form-control" type="text" name="userPhone" required ng-model="userPhone"/>
                         </div>
                         <div class="col-md-12 field-box">
                             <label>密码:</label>
-                            <input class="col-md-9 form-control" type="text"/>
+                            <input class="col-md-9 form-control" type="password" name="passWord" required ng-model="passWord"/>
                         </div>
                         <div class="col-md-12 field-box">
                             <label>确认密码:</label>
-                            <input class="col-md-9 form-control" type="text"/>
+                            <input class="col-md-9 form-control" type="password" name="confirmPassword" required ng-model="confirmPassword"/>
                         </div>
 
                         <div class="col-md-12 field-box textarea">
                             <label>备注:</label>
-                            <textarea class="col-md-9"></textarea>
-                            <span class="charactersleft">90 characters remaining. Field limited to 100 characters</span>
+                            <textarea class="col-md-9" ng-maxlength="100" name="note" ng-model="note"></textarea>
+                            <span class="charactersleft">最多输入100字符</span>
                         </div>
                         <div class="col-md-11 field-box actions">
-                            <input type="button" class="btn-glow primary" value="Create user">
+                            <input type="submit" class="btn-glow primary" ng-disabled="useradd.$invalid" value="增加用户">
                             <spsan>OR</spsan>
                             <input type="reset" value="Cancel" class="reset">
                         </div>
