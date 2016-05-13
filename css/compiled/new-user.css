@@ -29,6 +29,12 @@
   width: 75%;
   display: inline-block;
 }
+.new-user .form-wrapper input[type="password"] {
+  margin: 0;
+  padding: 3px 6px;
+  width: 75%;
+  display: inline-block;
+}
 .new-user .form-wrapper .address-fields {
   margin-left: 0px;
   float: left;

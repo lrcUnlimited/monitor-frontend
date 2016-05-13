@@ -11,7 +11,8 @@ var myApp = angular.module('monitor-frontend', [
     "monitor-frontend.userListModule",
     "monitor-frontend.loginModule",
     "monitor-frontend.addUserModule",
-    "monitor-frontend.commandListModule"
+    "monitor-frontend.commandListModule",
+    "monitor-frontend.addDeviceModule"
 ]);
 myApp.config(function($stateProvider, $urlRouterProvider) {
     //
@@ -44,10 +45,13 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             url: "/adduser",
             templateUrl: "../partials/main.adduser.html",
             controller:"AddUserCtrl"
-        })
-        .state('main.commandList', {
+        }).state('main.commandList', {
             url: "/commandList",
             templateUrl: "../partials/main.commandList.html",
             controller:"CommandListCtrl"
+        }).state('main.adddevice', {
+            url: "/adddevice",
+            templateUrl: "../partials/main.adddevice.html",
+            controller:"AddDeviceCtrl"
         });
 });
