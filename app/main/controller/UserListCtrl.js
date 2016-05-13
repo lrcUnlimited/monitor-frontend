@@ -30,7 +30,6 @@ userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore,
             $scope.note = note;
             $scope.modifyUserId = accountId;
             $('#modifyModal').modal('toggle');
-
         }
 
 

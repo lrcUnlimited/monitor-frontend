@@ -5,12 +5,12 @@ var myApp = angular.module('monitor-frontend', [
     'ui.router',
     'ngCookies',
     'ngWebSocket',
-    'cgBusy',
     'monitor-frontend.webSocketService',
     "monitor-frontend.mainModule",
     "monitor-frontend.userListModule",
     "monitor-frontend.loginModule",
-    "monitor-frontend.addUserModule"
+    "monitor-frontend.addUserModule",
+    "monitor-frontend.addDeviceModule"
 ]);
 myApp.config(function($stateProvider, $urlRouterProvider) {
     //
@@ -43,5 +43,9 @@ myApp.config(function($stateProvider, $urlRouterProvider) {
             url: "/adduser",
             templateUrl: "../partials/main.adduser.html",
             controller:"AddUserCtrl"
+        }).state('main.adddevice', {
+            url: "/adddevice",
+            templateUrl: "../partials/main.adddevice.html",
+            controller:"AddDeviceCtrl"
         });
 });

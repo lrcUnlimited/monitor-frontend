@@ -1,27 +1,28 @@
 <!DOCTYPE html>
-<html ng-app="monitor-frontend"  class="login-bg">
+<html ng-app="monitor-frontend" class="login-bg">
 <head>
     <title>监控管理系统首页</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- bootstrap -->
-    <link href="../css/bootstrap/bootstrap.css" rel="stylesheet"/>
+    <link href="../css/bootstrap/bootstrap.min.css" type="text/css" rel="stylesheet"/>
     <link href="../css/bootstrap/bootstrap-overrides.css" type="text/css" rel="stylesheet"/>
     <!-- libraries -->
     <link href="../css/lib/jquery-ui-1.10.2.custom.css" rel="stylesheet" type="text/css"/>
     <link href="../css/lib/font-awesome.css" type="text/css" rel="stylesheet"/>
-    <link href="../css/lib/angular-busy.min.css" type="text/css" rel="stylesheet" />
-    <link href="../js/libs/ng-grid-2.0.12/ng-grid.min.css" type="text/css" rel="stylesheet" />
+    <link href="../css/lib/angular-busy.min.css" type="text/css" rel="stylesheet"/>
+    <link href="../js/libs/ng-grid-2.0.12/ng-grid.min.css" type="text/css" rel="stylesheet"/>
     <!-- global styles -->
     <link rel="stylesheet" type="text/css" href="../css/compiled/layout.css">
     <link rel="stylesheet" type="text/css" href="../css/compiled/elements.css">
     <link rel="stylesheet" type="text/css" href="../css/compiled/icons.css">
+    <link rel="stylesheet" type="text/css" href="../js/libs/datepicker/datepicker.min.css">
 
     <!-- this page specific styles -->
     <link rel="stylesheet" href="../css/compiled/index.css" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../css/compiled/signup.css" type="text/css" media="screen"/>
     <link rel="stylesheet" href="../css/compiled/signin.css" type="text/css" media="screen"/>
-    <link rel="stylesheet" href="../css/compiled/new-user.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="../css/compiled/new-user.css" type="text/css" media="screen"/>
 </head>
 <body>
 <!--[if lt IE 7]>
@@ -30,7 +31,7 @@
 <![endif]-->
 
 <!-- main container -->
-<div ui-view ></div>
+<div ui-view></div>
 <script src="../js/libs/jquery/jquery-1.8.1.min.js"></script>
 <script src="../js/libs/bootstrap/bootstrap.min.js"></script>
 <script type="text/javascript" src="../js/libs/angular/angular.min.js"></script>
@@ -41,14 +42,19 @@
 <script type="text/javascript" src="../js/libs/angular/angular-ui-router.min.js"></script>
 <script type="text/javascript" src="../js/libs/angular/angular-websocket.min.js"></script>
 <script type="text/javascript" src="../js/libs/angular/external/angular-busy.min.js"></script>
+
 <script type="text/javascript" src="../js/libs/jquery.bootstrap.teninedialog.v3.min.js"></script>
 <script type="text/javascript" src="../js/libs/bootstrap-paginator.js"></script>
+<script type="text/javascript" src="../js/libs/bootstrap/ui-bootstrap-tpls-0.11.0.min.js"></script>
 <script type="text/javascript" src="../js/libs/ng-grid-2.0.12/ng-grid.min.js"></script>
+<script type="text/javascript" src="../js/libs/bootstrap/bootstrap.min.js"></script>
+<script type="text/javascript" src="../js/libs/datepicker/bootstrap-datepicker.min.js"></script>
 <script type="text/javascript" src="app.js"></script>
 <script type="text/javascript" src="main/controller/MainController.js"></script>
 <script type="text/javascript" src="common/services/WebSocketService.js"></script>
 <script type="text/javascript" src="main/controller/UserListCtrl.js"></script>
 <script type="text/javascript" src="common/controller/LoginCtrl.js"></script>
 <script type="text/javascript" src="main/controller/AddUserCtrl.js"></script>
+<script type="text/javascript" src="main/controller/AddDeviceCtrl.js"></script>
 </body>
 </html>

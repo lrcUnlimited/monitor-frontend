@@ -31,9 +31,6 @@ webSocketProvider.factory('Messages', function ($websocket, $cookieStore) {
 
         ws.onOpen(function () {
             console.log('connection open');
-            ws.send('Hello World');
-            ws.send('again');
-            ws.send('and again');
         });
 
 
