@@ -1,0 +1,112 @@
+<div style="margin-left:20px;margin-top: 20px; ">
+    <div class="page-title">
+        <div class="title_left">
+            <h3>设备列表</h3>
+        </div>
+    </div>
+    <div class="clearfix"></div>
+    <div class="row" cg-busy="{promise:loadDevicePromise,message:'加载中',backdrop:false}">
+        <ul class="nav nav-tabs">
+            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a ng-click="allPdtList(0)">正常设备</a>
+            </li>
+            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[1]}"><a
+                    ng-click="alreadyOnList(1)">即将过期设备</a></li>
+            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[2]}"><a
+                    ng-click="alreadyOffList(2)">关闭设备</a></li>
+        </ul>
+        <div class="panel-group">
+            <div class="panel panel-default">
+                <div class="panel-heading row">
+                    <div class="col-md-1"><h4 class="panel-title" align="center">ID</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">设备名称</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">设备有效期</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">设备通讯状态</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">设备录入时间</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">设备操作</h4></div>
+                    <div class="col-md-1" ng-show="!deviceManageType"><h4 class="panel-title" align="center">增加有效期</h4>
+                    </div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">证书文件</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="panel panel-default" ng-repeat="device in deviceList">
+            <div class="panel-heading row" role="tab">
+                <div class="col-md-1"><h4 class="panel-title" align="center">{{device.deviceId}}</h4></div>
+                <div class="col-md-2"><h4 class="panel-title" align="center">{{device.deviceName}}</h4></div>
+                <div class="col-md-2"><h4 class="panel-title" align="center">{{device.validTime | date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
+                <div class="col-md-1"><h4 class="panel-title" align="center">{{device.deviceStatus}}</h4></div>
+                <div class="col-md-2"><h4 class="panel-title" align="center">{{device.regTime | date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
+                <div class="col-md-1">
+                    <h4 class="panel-title" align="center">
+                        <button class="btn btn-danger" ng-click="changeDeviceManageStatus(device.deviceId,device.deviceName,device.validTime)" loading="">{{deviceMangeName}}</button>
+                    </h4>
+                </div>
+                <div class="col-md-1" ng-show="!deviceManageType">
+                    <h4 class="panel-title" align="center">
+                        <button class="btn btn-success" ng-click="modify(device.deviceId,device.deviceName,device.validTime)" loading="">增加有效期</button>
+                    </h4>
+                </div>
+                <div class="col-md-2">
+                    <h4 class="panel-title" align="center">
+                        <button class="btn btn-success">下载</button>
+                        <button class="btn btn-primary">更新</button>
+                    </h4>
+                </div>
+
+            </div>
+        </div>
+
+        <div style="text-align: right">
+            <ul id="page1"></ul>
+        </div>
+    </div>
+    <!--增加期限弹出框-->
+    <div class="modal fade bs-example-modal-lg" id="modifyModal" tabindex="-1" role="dia" aria-labelledby="modifyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modifyModalLabel">{{}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><h3 class="panel-title">设备基本信息</h3></div>
+                            <div class="panel-body" style="display: block">
+                                <div class="col-md-7 field-box">
+                                    <label>设备名称：</label>
+                                    <input type="text" class="form-control" ng-model="modifyDeviceName" value={{modifyDeviceName}}
+                                           readonly="readonly"  required ng-disabled="false">
+                                </div>
+                                <div class="col-md-7 field-box" style="margin-top: 10px">
+                                    <label>设备当前有效期：</label>
+                                    <input type="text" class="form-control" ng-model="modifyNowValidTime" value="{{modifyNowValidTime | date:'dd/MM/yyyy'}}"
+                                           readonly="readonly"  required ng-disabled="false">
+                                </div>
+
+                                <div class="col-md-7 field-box" style="margin-top: 10px">
+                                    <label class="control-label">设备有效期</label>
+                                    <div class="input-group date" id="datepicker">
+                                        <input class="form-control" type="text" ng-model="modifyDeviceValidTime" value="{{modifyDeviceValidTime | date:'dd/MM/yyyy'}}">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="changeDevice()">
+                        确认修改
+                    </button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

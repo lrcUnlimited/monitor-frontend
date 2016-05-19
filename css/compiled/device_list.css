@@ -1,0 +1,35 @@
+.active a span.fa {
+    text-align: right !important;
+    margin-right: 4px;
+}
+.nav>li>a:focus {
+    text-decoration: none;
+    background: transparent;
+}
+.nav>li>a {
+    position: relative;
+    display: block;
+    padding: 13px 15px 7px;
+}
+
+li.current-page a {
+    color: #1ABB9C !important
+}
+.nav>li>a:hover,
+.nav>li>a:focus {
+    background-color: transparent;
+}
+*,
+*:before,
+*:after {
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+h2 {
+    font-size: 18px;
+    font-weight: 400;
+}
+.hand {
+    cursor: pointer;
+}

@@ -10,23 +10,23 @@
             <!-- left column -->
             <div class="col-md-9 with-sidebar">
                 <div class="container">
-                    <form class="new_user_form" name="useradd" novalidate ng-submit="addUser()"
-                          cg-busy="{promise:addUserPromise,message:'加载中',backdrop:false}">
+                    <form class="new_user_form" name="deviceadd" novalidate ng-submit="addDevice()"
+                          cg-busy="{promise:addDevicePromise,message:'加载中',backdrop:false}">
                         <div class="col-md-12 field-box">
                             <label>设备名称:</label>
-                            <input class="form-control" type="text" name="userName" required ng-model="userName"/>
+                            <input class="form-control" type="text" name="deviceName" required ng-model="deviceName"/>
                         </div>
 
-                        <div class="col-md-12 field-box">
+                        <div class="col-md-6 field-box">
                             <label>设备有效期限:</label>
-                                <div class=" col- input-group date" id="datepicker">
+                                <div class=" col-input-group date" id="datepicker">
                                     <input class="form-control" type="text" required ng-model="date">
                                     <span class="input-group-addon" style="display: none"></span>
                                 </div>
                         </div>
 
                         <div class="col-md-11 field-box actions">
-                            <input type="submit" class="btn-glow primary" ng-disabled="useradd.$invalid" value="增加设备">
+                            <input type="submit" class="btn-glow primary" ng-disabled="deviceadd.$invalid"  value="增加设备" loading="">
                             <spsan>OR</spsan>
                             <input type="reset" value="Cancel" class="reset">
                         </div>
