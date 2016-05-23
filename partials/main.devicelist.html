@@ -50,8 +50,8 @@
                 </div>
                 <div class="col-md-2">
                     <h4 class="panel-title" align="center">
-                        <button class="btn btn-success">下载</button>
-                        <button class="btn btn-primary">更新</button>
+                        <button class="btn btn-success" loading="" ng-click="downloadFile(device.deviceId)">下载</button>
+                        <button class="btn btn-primary" loading=""   ng-disabled="device.updateCRT" ng-click="updateCRT(device.deviceId)">更新</button>
                     </h4>
                 </div>
 
