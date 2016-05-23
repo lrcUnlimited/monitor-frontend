@@ -4,8 +4,8 @@
 /**
  * Created by li on 2016/5/4.
  */
-var deviceListModule = angular.module("monitor-frontend.deviceListModule", ['cgBusy','ui.router']);
-deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScope, $cookieStore, $location,$state) {
+var deviceListModule = angular.module("monitor-frontend.deviceListModule", ['cgBusy', 'ui.router']);
+deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state) {
     var accountId = $cookieStore.get("USER_ID");
     $scope.pdtOnSale = new Array(true, false, false);
     $scope.deviceMangeName = "关闭";
@@ -139,13 +139,13 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
     $scope.changeDeviceManageStatus = function (deviceId, deviceName, validTime) {
         if ($scope.deviceManageType == 0) {
             //关闭设备
-            changeDeviceStatus($scope.deviceManageType,0,deviceId,accountId,validTime);
+            changeDeviceStatus($scope.deviceManageType, 0, deviceId, accountId, validTime);
 
         } else {
             //开启设备
             //设备没有过期,直接进行开启
             if (validTime > new Date()) {
-                changeDeviceStatus($scope.deviceManageType,0,deviceId,accountId,validTime);
+                changeDeviceStatus($scope.deviceManageType, 0, deviceId, accountId, validTime);
 
             } else {
                 $scope.modifyDeviceId = deviceId;
@@ -163,11 +163,11 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
     $scope.changeDevice = function () {
         if ($scope.modifyType == 0) {
             console.log("修改有效期");
-            if($scope.modifyNowValidTime>=$scope.modifyDeviceValidTime){
+            if ($scope.modifyNowValidTime >= $scope.modifyDeviceValidTime) {
                 //选择的日期小于当前的设备期限
 
 
-            }else {
+            } else {
                 //只增加有效期
                 $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_updateValidTime?accountId=' + accountId + '&deviceId=' + $scope.modifyDeviceId + '&modifyDeviceValidTime=' + $scope.modifyDeviceValidTime.getTime())
                     .success(function (data) {
@@ -192,15 +192,14 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         } else {
             //增加有效期的同时更新设备的状态
             console.log("增加设备有效期和状态");
-            changeDeviceStatus($scope.modifyType,1,$scope.modifyDeviceId,accountId,$scope.modifyDeviceValidTime.getTime());
-
+            changeDeviceStatus($scope.modifyType, 1, $scope.modifyDeviceId, accountId, $scope.modifyDeviceValidTime.getTime());
 
 
         }
 
     }
-    function changeDeviceStatus(status,changeType,deviceId,accountId,validTime){
-        $scope.loadDevicePromise=$http.get('http://localhost:8080/monitor/device/e_updateManageStatus?accountId=' + accountId + '&deviceId=' + deviceId + '&modifyDeviceValidTime=' + validTime+'&status='+status+'&changeType='+changeType)
+    function changeDeviceStatus(status, changeType, deviceId, accountId, validTime) {
+        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_updateManageStatus?accountId=' + accountId + '&deviceId=' + deviceId + '&modifyDeviceValidTime=' + validTime + '&status=' + status + '&changeType=' + changeType)
             .success(function (data) {
                 $.teninedialog({
                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -219,7 +218,27 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 });
             });
     }
-    $scope.downloadFile=function(){
 
+
+    //下载文件
+    $scope.downloadFile = function (deviceId) {
+        window.location.href = 'http://localhost:8080/monitor/device/zip/' + deviceId + '?accountId=' + accountId;
+
+    }
+    //更新证书文件
+    $scope.updateCRT = function (deviceId) {
+        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_updateCRT?accountId=' + accountId + '&deviceId=' + deviceId + '&status=1')
+            .success(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: '更新设备证书成功，设备下次连接时将自动更新'
+                })
+            })
+            .error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            });
     }
 })

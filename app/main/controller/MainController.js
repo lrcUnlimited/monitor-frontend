@@ -42,12 +42,14 @@ mainModule.controller("MainCtrl", function ($scope,$rootScope, $cookieStore, $lo
         }
 
         console.log("something")
+        /*
         $scope.Messages = Messages;
         $scope.collection = $scope.Messages.collection;
         $scope.$watchCollection('collection', function (newNames, oldNames) {
             $scope.dataCount = newNames.length;
             console.log($scope.dataCount);
         });
+        */
     } else {
             $location.path("/signin");
     }

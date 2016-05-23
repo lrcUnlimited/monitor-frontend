@@ -3,7 +3,9 @@
  */
 var webSocketProvider = angular.module("monitor-frontend.webSocketService", ["ngResource", 'ngWebSocket']);
 webSocketProvider.factory('Messages', function ($websocket, $cookieStore) {
+    /*
     var userId = $cookieStore.get("USER_ID");
+
     if (userId) {
         var ws = $websocket('ws://localhost:8080/monitor/websocket/' + userId);
         var collection = [];
@@ -50,4 +52,5 @@ webSocketProvider.factory('Messages', function ($websocket, $cookieStore) {
 
         };
     }
+    */
 })
