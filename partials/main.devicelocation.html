@@ -1,0 +1,45 @@
+<div>
+    <div class="page-title" style="margin-left: 10px;margin-bottom: 10px;margin-top: 10px">
+        <div class="title_left">
+            <h3>设备位置查看</h3>
+        </div>
+
+    </div>
+    <div class="clearfix"></div>
+    <div class="row" style="margin-left: 10px" cg-busy="{promise:loadRecordPromise,message:'加载中',backdrop:false}">
+        <div class="panel-group" role="tablist" aria-multiselectable="true">
+            <div class="panel panel-default">
+                <div class="panel-heading row" role="tab">
+                    <div class="col-md-1"><h4 class="panel-title" align="center">设备Id</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">设备名称</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">设备当前位置</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">设备历史位置记录</h4></div>
+                </div>
+            </div>
+
+            <div class="panel panel-default" ng-repeat="deviceRecord in deviceRecordList">
+                <div class="panel-heading row" role="tab">
+                    <div class="col-md-1"><h4 class="panel-title" align="center">{{deviceRecord.deviceId}}</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{deviceRecord.deviceName}}</h4></div>
+                    <div class="col-md-2">
+                        <h4 class="panel-title" align="center">
+                            <button class="btn btn-success" ng-click="modify(device.deviceId,device.deviceName,device.validTime)" loading="">增加有效期</button>
+                        </h4>
+                    </div>
+                    <div class="col-md-2">
+                        <h4 class="panel-title" align="center">
+                            <button class="btn btn-success" loading="" ng-click="devicehistory(deviceRecord.deviceId)">历史位置</button>
+                        </h4>
+                    </div>
+                </div>
+            </div>
+            <div style="text-align: right">
+                <ul id="page1"></ul>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- /修改拓展员信息Modal-->
+</div>
+

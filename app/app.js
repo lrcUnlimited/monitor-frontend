@@ -13,7 +13,8 @@ var myApp = angular.module('monitor-frontend', [
     "monitor-frontend.addUserModule",
     "monitor-frontend.commandListModule",
     "monitor-frontend.addDeviceModule",
-    "monitor-frontend.deviceListModule"
+    "monitor-frontend.deviceListModule",
+    "monitor-frontend.deviceLocationModule"
 ]);
 
 myApp.config(function ($stateProvider, $urlRouterProvider) {
@@ -59,6 +60,10 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
             url: "/devicelist",
             templateUrl: "../partials/main.devicelist.html",
             controller: "DeviceListCtrl"
+        }).state('main.devicelocation', {
+            url: "/devicelocation",
+            templateUrl: "../partials/main.devicelocation.html",
+            controller: "DeviceLocationCtrl"
         });
 }).directive('loading', ['$http', function ($http) {
     return {
