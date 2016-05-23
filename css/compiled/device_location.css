@@ -1,0 +1,11 @@
+#map{
+    width:500px;
+    height:500px;
+}
+#panel {
+    position: absolute;
+    top:30px;
+    left:10px;
+    z-index: 999;
+    color: #fff;
+}

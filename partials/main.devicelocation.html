@@ -23,12 +23,17 @@
                     <div class="col-md-2"><h4 class="panel-title" align="center">{{deviceRecord.deviceName}}</h4></div>
                     <div class="col-md-2">
                         <h4 class="panel-title" align="center">
-                            <button class="btn btn-success" ng-click="modify(device.deviceId,device.deviceName,device.validTime)" loading="">增加有效期</button>
+                            <button class="btn btn-success"
+                                    ng-click="showNowPosition(deviceRecord.deviceId,deviceRecord.deviceName)"
+                                    loading="">设备当前位置
+                            </button>
                         </h4>
                     </div>
                     <div class="col-md-2">
                         <h4 class="panel-title" align="center">
-                            <button class="btn btn-success" loading="" ng-click="devicehistory(deviceRecord.deviceId)">历史位置</button>
+                            <button class="btn btn-success" loading="" ng-click="devicehistory(deviceRecord.deviceId)">
+                                历史位置
+                            </button>
                         </h4>
                     </div>
                 </div>
@@ -38,8 +43,32 @@
             </div>
         </div>
     </div>
+    <div class="modal fade bs-example-modal-lg" id="modifyModal" tabindex="-1" role="dia"
+         aria-labelledby="modifyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><h3 class="panel-title">{{showLocationDeviceName}}的当前位置</h3>
+                            </div>
+                            <div id="map" class="panel-body"
+                                 style="display: block;width:100%;height: 500px;overflow: hidden;margin:0;font-family:'微软雅黑';">
+                            </div>
+                        </div>
 
 
-    <!-- /修改拓展员信息Modal-->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
 </div>
 
