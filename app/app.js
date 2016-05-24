@@ -18,11 +18,7 @@ var myApp = angular.module('monitor-frontend', [
 ]);
 
 myApp.config(function ($stateProvider, $urlRouterProvider) {
-    //
-    // For any unmatched url, redirect to /state1
 
-    //
-    // Now set up the states
     $stateProvider
         .state('signin', {
             url: "/signin",
@@ -63,7 +59,8 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
         }).state('main.devicelocation', {
             url: "/devicelocation",
             templateUrl: "../partials/main.devicelocation.html",
-            controller: "DeviceLocationCtrl"
+            controller: "DeviceLocationCtrl",
+            cache:false
         });
 }).directive('loading', ['$http', function ($http) {
     return {
@@ -78,7 +75,6 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
                     element.attr("disabled", "disabled");
 
                 } else {
-
                     element.removeAttr("disabled");
 
                 }
@@ -87,4 +83,3 @@ myApp.config(function ($stateProvider, $urlRouterProvider) {
     };
 
 }]);
-;

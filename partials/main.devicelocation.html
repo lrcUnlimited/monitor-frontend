@@ -14,6 +14,16 @@
                     <div class="col-md-2"><h4 class="panel-title" align="center">设备名称</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">设备当前位置</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">设备历史位置记录</h4></div>
+                    <div class="col-md-1" style="float: left;">
+                        <div style="float: left">
+                            <input  type="checkbox"  id="selectAllRow"
+                                    ng-click="selectAllRow()"
+                                    ng-model="selectAll"  style="margin: 0px">
+                        </div>
+                        <div style="float: left;margin-left: 10px">
+                            <h4 class="panel-title">全选</h4>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -36,9 +46,16 @@
                             </button>
                         </h4>
                     </div>
+                    <div class="col-md-1">
+                        <input type="checkbox" value={{deviceRecord.deviceId}} name="gridRow"
+                               ng-checked="selectAll">
+                    </div>
                 </div>
             </div>
-            <div style="text-align: right">
+            <div style="text-align: right;margin-right:10px;margin-top: 20px; " >
+                <input type="button" class="btn btn-success" ng-click="showAllSelect()" value="查看所选设备当前位置" >
+            </div>
+            <div style="text-align: right;margin-right: 10px;">
                 <ul id="page1"></ul>
             </div>
         </div>
