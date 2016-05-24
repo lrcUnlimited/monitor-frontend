@@ -31,7 +31,8 @@
                     </div>
                     <div class="col-md-2">
                         <h4 class="panel-title" align="center">
-                            <button class="btn btn-success" loading="" ng-click="devicehistory(deviceRecord.deviceId)">
+                            <button class="btn btn-success" loading=""
+                                    ng-click="deviceHistory(deviceRecord.deviceId,deviceRecord.deviceName)">
                                 历史位置
                             </button>
                         </h4>
@@ -48,9 +49,10 @@
         <div class="modal-dialog modal-lg">
             <div class="modal-content">
                 <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                    <button type="button" class="close"  data-dismiss="modal" aria-label="Close"><span
                             aria-hidden="true">&times;</span></button>
                 </div>
+
                 <div class="modal-body">
                     <div class="panel-group">
                         <div class="panel panel-default">
@@ -63,6 +65,48 @@
 
 
                     </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!--设备历史记录查看日期设置-->
+    <div class="modal fade bs-example-modal-lg" id="devicehistorymodal" tabindex="-1" role="dia" aria-labelledby="modifyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="modifyModalLabel">{{}}</h4>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading"><h3 class="panel-title">设备{{myDeviceName}}查看日期设置</h3></div>
+                            <div class="panel-body" style="display: block;margin: 0px;padding: 0px">
+
+                                <div class="col-md-5 field-box" >
+                                    <label class="control-label">开始日期</label>
+                                    <div class="input-group date" id="startdatepicker">
+                                        <input class="form-control" type="text" ng-model="startTime" value="{{startTime | date:'dd/MM/yyyy'}}">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                                <div class="col-md-5 field-box">
+                                    <label class="control-label">截止日期</label>
+                                    <div class="input-group date" id="enddatepicker">
+                                        <input class="form-control" type="text" ng-model="endTime" value="{{endTime | date:'dd/MM/yyyy'}}">
+                                        <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                                    </div>
+                                </div>
+                                <button class="col-md-1 btn btn-success" loading="" ng-click="getHisData()" style="margin-top: 20px">查询</button>
+                            </div>
+                        </div>
+
+
+                    </div>
+                    <div id="hisMap" style="width: 100%;height: 500px;"></div>
+
                 </div>
 
             </div>
