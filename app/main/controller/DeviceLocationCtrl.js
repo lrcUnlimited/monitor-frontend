@@ -56,32 +56,49 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
             $http.get(url)
                 .success(function (data) {
                     // 百度地图API功能
-                    if (data.length>0) {
-                        if ($scope.map == null) {
+                    if (data.length != 0) {
+                        console.log(data);
+                        // 百度地图API功能
+                        if(!$scope.map){
                             $scope.map = new BMap.Map("map");
+                            console.log("new map");
+
                         }
                         $('#modifyModal').modal('toggle');
-                        console.log($scope.map);
-                        $scope.map.clearOverlays();
-                        $scope.showLocationDeviceName = data[0].deviceName;
-                        $scope.map.enableScrollWheelZoom(true);
-                        var dateFilter = $filter('date');
-                        var filteredDate = dateFilter(data[0].realTime, 'yyyy-MM-dd HH:mm:ss')//坐标采集时间
-                        var point = new BMap.Point(data[0].longitude, data[0].latitude);
-                        $scope.map.centerAndZoom(point, 50);
-                        $scope.map.panBy(305, 165);//居中
-                        var marker = new BMap.Marker(point);  // 创建标注
-                        $scope.deviceinfo = new window.BMap.InfoWindow("<p style=’font-size:12px;lineheight:1.8em;’>名称：" + data[0].deviceName
-                            + "</br>设备坐标：" + (data[0].latitude == undefined ? "" : "经度: " + data[0].latitude + " 纬度: " + data[0].longitude)
-                            + "</br> 采集时间：" + (filteredDate == undefined ? "" : filteredDate ) + "</br></p>");
-                        $scope.map.addOverlay(marker);        // 将标注添加到地图中
 
-                        // 鼠标移到坐标点显示信息框
-                        marker.addEventListener("mouseover", function () {
-                            this.openInfoWindow($scope.deviceinfo);
-                        });
-                        marker.setAnimation(BMAP_ANIMATION_BOUNCE); //跳动的动画
-                        $('#modifyModal').modal('toggle');
+                        $scope.map.clearOverlays();
+
+                        $scope.map.centerAndZoom(new BMap.Point(data[0].longitude, data[0].latitude), 12);
+                        $scope.map.panBy(305, 165);//居中
+                        var opts = {
+                            width: 250,     // 信息窗口宽度
+                            height: 80,     // 信息窗口高度
+                            title: "信息窗口", // 信息窗口标题
+                            enableMessage: true//设置允许信息窗发送短息
+                        };
+                        for (var i = 0; i < data.length; i++) {
+                            var marker = new BMap.Marker(new BMap.Point(data[i].longitude, data[i].latitude));  // 创建标注
+                            var dateFilter = $filter('date');
+                            var filteredDate = dateFilter(data[i].realTime, 'yyyy-MM-dd HH:mm:ss')//坐标采集时间
+                            var deviceinfo = "<p style=’font-size:12px;lineheight:1.8em;’>名称：" + data[i].deviceName
+                                + "</br>设备坐标：" + (data[i].latitude == undefined ? "" : "经度: " + data[i].latitude + " 纬度: " + data[i].longitude)
+                                + "</br> 采集时间：" + (filteredDate == undefined ? "" : filteredDate ) + "</br></p>";
+                            $scope.map.addOverlay(marker);               // 将标注添加到地图中
+                            addClickHandler(deviceinfo, marker);
+                        }
+                        function addClickHandler(content, marker) {
+                            marker.addEventListener("click", function (e) {
+                                    openInfo(content, e,$scope.map)
+                                }
+                            );
+                        }
+
+                        function openInfo(content, e,map) {
+                            var p = e.target;
+                            var point = new BMap.Point(p.getPosition().lng, p.getPosition().lat);
+                            var infoWindow = new BMap.InfoWindow(content, opts);  // 创建信息窗口对象
+                            map.openInfoWindow(infoWindow, point); //开启信息窗口
+                        }
 
 
                     } else {
@@ -134,7 +151,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                         $scope.historyMap.clearOverlays();
                         $scope.historyMap = new BMap.Map("hisMap");
 
-                        $scope.historyMap.centerAndZoom(new BMap.Point(data[0].longitude,data[0].latitude), 15);
+                        $scope.historyMap.centerAndZoom(new BMap.Point(data[0].longitude,data[0].latitude), 12);
                         $scope.historyMap.enableScrollWheelZoom(true);
                         var opts = {
                             width : 250,     // 信息窗口宽度
