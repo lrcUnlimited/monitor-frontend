@@ -2,7 +2,7 @@
  * Created by li on 2016/5/9.
  */
 var addUserModule = angular.module("monitor-frontend.addUserModule", ['cgBusy'])
-addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStore, $http) {
+addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStore, $http,$state) {
     var accountId = $cookieStore.get("USER_ID");
     var accountType = $cookieStore.get("USER_TYPE");
 
@@ -24,7 +24,7 @@ addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStor
                         content: '添加用户成功',
                         dialogShown: function () {
                             setTimeout(function () {
-                                location.reload();
+                                $state.go('main.userlist', {}, {reload: true})
                             }, 200)
                         }
 

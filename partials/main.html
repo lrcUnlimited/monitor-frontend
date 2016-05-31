@@ -43,17 +43,14 @@
                 </div>
             </div>
         </li>
-        <li class="dropdown">
+        <li class="dropdown" ng-class="{true:'open'}[isActive]" ng-click="changeActive()">
             <a href="" class="dropdown-toggle hidden-xs hidden-sm" data-toggle="dropdown">
                 {{userName}}的账号
                 <b class="caret"></b>
             </a>
-            <ul class="dropdown-menu">
-                <li><a href="" ng-click="inOutClick()">退出登录</a></li>
+            <ul class="dropdown-menu" style="float: right">
+                <li><a href="" ng-click="inOutClick()" style="overflow: hidden">退出登录</a></li>
             </ul>
-        </li>
-
-
         </li>
     </ul>
 </header>
@@ -109,21 +106,11 @@
         <li>
             <a href="#main/devicelocation">
                 <i class="icon-calendar-empty"></i>
-                <span>日历</span>
+                <span>设备位置</span>
             </a>
         </li>
 
-        <li>
-            <a class="dropdown-toggle ui-elements" href="#">
-                <i class="icon-code-fork"></i>
-                <span>UI 组件</span>
-                <i class="icon-chevron-down"></i>
-            </a>
-            <ul class="submenu">
-                <li><a href="ui-elements.html">UI 组件</a></li>
-                <li><a href="icons.html">Icons图标</a></li>
-            </ul>
-        </li>
+
     </ul>
 </div>
 <!-- end sidebar -->

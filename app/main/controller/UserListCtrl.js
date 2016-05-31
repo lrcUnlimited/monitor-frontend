@@ -2,11 +2,11 @@
  * Created by li on 2016/5/4.
  */
 var userListModule = angular.module("monitor-frontend.userListModule", ['cgBusy']);
-userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore, $location) {
+userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore, $location,$state) {
     var accountId = $cookieStore.get("USER_ID");
     var accountType = $cookieStore.get("USER_TYPE");
 
-    if (accountId&&accountType==1) {
+    if (accountId && accountType == 1) {
         $http.get('http://localhost:8080/monitor/user/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
             .success(function (data) {
                 $scope.userList = data.items;
@@ -32,6 +32,37 @@ userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore,
             $('#modifyModal').modal('toggle');
         }
 
+        $scope.changeUserInfo = function () {
+            if (accountId && accountType == 1) {
+                var data = {
+                    userName: $scope.userName,
+                    userPhone: $scope.userPhone,
+                    id:$scope.modifyUserId,
+                    note: $scope.note
+                };
+                console.log(data);
+                $scope.addUserPromise = $http.post("http://localhost:8080/monitor/user/e_update?accountId=" + accountId, data)
+                    .success(function (data) {
+                        $.teninedialog({
+                            title: '<h3 style="font-weight:bold">系统提示</h3>',
+                            content: '更新用户信息成功',
+                            dialogShown: function () {
+                                setTimeout(function () {
+                                    $state.go($state.current, {}, {reload: true})
+                                }, 200)
+                            }
+                        })
+                    })
+                    .error(function (data) {
+                        $.teninedialog({
+                            title: '<h3 style="font-weight:bold">系统提示</h3>',
+                            content: data.message
+                        });
+                    })
 
+
+            }
+
+        }
     }
 })
