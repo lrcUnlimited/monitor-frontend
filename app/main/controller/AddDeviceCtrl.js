@@ -5,7 +5,7 @@
  * Created by li on 2016/5/9.
  */
 var addDeviceModule = angular.module("monitor-frontend.addDeviceModule", ['cgBusy'])
-addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookieStore, $http) {
+addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookieStore, $http,$state) {
     var accountId = $cookieStore.get("USER_ID");//获取用户登录id
     $('#datepicker').datepicker({
         autoclose: true,
@@ -33,7 +33,7 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
                         content: '添加设备成功',
                         dialogShown: function () {
                             setTimeout(function () {
-                                location.reload();
+                                $state.go('main.devicelist', {}, {reload: true})
                             }, 200)
                         }
 
