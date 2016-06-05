@@ -26,7 +26,7 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
                 deviceName: $scope.deviceName,
                 validTime:$scope.validTime
             };
-            $scope.addDevicePromise = $http.post("http://localhost:8080/monitor/device/e_add?accountId=" + accountId, data)
+            $scope.addDevicePromise = $http.post("http://139.129.202.165:8080/monitor/device/e_add?accountId=" + accountId, data)
                 .success(function (data) {
                     $.teninedialog({
                         title: '<h3 style="font-weight:bold">系统提示</h3>',

@@ -10,23 +10,41 @@
             <!-- left column -->
             <div class="col-md-9 with-sidebar">
                 <div class="container">
-                    <form class="new_user_form" name="useradd" novalidate ng-submit="addUser()" cg-busy="{promise:addUserPromise,message:'加载中',backdrop:false}">
+                    <form class="new_user_form" name="useradd" novalidate ng-submit="addUser()"
+                          cg-busy="{promise:addUserPromise,message:'加载中',backdrop:false}">
                         <div class="col-md-12 field-box">
                             <label>用户名:</label>
-                            <input class="form-control" type="text" name="userName" required ng-model="userName"  />
+                            <input class="col-md-9 form-control" type="text" name="userName" user-check="userName" required ng-model="userName">
+                            <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
+                                  ng-show="useradd.userName.$error.userUnique">该用户名被使用</span>
+
+                            <!--<input class="form-control" type="text" name="userName" required ng-model="userName"/>-->
                         </div>
 
                         <div class="col-md-12 field-box">
                             <label>用户手机:</label>
-                            <input class="col-md-9 form-control" type="text" name="userPhone" required ng-model="userPhone"/>
+                            <input class="col-md-9 form-control" type="text" name="userPhone"
+                                   placeholder="please input your phone number"
+                                   ng-pattern="/^[1][3458][0-9]{9}$/" required ng-model="userPhone"/>
+                            <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
+                                  ng-show="useradd.userPhone.$error.pattern">请输入正确的手机号码</span>
                         </div>
                         <div class="col-md-12 field-box">
                             <label>密码:</label>
-                            <input class="col-md-9 form-control" type="password" name="passWord" required ng-model="passWord"/>
+                            <input class="col-md-9 form-control" type="password" id="passWord" name="passWord" required
+                                   ng-model="passWord"/>
+                            <!--<input class="col-md-9 form-control" type="password" name="passWord" required ng-model="passWord"/>-->
                         </div>
                         <div class="col-md-12 field-box">
                             <label>确认密码:</label>
-                            <input class="col-md-9 form-control" type="password" name="confirmPassword" required ng-model="confirmPassword"/>
+                            <input class="col-md-9 form-control" type="password" id="pw2" name="pw2" required
+                                   ng-model="pw2" pw-check="passWord"/>
+
+                            <span class="msg-error"
+                                  style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
+                                  ng-show="useradd.pw2.$error.pwmatch">密码不匹配.</span>
+
+                            <!--<input class="col-md-9 form-control" type="password" name="confirmPassword" required ng-model="confirmPassword"/>-->
                         </div>
 
                         <div class="col-md-12 field-box textarea">
@@ -35,7 +53,8 @@
                             <span class="charactersleft">最多输入100字符</span>
                         </div>
                         <div class="col-md-11 field-box actions">
-                            <input type="submit" class="btn-glow primary" ng-disabled="useradd.$invalid" value="增加用户" loading="">
+                            <input type="submit" class="btn-glow primary" ng-disabled="useradd.$invalid" value="增加用户"
+                                   loading="">
                             <spsan>OR</spsan>
                             <input type="reset" value="Cancel" class="reset">
                         </div>

@@ -26,7 +26,7 @@ login.controller('LoginCtrl', function ($scope, $cookieStore, $timeout, $http, $
             }
 
 
-            $scope.loginPromise = $http.post("http://localhost:8080/monitor/user/e_login", data)
+            $scope.loginPromise = $http.post("http://139.129.202.165:8080/monitor/user/e_login", data)
                 .success(function (data) {
                     $cookieStore.put("USER_ID",data.id);
                     $cookieStore.put("USER_TYPE",data.type);

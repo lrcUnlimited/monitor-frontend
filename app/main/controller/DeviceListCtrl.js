@@ -11,7 +11,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
     $scope.deviceMangeName = "关闭";
     $scope.deviceManageType = 0;
 
-    $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1')
+    $http.get('http://139.129.202.165:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1')
         .success(function (data) {
             $scope.deviceList = data.items;
             $('#page1').bootstrapPaginator({
@@ -20,7 +20,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 totalPages: data.totalPage,
                 bootstrapMajorVersion: 3,
                 onPageClicked: function (e, originalEvent, type, page) {
-                    $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
+                    $scope.loadDevicePromise = $http.get('http://139.129.202.165:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
                         .success(function (data) {
                             $scope.deviceList = data.items;
                         })
@@ -38,7 +38,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.pdtOnSale[t] = true;
         $scope.deviceMangeName = "关闭";
         $scope.deviceManageType = 0;
-        $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1')
+        $http.get('http://139.129.202.165:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
                 $('#page1').bootstrapPaginator({
@@ -48,7 +48,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     bootstrapMajorVersion: 3,
                     numberOfPages: 5,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
+                        $scope.loadDevicePromise = $http.get('http://139.129.202.165:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
                             })
@@ -57,7 +57,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
             })
     }
-    $scope.alreadyOnList = function (t) {   //过期设备
+    $scope.alreadyOnList = function (t) {   //快过期设备
         var i = 2;
         $scope.selectAll = false;
 
@@ -68,7 +68,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.pdtOnSale[t] = true;
         $scope.deviceMangeName = "关闭";
         $scope.deviceManageType = 0;
-        $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=1')
+        $http.get('http://139.129.202.165:8080/monitor/device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
                 $('#page1').bootstrapPaginator({
@@ -78,7 +78,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     bootstrapMajorVersion: 3,
                     numberOfPages: 5,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=' + page)
+                        $scope.loadDevicePromise = $http.get('http://139.129.202.165:8080/monitor/device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
                             })
@@ -86,7 +86,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 })
             })
     }
-    $scope.alreadyOffList = function (t) {   //已下架
+    $scope.alreadyOffList = function (t) {   //已关闭设备
         $scope.selectAll = false;
 
         var i = 2;
@@ -98,7 +98,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.pdtOnSale[t] = true;
         $scope.deviceMangeName = "开启";
         $scope.deviceManageType = 1;
-        $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&type=2&pageSize=5&pageNo=1')
+        $http.get('http://139.129.202.165:8080/monitor/device/e_query?accountId=' + accountId + '&type=2&pageSize=5&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
                 $('#page1').bootstrapPaginator({
@@ -108,7 +108,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     bootstrapMajorVersion: 3,
                     numberOfPages: 5,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&type=2&pageSize=5&pageNo=' + page)
+                        $scope.loadDevicePromise = $http.get('http://139.129.202.165:8080/monitor/device/e_query?accountId=' + accountId + '&type=2&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
                             })
@@ -169,7 +169,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
             } else {
                 //只增加有效期
-                $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_updateValidTime?accountId=' + accountId + '&deviceId=' + $scope.modifyDeviceId + '&modifyDeviceValidTime=' + $scope.modifyDeviceValidTime.getTime())
+                $scope.loadDevicePromise = $http.get('http://139.129.202.165:8080/monitor/device/e_updateValidTime?accountId=' + accountId + '&deviceId=' + $scope.modifyDeviceId + '&modifyDeviceValidTime=' + $scope.modifyDeviceValidTime.getTime())
                     .success(function (data) {
                         $.teninedialog({
                             title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -199,7 +199,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
     }
     function changeDeviceStatus(status, changeType, deviceId, accountId, validTime) {
-        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_updateManageStatus?accountId=' + accountId + '&deviceId=' + deviceId + '&modifyDeviceValidTime=' + validTime + '&status=' + status + '&changeType=' + changeType)
+        $scope.loadDevicePromise = $http.get('http://139.129.202.165:8080/monitor/device/e_updateManageStatus?accountId=' + accountId + '&deviceId=' + deviceId + '&modifyDeviceValidTime=' + validTime + '&status=' + status + '&changeType=' + changeType)
             .success(function (data) {
                 $.teninedialog({
                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -222,12 +222,12 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
     //下载文件
     $scope.downloadFile = function (deviceId) {
-        window.location.href = 'http://localhost:8080/monitor/device/zip/' + deviceId + '?accountId=' + accountId;
+        window.location.href = 'http://139.129.202.165:8080/monitor/device/zip/' + deviceId + '?accountId=' + accountId;
 
     }
     //更新证书文件
     $scope.updateCRT = function (deviceId) {
-        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_updateCRT?accountId=' + accountId + '&deviceId=' + deviceId + '&status=1')
+        $scope.loadDevicePromise = $http.get('http://139.129.202.165:8080/monitor/device/e_updateCRT?accountId=' + accountId + '&deviceId=' + deviceId + '&status=1')
             .success(function (data) {
                 $.teninedialog({
                     title: '<h3 style="font-weight:bold">系统提示</h3>',

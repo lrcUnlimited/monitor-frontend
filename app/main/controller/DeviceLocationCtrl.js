@@ -6,7 +6,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
 
     var accountId = $cookieStore.get("USER_ID");
     if (accountId) {
-        $http.get('http://localhost:8080/monitor/devicerecord/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1&type=3') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
+        $http.get('http://139.129.202.165:8080/monitor/devicerecord/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1&type=3') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
             .success(function (data) {
                 $scope.deviceRecordList = data.items;
 
@@ -16,7 +16,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                     totalPages: data.totalPage,
                     bootstrapMajorVersion: 3,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadRecordPromise = $http.get('http://localhost:8080/monitor/devicerecord/e_query?accountId=' + accountId + '&type=3&pageSize=5&pageNo=' + page)
+                        $scope.loadRecordPromise = $http.get('http://139.129.202.165:8080/monitor/devicerecord/e_query?accountId=' + accountId + '&type=3&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.selectAll = false;
                                 $scope.deviceRecordList = data.items;
@@ -43,7 +43,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                 });
                 return;
             }
-            var url = 'http://localhost:8080/monitor/devicerecord/e_querylocation?accountId=' + accountId + '&deviceList=' + list;
+            var url = 'http://139.129.202.165:8080/monitor/devicerecord/e_querylocation?accountId=' + accountId + '&deviceList=' + list;
             getDeviceGPSData(url);
         }
 
@@ -52,7 +52,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
         $scope.showNowPosition = function (deviceId, deviceName) {
             var list = [];
             list.push(deviceId);
-            var url = 'http://localhost:8080/monitor/devicerecord/e_querylocation?accountId=' + accountId + '&deviceList=' + list;
+            var url = 'http://139.129.202.165:8080/monitor/devicerecord/e_querylocation?accountId=' + accountId + '&deviceList=' + list;
             getDeviceGPSData(url);
         }
 
@@ -157,7 +157,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
             console.log($scope.startTime);
             console.log($scope.endTime);
 
-            $http.get('http://localhost:8080/monitor/devicerecord/e_queryhistory?accountId=' + accountId + '&deviceId=' + $scope.myDeviceId + '&startTime=' + $scope.startTime.getTime() + '&endTime=' + $scope.endTime.getTime())
+            $http.get('http://139.129.202.165:8080/monitor/devicerecord/e_queryhistory?accountId=' + accountId + '&deviceId=' + $scope.myDeviceId + '&startTime=' + $scope.startTime.getTime() + '&endTime=' + $scope.endTime.getTime())
                 .success(function (data) {
 
                     // 百度地图API功能
