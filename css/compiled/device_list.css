@@ -33,3 +33,14 @@ h2 {
 .hand {
     cursor: pointer;
 }
+.danger{
+    background-color: #d9534f;
+    color: white;
+    border-radius: 5px;
+}
+.info{
+    background-color:#5cb85c;
+    color: white;
+    border-radius: 5px;
+
+}

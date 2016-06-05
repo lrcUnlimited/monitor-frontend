@@ -2,11 +2,11 @@
  * Created by li on 2016/5/4.
  */
 var recordListModule = angular.module("monitor-frontend.commandListModule", ['cgBusy']);
-recordListModule.controller("CommandListCtrl", function ($scope, $http, $cookieStore, $location) {
+recordListModule.controller("CommandListCtrl", function ($scope, $http, $cookieStore, $location,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");
 
     if (accountId) {
-        $http.get('http://localhost:8080/monitor/commandrecord/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
+        $http.get(HTTP_BASE+'commandrecord/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
             .success(function (data) {
                 $scope.commandRecordList = data.items;
                 $('#page1').bootstrapPaginator({
@@ -15,7 +15,7 @@ recordListModule.controller("CommandListCtrl", function ($scope, $http, $cookieS
                     totalPages: data.totalPage,
                     bootstrapMajorVersion: 3,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadRecordPromise = $http.get('http://localhost:8080/monitor/commandrecord/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
+                        $scope.loadRecordPromise = $http.get(HTTP_BASE+'commandrecord/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.commandRecordList = data.items;
                             })

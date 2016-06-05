@@ -34,7 +34,7 @@
         <div class="panel panel-default" ng-repeat="device in deviceList">
             <div class="panel-heading row" role="tab">
                 <div class="col-md-1"><h4 class="panel-title" align="center">{{device.deviceId}}</h4></div>
-                <div class="col-md-2"><h4 class="panel-title" align="center">{{device.deviceName}}</h4></div>
+                <div class="col-md-2"><h4 class="panel-title" align="center"><a href="" ng-click="getDeviceHisDataById(device.deviceId,device.deviceName)"> {{device.deviceName}}</a></h4></div>
                 <div class="col-md-2"><h4 class="panel-title" align="center">{{device.validTime | date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
                 <div class="col-md-1"><h4 class="panel-title" align="center">{{device.deviceStatus}}</h4></div>
                 <div class="col-md-2"><h4 class="panel-title" align="center">{{device.regTime | date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
@@ -105,6 +105,46 @@
                         确认修改
                     </button>
                     <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--设备历史记录弹出框-->
+    <div class="modal fade bs-example-modal-lg" id="deviceHisModal" tabindex="-1" role="dia" aria-labelledby="modifyModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="deviceHisModalLabel">设备 {{deviceHisRecordName}} 历史记录</h4>
+                </div>
+                <div class="modal-body" style="background-color: white" cg-busy="{promise:loadDeviceHisPromise,message:'加载中',backdrop:false}">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading row" style="border-radius:0px ;border: 0px;background-color: white">
+                                <div class="col-md-1"><h4 class="panel-title" align="center">记录ID</h4></div>
+                                <div class="col-md-2"><h4 class="panel-title" align="center">经度</h4></div>
+                                <div class="col-md-2"><h4 class="panel-title" align="center">纬度</h4></div>
+                                <div class="col-md-2"><h4 class="panel-title" align="center">设备状态</h4></div>
+                                <div class="col-md-2"><h4 class="panel-title" align="center">gps状态</h4></div>
+                                <div class="col-md-3"><h4 class="panel-title" align="center">采集时间</h4></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel panel-default" ng-repeat="deviceRecord in deviceHisRecordList">
+                        <div class="panel-heading row" role="tab" style="border-radius:0px;border:0px;background-color: white " >
+                            <div class="col-md-1"><h4 class="panel-title" align="center">{{deviceRecord.deviceRecordId}}</h4></div>
+                            <div class="col-md-2"><h4 class="panel-title" align="center">{{deviceRecord.longitude}}</h4></div>
+                            <div class="col-md-2"><h4 class="panel-title" align="center">{{deviceRecord.latitude}}</h4></div>
+                            <div class="col-md-2"><h4 class="panel-title" align="center" ng-class="{1:'info',0:'danger'}[deviceRecord.status]">{{deviceRecord.status | deviceStatusFilter}}</h4></div>
+                            <div class="col-md-2"><h4 class="panel-title" align="center" ng-class="{1:'danger',0:'info'}[deviceRecord.locationStatus]">{{deviceRecord.locationStatus | deviceLocationStatusFilter}}</h4></div>
+                            <div class="col-md-3"> <h4 class="panel-title" align="center">{{deviceRecord.realTime | date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
+                        </div>
+                    </div>
+
+                    <div style="text-align: right">
+                        <ul id="page2"></ul>
+                    </div>
                 </div>
             </div>
         </div>

@@ -2,9 +2,10 @@
  * Created by li on 2016/5/4.
  */
 var login = angular.module("monitor-frontend.loginModule", ['cgBusy'])
-login.controller('LoginCtrl', function ($scope, $cookieStore, $timeout, $http, $location,$rootScope, $document) {
+login.controller('LoginCtrl', function ($scope, $cookieStore, $timeout, $http, $location,$rootScope, $document,HTTP_BASE) {
     $scope.userName = '';
     $scope.passWord = '';
+    console.log(HTTP_BASE);
 
 
     $scope.checkSubmit = function () {
@@ -26,12 +27,16 @@ login.controller('LoginCtrl', function ($scope, $cookieStore, $timeout, $http, $
             }
 
 
-            $scope.loginPromise = $http.post("http://localhost:8080/monitor/user/e_login", data)
+            $scope.loginPromise = $http.post(HTTP_BASE+"user/e_login", data)
                 .success(function (data) {
                     $cookieStore.put("USER_ID",data.id);
                     $cookieStore.put("USER_TYPE",data.type);
                     $cookieStore.put("USER_NAME",data.userName);
-                    $location.path("/main");
+                    if(data.type==1){
+                        $location.path("/main/devicelist");
+                    }else{
+                        $location.path("/main/devicelocation")
+                    }
                 })
                 .error(function (data) {
                     dialogBox(data.message);

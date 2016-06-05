@@ -5,7 +5,7 @@
  * Created by li on 2016/5/9.
  */
 var addDeviceModule = angular.module("monitor-frontend.addDeviceModule", ['cgBusy'])
-addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookieStore, $http,$state) {
+addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookieStore, $http,$state,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");//获取用户登录id
     $('#datepicker').datepicker({
         autoclose: true,
@@ -26,7 +26,7 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
                 deviceName: $scope.deviceName,
                 validTime:$scope.validTime
             };
-            $scope.addDevicePromise = $http.post("http://localhost:8080/monitor/device/e_add?accountId=" + accountId, data)
+            $scope.addDevicePromise = $http.post(HTTP_BASE+"device/e_add?accountId=" + accountId, data)
                 .success(function (data) {
                     $.teninedialog({
                         title: '<h3 style="font-weight:bold">系统提示</h3>',

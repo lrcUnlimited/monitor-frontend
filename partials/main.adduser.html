@@ -1,19 +1,19 @@
 <div>
-    <div id="pad-wrapper" class="new-user">
+    <div id="pad-wrapper" class="new-user" style="margin: 5px;padding: 5px;" >
         <div class="row header">
             <div class="col-md-12">
-                <h3>新增用户</h3>
+                <h3>添加用户</h3>
             </div>
         </div>
 
         <div class="row form-wrapper">
             <!-- left column -->
-            <div class="col-md-9 with-sidebar">
+            <div class="col-md-11 with-sidebar">
                 <div class="container">
                     <form class="new_user_form" name="useradd" novalidate ng-submit="addUser()" cg-busy="{promise:addUserPromise,message:'加载中',backdrop:false}">
                         <div class="col-md-12 field-box">
                             <label>用户名:</label>
-                            <input class="form-control" type="text" name="userName" required ng-model="userName"  />
+                            <input class="col-md-9 form-control" type="text" name="userName" required ng-model="userName"  />
                         </div>
 
                         <div class="col-md-12 field-box">
@@ -34,6 +34,12 @@
                             <textarea class="col-md-9" ng-maxlength="100" name="note" ng-model="note"></textarea>
                             <span class="charactersleft">最多输入100字符</span>
                         </div>
+                        <div class="col-md-9" field-box>
+                            <label>用户权限:</label>
+                            <label class="radio-inline"><input type="radio" name="optradio" value="1" ng-model="userType">管理员权限</label>
+                            <label class="radio-inline"><input type="radio" name="optradio" value="0"   ng-model="userType">普通用户权限</label>
+                        </div>
+
                         <div class="col-md-11 field-box actions">
                             <input type="submit" class="btn-glow primary" ng-disabled="useradd.$invalid" value="增加用户" loading="">
                             <spsan>OR</spsan>

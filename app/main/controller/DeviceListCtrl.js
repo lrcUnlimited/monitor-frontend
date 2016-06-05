@@ -5,13 +5,13 @@
  * Created by li on 2016/5/4.
  */
 var deviceListModule = angular.module("monitor-frontend.deviceListModule", ['cgBusy', 'ui.router']);
-deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state) {
+deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");
     $scope.pdtOnSale = new Array(true, false, false);
     $scope.deviceMangeName = "关闭";
     $scope.deviceManageType = 0;
 
-    $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1')
+    $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1')
         .success(function (data) {
             $scope.deviceList = data.items;
             $('#page1').bootstrapPaginator({
@@ -20,7 +20,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 totalPages: data.totalPage,
                 bootstrapMajorVersion: 3,
                 onPageClicked: function (e, originalEvent, type, page) {
-                    $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
+                    $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
                         .success(function (data) {
                             $scope.deviceList = data.items;
                         })
@@ -38,7 +38,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.pdtOnSale[t] = true;
         $scope.deviceMangeName = "关闭";
         $scope.deviceManageType = 0;
-        $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1')
+        $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
                 $('#page1').bootstrapPaginator({
@@ -48,7 +48,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     bootstrapMajorVersion: 3,
                     numberOfPages: 5,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
+                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
                             })
@@ -68,7 +68,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.pdtOnSale[t] = true;
         $scope.deviceMangeName = "关闭";
         $scope.deviceManageType = 0;
-        $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=1')
+        $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
                 $('#page1').bootstrapPaginator({
@@ -78,7 +78,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     bootstrapMajorVersion: 3,
                     numberOfPages: 5,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=' + page)
+                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
                             })
@@ -98,7 +98,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.pdtOnSale[t] = true;
         $scope.deviceMangeName = "开启";
         $scope.deviceManageType = 1;
-        $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&type=2&pageSize=5&pageNo=1')
+        $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=2&pageSize=5&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
                 $('#page1').bootstrapPaginator({
@@ -108,7 +108,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     bootstrapMajorVersion: 3,
                     numberOfPages: 5,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_query?accountId=' + accountId + '&type=2&pageSize=5&pageNo=' + page)
+                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=2&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
                             })
@@ -165,11 +165,15 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             console.log("修改有效期");
             if ($scope.modifyNowValidTime >= $scope.modifyDeviceValidTime) {
                 //选择的日期小于当前的设备期限
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: '不能小于当前有效期'
+                })
 
 
             } else {
                 //只增加有效期
-                $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_updateValidTime?accountId=' + accountId + '&deviceId=' + $scope.modifyDeviceId + '&modifyDeviceValidTime=' + $scope.modifyDeviceValidTime.getTime())
+                $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_updateValidTime?accountId=' + accountId + '&deviceId=' + $scope.modifyDeviceId + '&modifyDeviceValidTime=' + $scope.modifyDeviceValidTime.getTime())
                     .success(function (data) {
                         $.teninedialog({
                             title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -199,7 +203,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
     }
     function changeDeviceStatus(status, changeType, deviceId, accountId, validTime) {
-        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_updateManageStatus?accountId=' + accountId + '&deviceId=' + deviceId + '&modifyDeviceValidTime=' + validTime + '&status=' + status + '&changeType=' + changeType)
+        $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_updateManageStatus?accountId=' + accountId + '&deviceId=' + deviceId + '&modifyDeviceValidTime=' + validTime + '&status=' + status + '&changeType=' + changeType)
             .success(function (data) {
                 $.teninedialog({
                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -222,16 +226,21 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
     //下载文件
     $scope.downloadFile = function (deviceId) {
-        window.location.href = 'http://localhost:8080/monitor/device/zip/' + deviceId + '?accountId=' + accountId;
+        window.location.href = HTTP_BASE+'device/zip/' + deviceId + '?accountId=' + accountId;
 
     }
     //更新证书文件
     $scope.updateCRT = function (deviceId) {
-        $scope.loadDevicePromise = $http.get('http://localhost:8080/monitor/device/e_updateCRT?accountId=' + accountId + '&deviceId=' + deviceId + '&status=1')
+        $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_updateCRT?accountId=' + accountId + '&deviceId=' + deviceId + '&status=1')
             .success(function (data) {
                 $.teninedialog({
                     title: '<h3 style="font-weight:bold">系统提示</h3>',
-                    content: '更新设备证书成功，设备下次连接时将自动更新'
+                    content: '更新设备证书成功，设备下次连接时将自动更新',
+                    dialogShown: function () {
+                        setTimeout(function () {
+                            $state.go('main.devicelist', {}, {reload: true})
+                        }, 200)
+                    }
                 })
             })
             .error(function (data) {
@@ -241,4 +250,57 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 });
             });
     }
+    $scope.getDeviceHisDataById = function (deviceId, deviceName) {
+        $scope.deviceHisRecordName = deviceName;
+        $('#deviceHisModal').modal('toggle');
+        $scope.deviceHisRecordList=null;
+        $http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=1&pageSize=5&accountId=' + accountId + '&deviceId=' + deviceId)
+            .success(function (data) {
+
+                $scope.deviceHisRecordList = data.items;
+
+                $('#page2').bootstrapPaginator({
+                    currentPage: 1,
+                    size: "normal",
+                    totalPages: data.totalPage || 1,
+                    bootstrapMajorVersion: 3,
+                    numberOfPages: 5,
+                    onPageClicked: function (e, originalEvent, type, page) {
+                        console.log(page);
+                        $scope.loadDeviceHisPromise=$http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=' + page + '&pageSize=5&accountId=' + accountId + '&deviceId=' + deviceId)
+                            .success(function (data) {
+                                $scope.deviceHisRecordList = data.items;
+                            })
+                    }
+                })
+            })
+            .error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            })
+
+    }
+}).filter("deviceStatusFilter", function () {
+    return function (type) {
+        var operateName = null;
+        if (type == 0) {
+            operateName = "关闭";
+        } else {
+            operateName = "开启";
+
+        }
+        return operateName;
+    };
+}).filter("deviceLocationStatusFilter", function () {
+    return function (type) {
+        var operateName = null;
+        if (type == 0) {
+            operateName = "正常信息";
+        } else {
+            operateName = "危险信息";
+        }
+        return operateName;
+    };
 })

@@ -2,21 +2,22 @@
  * Created by li on 2016/5/9.
  */
 var addUserModule = angular.module("monitor-frontend.addUserModule", ['cgBusy'])
-addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStore, $http,$state) {
+addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStore, $http, $state,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");
     var accountType = $cookieStore.get("USER_TYPE");
 
-
+    $scope.userType = 0;
     $scope.addUser = function () {
         if (accountId && accountType == 1) {
             var data = {
                 userName: $scope.userName,
                 userPhone: $scope.userPhone,
                 passWord: $scope.passWord,
-                note: $scope.note
+                note: $scope.note,
+                type: $scope.userType
             };
             console.log(data);
-            $scope.addUserPromise = $http.post("http://localhost:8080/monitor/user/e_add?accountId=" + accountId, data)
+            $scope.addUserPromise = $http.post(HTTP_BASE+"user/e_add?accountId=" + accountId, data)
                 .success(function (data) {
 
                     $.teninedialog({
