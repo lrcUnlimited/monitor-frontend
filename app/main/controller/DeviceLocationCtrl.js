@@ -2,11 +2,11 @@
  * Created by Administrator on 2016/5/23 0023.
  */
 var deviceLocationModule = angular.module("monitor-frontend.deviceLocationModule", ['cgBusy', 'ui.router']);
-deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state, $filter,$timeout) {
+deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state, $filter,$timeout,HTTP_BASE) {
 
     var accountId = $cookieStore.get("USER_ID");
     if (accountId) {
-        $http.get('http://139.129.202.165:8080/monitor/devicerecord/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1&type=3') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
+        $http.get(HTTP_BASE+'devicerecord/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1&type=3') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
             .success(function (data) {
                 $scope.deviceRecordList = data.items;
 
@@ -16,7 +16,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                     totalPages: data.totalPage,
                     bootstrapMajorVersion: 3,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadRecordPromise = $http.get('http://139.129.202.165:8080/monitor/devicerecord/e_query?accountId=' + accountId + '&type=3&pageSize=5&pageNo=' + page)
+                        $scope.loadRecordPromise = $http.get(HTTP_BASE+'devicerecord/e_query?accountId=' + accountId + '&type=3&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.selectAll = false;
                                 $scope.deviceRecordList = data.items;
@@ -43,7 +43,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                 });
                 return;
             }
-            var url = 'http://139.129.202.165:8080/monitor/devicerecord/e_querylocation?accountId=' + accountId + '&deviceList=' + list;
+            var url = HTTP_BASE+'devicerecord/e_querylocation?accountId=' + accountId + '&deviceList=' + list;
             getDeviceGPSData(url);
         }
 
@@ -52,7 +52,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
         $scope.showNowPosition = function (deviceId, deviceName) {
             var list = [];
             list.push(deviceId);
-            var url = 'http://139.129.202.165:8080/monitor/devicerecord/e_querylocation?accountId=' + accountId + '&deviceList=' + list;
+            var url = HTTP_BASE+'devicerecord/e_querylocation?accountId=' + accountId + '&deviceList=' + list;
             getDeviceGPSData(url);
         }
 
@@ -76,9 +76,9 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
 
 
                             var opts = {
-                                width: 250,     // 信息窗口宽度
-                                height: 80,     // 信息窗口高度
-                                title: "信息窗口", // 信息窗口标题
+                                width: 260,     // 信息窗口宽度
+                                height: 90,     // 信息窗口高度
+                                title: "设备采集信息", // 信息窗口标题
                                 enableMessage: true//设置允许信息窗发送短息
                             };
                             for (var i = 0; i < data.length; i++) {
@@ -157,7 +157,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
             console.log($scope.startTime);
             console.log($scope.endTime);
 
-            $http.get('http://139.129.202.165:8080/monitor/devicerecord/e_queryhistory?accountId=' + accountId + '&deviceId=' + $scope.myDeviceId + '&startTime=' + $scope.startTime.getTime() + '&endTime=' + $scope.endTime.getTime())
+            $http.get(HTTP_BASE+'devicerecord/e_queryhistory?accountId=' + accountId + '&deviceId=' + $scope.myDeviceId + '&startTime=' + $scope.startTime.getTime() + '&endTime=' + $scope.endTime.getTime())
                 .success(function (data) {
 
                     // 百度地图API功能
@@ -169,9 +169,9 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                         $scope.historyMap.centerAndZoom(new BMap.Point(data[0].longitude, data[0].latitude), 12);
                         $scope.historyMap.enableScrollWheelZoom(true);
                         var opts = {
-                            width: 250,     // 信息窗口宽度
-                            height: 80,     // 信息窗口高度
-                            title: "信息窗口", // 信息窗口标题
+                            width: 260,     // 信息窗口宽度
+                            height: 90,     // 信息窗口高度
+                            title: "设备采集信息", // 信息窗口标题
                             enableMessage: true//设置允许信息窗发送短息
                         };
                         for (var i = 0; i < data.length; i++) {
@@ -212,6 +212,38 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                         content: data.message
                     });
                 });
+
+        }
+        $scope.getDeviceHisDataById = function (deviceId, deviceName) {
+            $scope.deviceHisRecordName = deviceName;
+            $('#deviceHisModal').modal('toggle');
+            $scope.deviceHisRecordList=null;
+            $http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=1&pageSize=5&accountId=' + accountId + '&deviceId=' + deviceId)
+                .success(function (data) {
+
+                    $scope.deviceHisRecordList = data.items;
+
+                    $('#page2').bootstrapPaginator({
+                        currentPage: 1,
+                        size: "normal",
+                        totalPages: data.totalPage || 1,
+                        bootstrapMajorVersion: 3,
+                        numberOfPages: 5,
+                        onPageClicked: function (e, originalEvent, type, page) {
+                            console.log(page);
+                            $scope.loadDeviceHisPromise=$http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=' + page + '&pageSize=5&accountId=' + accountId + '&deviceId=' + deviceId)
+                                .success(function (data) {
+                                    $scope.deviceHisRecordList = data.items;
+                                })
+                        }
+                    })
+                })
+                .error(function (data) {
+                    $.teninedialog({
+                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                        content: data.message
+                    });
+                })
 
         }
     }
