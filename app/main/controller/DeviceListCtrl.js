@@ -23,9 +23,19 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
                         .success(function (data) {
                             $scope.deviceList = data.items;
+                        }).error(function (data) {
+                            $.teninedialog({
+                                title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                content: data.message
+                            });
                         })
                 }
             })
+        }).error(function (data) {
+            $.teninedialog({
+                title: '<h3 style="font-weight:bold">系统提示</h3>',
+                content: data.message
+            });
         })
 
 
@@ -51,10 +61,20 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                         $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
+                            }).error(function (data) {
+                                $.teninedialog({
+                                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                    content: data.message
+                                });
                             })
                     }
                 })
 
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
             })
     }
     $scope.alreadyOnList = function (t) {   //过期设备
@@ -81,9 +101,19 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                         $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
+                            }).error(function (data) {
+                                $.teninedialog({
+                                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                    content: data.message
+                                });
                             })
                     }
                 })
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
             })
     }
     $scope.alreadyOffList = function (t) {   //已下架
@@ -111,9 +141,19 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                         $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=2&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
+                            }).error(function (data) {
+                                $.teninedialog({
+                                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                    content: data.message
+                                });
                             })
                     }
                 })
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
             })
     }
     //初始化日历控件
@@ -270,6 +310,11 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                         $scope.loadDeviceHisPromise=$http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=' + page + '&pageSize=5&accountId=' + accountId + '&deviceId=' + deviceId)
                             .success(function (data) {
                                 $scope.deviceHisRecordList = data.items;
+                            }).error(function (data) {
+                                $.teninedialog({
+                                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                    content: data.message
+                                });
                             })
                     }
                 })

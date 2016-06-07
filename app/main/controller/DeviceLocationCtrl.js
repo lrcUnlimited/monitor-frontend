@@ -20,9 +20,19 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                             .success(function (data) {
                                 $scope.selectAll = false;
                                 $scope.deviceRecordList = data.items;
+                            }).error(function (data) {
+                                $.teninedialog({
+                                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                    content: data.message
+                                });
                             })
                     }
                 })
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
             });
         /**
          * 全选函数
@@ -234,6 +244,11 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                             $scope.loadDeviceHisPromise=$http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=' + page + '&pageSize=5&accountId=' + accountId + '&deviceId=' + deviceId)
                                 .success(function (data) {
                                     $scope.deviceHisRecordList = data.items;
+                                }).error(function (data) {
+                                    $.teninedialog({
+                                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                        content: data.message
+                                    });
                                 })
                         }
                     })

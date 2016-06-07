@@ -18,9 +18,19 @@ recordListModule.controller("CommandListCtrl", function ($scope, $http, $cookieS
                         $scope.loadRecordPromise = $http.get(HTTP_BASE+'commandrecord/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
                             .success(function (data) {
                                 $scope.commandRecordList = data.items;
+                            }).error(function (data) {
+                                $.teninedialog({
+                                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                    content: data.message
+                                });
                             })
                     }
                 })
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
             });
 
 

@@ -57,13 +57,14 @@ addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStor
             });
         }
     }
-}]).directive('userCheck', ['$cookieStore', '$http', '$timeout','HTTP_BASE', function ($cookieStore, $http, $timeout,HTTP_BASE) {
+}]).directive('userCheck', ['$cookieStore', '$http', '$timeout', 'HTTP_BASE',function ($cookieStore, $http, $timeout,HTTP_BASE) {
     return {
         require: 'ngModel',
         link: function (scope, elem, attrs, ctrl) {
             var accountId = $cookieStore.get("USER_ID");
             elem.on('blur', function (evt) {
                 scope.$apply(function () {
+
                     $http.get(HTTP_BASE+"user/e_queryUser?accountId=" + accountId + '&userName=' + elem.val())
                         .success(function (data) {
                             if (data) {

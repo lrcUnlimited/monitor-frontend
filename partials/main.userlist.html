@@ -1,35 +1,47 @@
-<div>
+<div xmlns="http://www.w3.org/1999/html">
     <div class="page-title" style="margin-left: 10px;margin-bottom: 10px;margin-top: 10px">
         <div class="title_left">
             <h3>用户信息查看</h3>
         </div>
     </div>
     <div class="clearfix"></div>
-    <div class="row" style="margin-left: 10px" cg-busy="{promise:loadUserPromise,message:'加载中',backdrop:false}">
+    <div class="row" cg-busy="{promise:loadUserPromise,message:'加载中',backdrop:false}">
         <div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading row" role="tab">
                     <div class="col-md-1"><h4 class="panel-title" align="center">ID</h4></div>
-                    <div class="col-md-2"><h4 class="panel-title" align="center">用户姓名</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">用户姓名</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">用户电话</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">用户密码</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">用户类型</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">用户备注</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">用户添加时间</h4></div>
-                    <div class="col-md-3"><h4 class="panel-title" align="center">操作</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">修改</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">删除</h4></div>
                 </div>
             </div>
 
             <div class="panel panel-default" ng-repeat="account in userList">
                 <div class="panel-heading row" role="tab">
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{account.id}}</h4></div>
-                    <div class="col-md-2"><h4 class="panel-title" align="center">{{account.userName}}</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">{{account.userName}}</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">{{account.userPhone}}</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">{{account.passWord}}</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">{{account.type | userTypeFilter}}</h4>
+                    </div>
+
                     <div class="col-md-2"><h4 class="panel-title" align="center">{{account.note}}</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">{{account.registerDate |
                         date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
                     <!--<div class="col-md-3"><h4 class="panel-title" align="center"><a class="hand" ng-click="chkstfinfo(stf.id)">查看详细信息</a>-->
-                    <div class="col-md-3"><h4 class="panel-title" align="center"><a style="cursor: pointer"
-                                                                                    ng-click="modify(account.userName,account.userPhone,account.note,account.id)">修改信息</a>
+                    <div class="col-md-1"><h4 class="panel-title" align="center"><a style="cursor: pointer"
+                                                                                    ng-click="modify(account.userName,account.userPhone,account.note,account.id,account.type,account.passWord)">修改信息</a>
                     </h4></div>
+                    <div class="col-md-1">
+                        <h4 class="panel-title" align="center">
+                            <button class="btn btn-danger" ng-click="deleteUser(account.id)" loading="">删除</button>
+                        </h4>
+                    </div>
                 </div>
             </div>
             <div style="text-align: right">
@@ -63,6 +75,23 @@
                                     <label>电话：</label>
                                     <input type="text" class="form-control" ng-model="userPhone" value={{userPhone}}
                                            required>
+                                </div>
+                                <div class="col-md-12 form-group">
+                                    <div class="col-md-6 " style="padding-left: 0px">
+                                        <label>密码：</label>
+                                        <input type="text" class="form-control" ng-model="modifyUserPassWord"
+                                               value={{modifyUserPassWord}}
+                                               required>
+                                    </div>
+                                    <div class="col-md-6 ">
+                                        <label>用户权限:</label>
+                                        <div style="margin-top: 5px;">
+                                        <label class="radio-inline"><input type="radio" name="optradio" value="1"
+                                                                           ng-model="modifyUserType">管理员权限</label>
+                                        <label class="radio-inline"><input type="radio" name="optradio" value="0"
+                                                                           ng-model="modifyUserType">普通用户权限</label>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div class="form-group">
                                     <label>备注信息：（最多不超过100个字符）</label>

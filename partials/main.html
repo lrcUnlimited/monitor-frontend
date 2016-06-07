@@ -17,6 +17,7 @@
                 <b class="caret"></b>
             </a>
             <ul class="dropdown-menu" style="float: right">
+                <li><a href="" ng-click="changeMyInfo()" style="overflow: hidden">修改个人信息</a></li>
                 <li><a href="" ng-click="inOutClick()" style="overflow: hidden">退出登录</a></li>
             </ul>
         </li>
@@ -72,3 +73,55 @@
 
 <!-- main container -->
 <div ui-view class="content"></div>
+<div class="modal fade bs-example-modal-lg" id="modifyMyInfoModal" tabindex="-1" role="dialog"
+     aria-labelledby="modifyModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="modifyModalLabel">个人信息</h4>
+            </div>
+            <div class="modal-body">
+                <div class="panel-group">
+                    <div class="panel panel-default"  cg-busy="{promise:changeUserInfoPromise,message:'加载中',backdrop:false}">
+                        <div class="panel-heading"><h3 class="panel-title">个人基本信息</h3></div>
+                        <div  class="panel-body">
+                            <div class="col-md-6 form-group">
+                                <label>姓名：</label>
+                                <input type="text" class="form-control" ng-model="myUserInfo.userName" value={{myUserInfo.userName}}
+                                       required>
+                            </div>
+                            <div class="col-md-6 form-group">
+                                <label>电话：</label>
+                                <input type="text" class="form-control" ng-model="myUserInfo.userPhone" value={{myUserInfo.userPhone}}
+                                       required>
+                            </div>
+                            <div class="col-md-6 ">
+                                    <label>密码：</label>
+                                    <input type="text" class="form-control" ng-model="myUserInfo.passWord"
+                                           value={{myUserInfo.passWord}}
+                                           required>
+                            </div>
+
+                            <div class="col-md-12 form-group" style="margin-top: 10px">
+                                <label>备注信息：（最多不超过100个字符）</label>
+                                    <textarea name="stf_remark" ng-model="myUserInfo.note" value={{myUserInfo.note}} rows="3"
+                                              cols="20" class="form-control"
+                                              required></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="changeUserInfo()">
+                    确认修改
+                </button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+            </div>
+        </div>
+    </div>
+</div>
+
