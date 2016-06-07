@@ -51,21 +51,20 @@ addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStor
             var firstPassword = '#' + attrs.pwCheck;
             elem.add(firstPassword).on('keyup', function () {
                 scope.$apply(function () {
-                    var v = elem.val() === $(firstPassword).val();
+                    var v = elem.val() === $("#passWord").val();
                     ctrl.$setValidity('pwmatch', v);
                 });
             });
         }
     }
-}]).directive('userCheck', ['$cookieStore', '$http', '$timeout', function ($cookieStore, $http, $timeout) {
+}]).directive('userCheck', ['$cookieStore', '$http', '$timeout','HTTP_BASE', function ($cookieStore, $http, $timeout,HTTP_BASE) {
     return {
         require: 'ngModel',
         link: function (scope, elem, attrs, ctrl) {
             var accountId = $cookieStore.get("USER_ID");
             elem.on('blur', function (evt) {
                 scope.$apply(function () {
-
-                    $http.get("http://139.129.202.165:8080/monitor/user/e_queryUser?accountId=" + accountId + '&userName=' + elem.val())
+                    $http.get(HTTP_BASE+"user/e_queryUser?accountId=" + accountId + '&userName=' + elem.val())
                         .success(function (data) {
                             if (data) {
                                 ctrl.$setValidity('userUnique', false);
