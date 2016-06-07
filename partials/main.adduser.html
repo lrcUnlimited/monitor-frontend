@@ -10,35 +10,34 @@
             <!-- left column -->
             <div class="col-md-11 with-sidebar">
                 <div class="container">
-                    <form class="new_user_form" name="useradd" novalidate ng-submit="addUser()"
-                          cg-busy="{promise:addUserPromise,message:'加载中',backdrop:false}">
-                        <div class="col-md-12 field-box">
+                    <form role="form" class="new_user_form" name="useradd" ng-submit="addUser()" cg-busy="{promise:addUserPromise,message:'加载中',backdrop:false}" novalidate>
+                        <div class="col-md-12 form-group">
                             <label>用户名:</label>
-                            <input class="col-md-9 form-control" type="text" name="userName" user-check="userName" required ng-model="userName">
+                            <input class="col-md-9 form-control" type="text" name="userName" user-check="userName" ng-model="userName" required="" />
                             <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
                                   ng-show="useradd.userName.$error.userUnique">该用户名被使用</span>
 
                             <!--<input class="form-control" type="text" name="userName" required ng-model="userName"/>-->
                         </div>
 
-                        <div class="col-md-12 field-box">
+                        <div class="col-md-12 form-group">
                             <label>用户手机:</label>
                             <input class="col-md-9 form-control" type="text" name="userPhone"
                                    placeholder="please input your phone number"
-                                   ng-pattern="/^[1][3458][0-9]{9}$/" required ng-model="userPhone"/>
+                                   ng-pattern="/^[1][3458][0-9]{9}$/" ng-model="userPhone" required="" />
                             <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
                                   ng-show="useradd.userPhone.$error.pattern">请输入正确的手机号码</span>
                         </div>
-                        <div class="col-md-12 field-box">
+                        <div class="col-md-12 form-group">
                             <label>密码:</label>
-                            <input class="col-md-9 form-control" type="password" id="passWord" name="passWord" required
-                                   ng-model="passWord"/>
+                            <input class="col-md-9 form-control" type="password" id="passWord" name="passWord"
+                                   ng-model="passWord" required="" />
                             <!--<input class="col-md-9 form-control" type="password" name="passWord" required ng-model="passWord"/>-->
                         </div>
-                        <div class="col-md-12 field-box">
+                        <div class="col-md-12 form-group">
                             <label>确认密码:</label>
-                            <input class="col-md-9 form-control" type="password" id="pw2" name="pw2" required
-                                   ng-model="pw2" pw-check="passWord"/>
+                            <input class="col-md-9 form-control" type="password" id="pw2" name="pw2"
+                                   ng-model="pw2" pw-check="passWord" required=""/>
 
                             <span class="msg-error"
                                   style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
@@ -47,20 +46,20 @@
                             <!--<input class="col-md-9 form-control" type="password" name="confirmPassword" required ng-model="confirmPassword"/>-->
                         </div>
 
-                        <div class="col-md-12 field-box textarea">
+                        <div class="col-md-12 form-group textarea">
                             <label>备注:</label>
                             <textarea class="col-md-9" ng-maxlength="100" name="note" ng-model="note"></textarea>
                             <span class="charactersleft">最多输入100字符</span>
                         </div>
-                        <div class="col-md-9" field-box>
+                        <div class="col-md-9 form-group" >
                             <label>用户权限:</label>
                             <label class="radio-inline"><input type="radio" name="optradio" value="1" ng-model="userType">管理员权限</label>
                             <label class="radio-inline"><input type="radio" name="optradio" value="0"   ng-model="userType">普通用户权限</label>
                         </div>
 
-                        <div class="col-md-11 field-box actions">
-                            <input type="submit" class="btn-glow primary" ng-disabled="useradd.$invalid" value="增加用户"
-                                   loading="">
+                        <div class="col-md-11 form-group actions">
+                            <button type="submit" class="btn-glow primary" ng-disabled="useradd.$invalid"
+                                   loading="">增加用户</button>
                             <spsan>OR</spsan>
                             <input type="reset" value="重置" class="reset">
                         </div>
