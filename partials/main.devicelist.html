@@ -1,16 +1,13 @@
 <div style="margin-left:20px;margin-top: 20px; ">
-    <div class="page-title">
-        <div class="title_left">
-            <h3>设备列表</h3>
-        </div>
-    </div>
+
     <div class="clearfix"></div>
     <div class="row" cg-busy="{promise:loadDevicePromise,message:'加载中',backdrop:false}">
         <ul class="nav nav-tabs">
             <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a ng-click="allPdtList(0)">正常设备</a>
             </li>
             <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[1]}"><a
-                    ng-click="alreadyOnList(1)">即将过期设备</a></li>
+                    ng-click="alreadyOnList(1)">即将过期设备
+                <span class="count">{{odTotalCount}}</span></a></li>
             <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[2]}"><a
                     ng-click="alreadyOffList(2)">关闭设备</a></li>
         </ul>
@@ -30,6 +27,7 @@
                 </div>
             </div>
         </div>
+
 
         <div class="panel panel-default" ng-repeat="device in deviceList">
             <div class="panel-heading row" role="tab">
@@ -57,9 +55,10 @@
 
             </div>
         </div>
+        <button type="button" class="btn btn-primary" ng-click="printData()" >打印</button>
 
         <div style="text-align: right">
-            <ul id="page1"></ul>
+            <ul id="page1" style="padding-right: 15px"></ul>
         </div>
     </div>
     <!--增加期限弹出框-->
@@ -142,8 +141,8 @@
                         </div>
                     </div>
 
-                    <div style="text-align: right">
-                        <ul id="page2"></ul>
+                    <div style="text-align: right;">
+                        <ul id="page2" style="padding-right: 10px;"></ul>
                     </div>
                 </div>
             </div>
