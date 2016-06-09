@@ -5,7 +5,7 @@
  * Created by li on 2016/5/4.
  */
 var deviceListModule = angular.module("monitor-frontend.deviceListModule", ['cgBusy', 'ui.router']);
-deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state,$filter,HTTP_BASE) {
+deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state,$filter,$timeout,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");
     $scope.pdtOnSale = new Array(true, false, false,false);
     $scope.deviceMangeName = "关闭";
@@ -380,8 +380,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         } else {
             //开启设备
             //设备没有过期,直接进行开启
-            if (validTime > new downloadFile()) {
-                changeDeviceStatus($scope.deviceManageType, 0, deviceId, accountId, validTime);
+            if (validTime > new Date()) {
                 changeDeviceStatus($scope.deviceManageType, 0, deviceId, accountId, validTime);
 
             } else {
