@@ -62,7 +62,24 @@ myApp.constant('HTTP_BASE', 'http://localhost:8080/monitor/')
                 controller: "DeviceLocationCtrl",
                 cache: false
             });
-    })
+    }).factory('authHttpResponseInterceptor', ['$rootScope', '$q', '$location', '$cookieStore', function ($rootScope, $q, $location, $cookieStore) {
+        //拦截器配置
+        return {
+
+            responseError: function (rejection) {
+                if (rejection.status == 412) {
+                    console.log(rejection.data.message);
+                    if (rejection.data !== null && (rejection.data.message == "请重新登录"||rejection.data.message=="请重新登陆")) {
+                        console.log("remove");
+                        $cookieStore.remove("USER_ID");
+                        $cookieStore.remove("USER_NAME");
+                        $cookieStore.remove("USER_TYPE");
+                        $location.path("/signin");
+                    }
+                }
+                return $q.reject(rejection);
+            }
+        };
     }]).config(['$httpProvider', function ($httpProvider) {
         $httpProvider.interceptors.push('authHttpResponseInterceptor');
     }]).directive('loading', ['$http', function ($http) {
