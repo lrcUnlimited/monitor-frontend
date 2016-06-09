@@ -1,16 +1,13 @@
 <div style="margin-left:20px;margin-top: 20px; ">
-    <div class="page-title">
-        <div class="title_left">
-            <h3>设备列表</h3>
-        </div>
-    </div>
+
     <div class="clearfix"></div>
     <div class="row" cg-busy="{promise:loadDevicePromise,message:'加载中',backdrop:false}">
         <ul class="nav nav-tabs">
             <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a ng-click="allPdtList(0)">正常设备</a>
             </li>
             <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[1]}"><a
-                    ng-click="alreadyOnList(1)">即将过期设备</a></li>
+                    ng-click="alreadyOnList(1)">即将过期设备
+                <span class="count">{{odTotalCount}}</span></a></li>
             <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[2]}"><a
                     ng-click="alreadyOffList(2)">关闭设备</a></li>
             <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[3]}"><a
@@ -136,6 +133,7 @@
                 <ul id="page1"></ul>
             </div>
         </div>
+        <button type="button" class="btn btn-primary" ng-click="printData()" >打印</button>
         <!--增加期限弹出框-->
         <div class="modal fade bs-example-modal-lg" id="modifyModal" tabindex="-1" role="dia"
              aria-labelledby="modifyModalLabel" aria-hidden="true">

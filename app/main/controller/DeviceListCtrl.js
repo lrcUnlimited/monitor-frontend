@@ -5,13 +5,15 @@
  * Created by li on 2016/5/4.
  */
 var deviceListModule = angular.module("monitor-frontend.deviceListModule", ['cgBusy', 'ui.router']);
-deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state,$filter,$timeout,HTTP_BASE) {
+deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state,$filter,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");
     $scope.pdtOnSale = new Array(true, false, false,false);
     $scope.deviceMangeName = "关闭";
     $scope.deviceManageType = 0;
     $scope.deviceErrorType=0;
 
+    $scope.dateFilter=$filter('date');
+    //正常设备
     $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1')
         .success(function (data) {
             $scope.deviceList = data.items;
@@ -38,7 +40,128 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 content: data.message
             });
         })
+    //过期设备条数
+    $http.get(HTTP_BASE+'device/e_odtotalcount?accountId=' + accountId)
+        .success(function (data) {
+            $scope.odTotalCount = data;
 
+        }).error(function (data) {
+            $.teninedialog({
+                title: '<h3 style="font-weight:bold">系统提示</h3>',
+                content: data.message
+            });
+        })
+
+    //设备打印请求
+    $http.get(HTTP_BASE+'device/e_queryPrint?accountId=' + accountId)
+        .success(function (data) {
+            $scope.printList= data;
+
+        }).error(function (data) {
+            $.teninedialog({
+                title: '<h3 style="font-weight:bold">系统提示</h3>',
+                content: data.message
+            });
+        })
+    //设备打印
+    function convertJsonToArray(jsonArray) {
+        var users_array = [];
+        for (var i in jsonArray) {
+            var user = jsonArray[i];
+            var user_array = [];
+            var index = 0;
+            for (var j in user) {
+                console.log(j);
+                if(j=='deviceId'){
+                    user_array[index++]=user[j]+'';
+                }
+                if(j=='lesseePhone'){
+                    if(user[j]==null||user[j].length==0){
+                        user[j]='暂无数据';
+                    }
+                    user_array[index++]=user[j];
+                }
+                if(j=='deviceName'||j=='lesseeName'){
+                    user_array[index++]=lineWrap(user[j],6);
+                }
+                if(j=='deviceStatus'){
+                    if(user[j]==0){
+                        user_array[index++]='关机';
+                    }else{
+                        user_array[index++]='开机';
+                    }
+                }
+                if(j=='regTime'||j=='validTime'){
+                    user_array[index++]=lineWrap($scope.dateFilter(user[j], 'yyyy-MM-dd HH:mm:ss'),10)//坐标采
+                }
+            }
+            console.log(user_array)
+            users_array.push(user_array);
+        }
+        return users_array;
+    }
+    //打印换行控制函数
+    function lineWrap(data,partLen){
+        if(data==null||data.length==0){
+            return '暂无数据';
+        }
+        if(data.length<=6){
+            return data;
+        }
+        var index=data.length/partLen;
+        var i=0;
+        var newStr=[];
+        while(i<index){
+            newStr.push(data.substr(i*partLen,partLen));
+            i++;
+        }
+        return newStr.join('\n');
+    }
+
+    $scope.printData=function(){
+        var headerName="";
+        for(var i=0;i<$scope.pdtOnSale.length;i++){
+            if($scope.pdtOnSale[i]){
+                break;
+            }
+        }
+        if(i==0){
+            headerName='正常设备列表';
+        }else if(i==1){
+            headerName='即将过期设备列表';
+        }else if(i==2){
+            headerName='关闭设备列表';
+        }
+        var printData=convertJsonToArray($scope.printList);
+        printData.unshift(['设备Id','设备名称','租用商','租用商电话','录入时间','当前状态','过期时间'])
+        pdfMake.fonts={
+            msyh: {
+                normal: 'msyh.ttf'
+            }
+        }
+        var docDefinition = {
+            styles: {
+                header: {
+                    fontSize: 22,
+                    alignment: 'center'
+                }
+            },
+            header:headerName,
+            content: [
+                {
+                    table: {
+                        headerRows: 1,
+                        widths: [ 'auto', 'auto','auto','auto','auto','auto', 'auto'],
+                        body:printData
+                    }
+                }
+            ],
+            defaultStyle: {
+                font: 'msyh'
+            }
+        };        // open the PDF in a new window
+        pdfMake.createPdf(docDefinition).open();
+    }
 
     $scope.allPdtList = function (t) {
         var i = 3;
@@ -78,6 +201,16 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     content: data.message
                 });
             })
+        $http.get(HTTP_BASE+'device/e_queryPrint?accountId=' + accountId)
+            .success(function (data) {
+                $scope.printList= data;
+
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            })
     }
     $scope.alreadyOnList = function (t) {   //过期设备
         var i = 3;
@@ -94,6 +227,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
+                $scope.odTotalCount = data.totalCount;
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,
                     size: "normal",
@@ -112,6 +246,16 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                             })
                     }
                 })
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            })
+        $http.get(HTTP_BASE+'device/e_queryPrint?type=1&accountId=' + accountId)
+            .success(function (data) {
+                $scope.printList= data;
+
             }).error(function (data) {
                 $.teninedialog({
                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -153,6 +297,16 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                             })
                     }
                 })
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            })
+        $http.get(HTTP_BASE+'device/e_queryPrint?type=2&accountId=' + accountId)
+            .success(function (data) {
+                $scope.printList= data;
+
             }).error(function (data) {
                 $.teninedialog({
                     title: '<h3 style="font-weight:bold">系统提示</h3>',

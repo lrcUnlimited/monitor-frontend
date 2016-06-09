@@ -93,7 +93,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                             };
                             for (var i = 0; i < data.length; i++) {
                                 var marker = new BMap.Marker(new BMap.Point(data[i].longitude, data[i].latitude));  // 创建标注
-                                var dateFilter = $filter('date');
+                                var datedater = $filter('date');
                                 var filteredDate = dateFilter(data[i].realTime, 'yyyy-MM-dd HH:mm:ss')//坐标采集时间
                                 var deviceinfo = "<p style=’font-size:12px;lineheight:1.8em;’>名称：" + data[i].deviceName
                                     + "</br>设备坐标：" + (data[i].latitude == undefined ? "" : "经度: " + data[i].latitude + " 纬度: " + data[i].longitude)
