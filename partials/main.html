@@ -28,6 +28,12 @@
 <!-- sidebar -->
 <div id="sidebar-nav">
     <ul id="dashboard-menu">
+        <li>
+            <a href="#main/devicelocation">
+                <i class="icon-calendar-empty"></i>
+                <span>设备信息</span>
+            </a>
+        </li>
         <li ng-show="showManage">
             <a class="dropdown-toggle" href="#">
                 <i class="icon-edit"></i>
@@ -38,6 +44,13 @@
                 <li><a href="#main/devicelist">设备操作</a></li>
                 <li><a href="#main/adddevice">新增设备</a></li>
             </ul>
+        </li>
+
+        <li>
+            <a href="#main/commandList">
+                <i class="icon-picture"></i>
+                <span>命令记录</span>
+            </a>
         </li>
         <li ng-show="showManage">
             <a class="dropdown-toggle" href="#">
@@ -50,19 +63,6 @@
                 <li><a href="#main/adduser">添加用户</a></li>
             </ul>
         </li>
-        <li>
-            <a href="#main/devicelocation">
-                <i class="icon-calendar-empty"></i>
-                <span>设备信息</span>
-            </a>
-        </li>
-
-        <li>
-            <a href="#main/commandList">
-                <i class="icon-picture"></i>
-                <span>命令记录</span>
-            </a>
-        </li>
 
 
 
@@ -73,6 +73,14 @@
 
 <!-- main container -->
 <div ui-view class="content"></div>
+<div style="width: 100%;height: 50px; background-color: #e2e2e2;position:fixed;bottom: 0px;">
+    <div style="margin-top: 10px;width: 45%;float: left;text-align: right;border-right:1px solid #ffffff ">
+    <img src="../img/logo.png" style="height: 30px;width: 30px;">
+    </div>
+    <div style="margin-top: 10px;width: 55%; padding-left: 5px; float: left;text-align: left;line-height:30px;font-size: 16px;">
+        平台设计维护宏宝数据科技有限公司
+    </div>
+</div>
 <div class="modal fade bs-example-modal-lg" id="modifyMyInfoModal" tabindex="-1" role="dialog"
      aria-labelledby="modifyModalLabel"
      aria-hidden="true">

@@ -14,16 +14,17 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
     $scope.dateFilter=$filter('date');
     //正常设备
-    $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1')
+    $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1')
         .success(function (data) {
             $scope.deviceList = data.items;
+            console.log($scope.deviceList);
             $('#page1').bootstrapPaginator({
                 currentPage: 1,
                 size: "normal",
                 totalPages: data.totalPage,
                 bootstrapMajorVersion: 3,
                 onPageClicked: function (e, originalEvent, type, page) {
-                    $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
+                    $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=' + page)
                         .success(function (data) {
                             $scope.deviceList = data.items;
                         }).error(function (data) {
@@ -44,6 +45,17 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
     $http.get(HTTP_BASE+'device/e_odtotalcount?accountId=' + accountId)
         .success(function (data) {
             $scope.odTotalCount = data;
+
+        }).error(function (data) {
+            $.teninedialog({
+                title: '<h3 style="font-weight:bold">系统提示</h3>',
+                content: data.message
+            });
+        })
+    //位置异常设备条数
+    $http.get(HTTP_BASE+'devicerecord/e_queryErrorDeviceCount?accountId=' + accountId)
+        .success(function (data) {
+            $scope.positionTotalCount = data;
 
         }).error(function (data) {
             $.teninedialog({
@@ -72,9 +84,10 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             var index = 0;
             for (var j in user) {
                 console.log(j);
-                if(j=='deviceId'){
+                if(j=='deviceId'||j=='errorNumber'){
                     user_array[index++]=user[j]+'';
                 }
+
                 if(j=='lesseePhone'){
                     if(user[j]==null||user[j].length==0){
                         user[j]='暂无数据';
@@ -91,7 +104,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                         user_array[index++]='开机';
                     }
                 }
-                if(j=='regTime'||j=='validTime'){
+                if(j=='regTime'||j=='validTime'||j=='startTime'||j=='endTime'){
                     user_array[index++]=lineWrap($scope.dateFilter(user[j], 'yyyy-MM-dd HH:mm:ss'),10)//坐标采
                 }
             }
@@ -125,15 +138,21 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 break;
             }
         }
+        var printData=convertJsonToArray($scope.printList);
         if(i==0){
             headerName='正常设备列表';
+            printData.unshift(['设备Id','设备名称','租用商','租用商电话','录入时间','当前状态','过期时间'])
         }else if(i==1){
             headerName='即将过期设备列表';
+            printData.unshift(['设备Id','设备名称','租用商','租用商电话','录入时间','当前状态','过期时间'])
         }else if(i==2){
             headerName='关闭设备列表';
+            printData.unshift(['设备Id','设备名称','租用商','租用商电话','录入时间','当前状态','过期时间'])
+        }else{
+            headerName="位置异常设备列表";
+            printData.unshift(['设备Id','设备名称','异常开始时间','异常截止时间','租用商','租用商电话','异常次数'])
         }
-        var printData=convertJsonToArray($scope.printList);
-        printData.unshift(['设备Id','设备名称','租用商','租用商电话','录入时间','当前状态','过期时间'])
+
         pdfMake.fonts={
             msyh: {
                 normal: 'msyh.ttf'
@@ -173,7 +192,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.deviceMangeName = "关闭";
         $scope.deviceManageType = 0;
         $scope.deviceErrorType=0;
-        $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1')
+        $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
                 $('#page1').bootstrapPaginator({
@@ -183,7 +202,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     bootstrapMajorVersion: 3,
                     numberOfPages: 5,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
+                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
                             }).error(function (data) {
@@ -224,7 +243,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.deviceMangeName = "关闭";
         $scope.deviceManageType = 0;
         $scope.deviceErrorType=0;
-        $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=1')
+        $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=1&pageSize=8&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
                 $scope.odTotalCount = data.totalCount;
@@ -235,7 +254,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     bootstrapMajorVersion: 3,
                     numberOfPages: 5,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=1&pageSize=5&pageNo=' + page)
+                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=1&pageSize=8&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
                             }).error(function (data) {
@@ -276,7 +295,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.deviceMangeName = "开启";
         $scope.deviceManageType = 1;
         $scope.deviceErrorType=0;
-        $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=2&pageSize=5&pageNo=1')
+        $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=2&pageSize=8&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
                 $('#page1').bootstrapPaginator({
@@ -286,7 +305,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     bootstrapMajorVersion: 3,
                     numberOfPages: 5,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=2&pageSize=5&pageNo=' + page)
+                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=2&pageSize=8&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
                             }).error(function (data) {
@@ -324,9 +343,10 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         }
         $scope.pdtOnSale[t] = true;
         $scope.deviceErrorType=1;
-        $http.get(HTTP_BASE+'devicerecord/e_queryallErrorDevice?accountId=' + accountId + '&pageSize=5&pageNo=1')
+        $http.get(HTTP_BASE+'devicerecord/e_queryallErrorDevice?accountId=' + accountId + '&pageSize=8&pageNo=1')
             .success(function (data) {
                 $scope.deviceErrorList = data.items;
+                $scope.positionTotalCount=data.totalCount;
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,
                     size: "normal",
@@ -334,9 +354,10 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     bootstrapMajorVersion: 3,
                     numberOfPages: 5,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'devicerecord/e_queryallErrorDevice?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
+                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'devicerecord/e_queryallErrorDevice?accountId=' + accountId + '&pageSize=8&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
+                                $scope.positionTotalCount=data.totalCount;
                             }).error(function (data) {
                                 $.teninedialog({
                                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -345,6 +366,16 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                             })
                     }
                 })
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            })
+        $http.get(HTTP_BASE+'devicerecord/e_queryallErPositionDevice?accountId=' + accountId)
+            .success(function (data) {
+                $scope.printList= data;
+
             }).error(function (data) {
                 $.teninedialog({
                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -368,6 +399,28 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.modifyDeviceValidTime = validTime;
         $scope.modifyType = 0;//增加期限
         $('#modifyModal').modal('toggle');
+    }
+    //更改异常设备位置信息
+    $scope.changeErrPositionDeviceStatus=function(deviceId,startTime,endTime){
+        $http.get(HTTP_BASE+'device/e_updateErrStatus?accountId=' + accountId + '&deviceId=' +deviceId + '&startTime=' + startTime+'&endTime='+endTime)
+            .success(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: '更新设备状态成功',
+                    dialogShown: function () {
+                        setTimeout(function () {
+                            $state.go($state.current, {}, {reload: true})
+                        }, 200)
+                    }
+                })
+            })
+            .error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            });
+
     }
 
 
@@ -474,7 +527,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     content: '设备位置异常确定成功',
                     dialogShown: function () {
                         setTimeout(function () {
-                            $state.go('main.devicelist', {}, {reload: true})
+                            $state.go($state.current, {}, {reload: true})
                         }, 200)
                     }
                 })
@@ -495,7 +548,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
     }
 
     //更新证书文件
-    $scope.updateCRT = function (deviceId) {
+    $scope.updateDeviceCRT = function (deviceId) {
         $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_updateCRT?accountId=' + accountId + '&deviceId=' + deviceId + '&status=1')
             .success(function (data) {
                 $.teninedialog({
@@ -503,7 +556,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     content: '更新设备证书成功，设备下次连接时将自动更新',
                     dialogShown: function () {
                         setTimeout(function () {
-                            $state.go('main.devicelist', {}, {reload: true})
+                            $state.go($state.current, {}, {reload: true})
                         }, 200)
                     }
                 })
@@ -518,8 +571,6 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
     //设备位置异常显示
     $scope.getHisData = function (deviceId,startTime,endTime) {
-
-
         $http.get(HTTP_BASE+'devicerecord/e_queryhistory?accountId=' + accountId + '&deviceId=' + deviceId + '&startTime=' + startTime + '&endTime=' + endTime)
             .success(function (data) {
                 console.log(data);
@@ -586,7 +637,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.deviceHisRecordName = deviceName;
         $('#deviceHisModal').modal('toggle');
         $scope.deviceHisRecordList=null;
-        $http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=1&pageSize=5&accountId=' + accountId + '&deviceId=' + deviceId)
+        $http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=1&pageSize=8&accountId=' + accountId + '&deviceId=' + deviceId)
             .success(function (data) {
 
                 $scope.deviceHisRecordList = data.items;
@@ -599,7 +650,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     numberOfPages: 5,
                     onPageClicked: function (e, originalEvent, type, page) {
                         console.log(page);
-                        $scope.loadDeviceHisPromise=$http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=' + page + '&pageSize=5&accountId=' + accountId + '&deviceId=' + deviceId)
+                        $scope.loadDeviceHisPromise=$http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=' + page + '&pageSize=8&accountId=' + accountId + '&deviceId=' + deviceId)
                             .success(function (data) {
                                 $scope.deviceHisRecordList = data.items;
                             }).error(function (data) {

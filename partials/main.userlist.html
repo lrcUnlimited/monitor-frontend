@@ -1,4 +1,4 @@
-<div xmlns="http://www.w3.org/1999/html">
+<div>
     <div class="page-title" style="margin-left: 10px;margin-bottom: 10px;margin-top: 10px">
         <div class="title_left">
             <h3>用户信息查看</h3>
@@ -45,7 +45,7 @@
                 </div>
             </div>
             <div style="text-align: right">
-                <ul id="page1" style="padding-right: 15px"></ul>
+                <ul id="page1" style="padding-right: 15px;margin: 5px;"></ul>
             </div>
         </div>
     </div>
@@ -68,19 +68,18 @@
                             <div class="panel-body">
                                 <div class="col-md-6 form-group">
                                     <label>姓名：</label>
-                                    <input type="text" class="form-control" ng-model="userName" value={{userName}}
+                                    <input type="text" name="userName" class="form-control" ng-model="userName"}
                                            required>
                                 </div>
                                 <div class="col-md-6 form-group">
                                     <label>电话：</label>
-                                    <input type="text" class="form-control" ng-model="userPhone" value={{userPhone}}
+                                    <input type="text" name="userPhone" class="form-control" ng-model="userPhone"}
                                            required>
                                 </div>
                                 <div class="col-md-12 form-group">
                                     <div class="col-md-6 " style="padding-left: 0px">
                                         <label>密码：</label>
-                                        <input type="text" class="form-control" ng-model="modifyUserPassWord"
-                                               value={{modifyUserPassWord}}
+                                        <input type="text" name="modifyUserPassWord" class="form-control" ng-model="modifyUserPassWord"
                                                required>
                                     </div>
                                     <div class="col-md-6 ">

@@ -62,7 +62,18 @@
 <script type="text/javascript" src="main/controller/DeviceListCtrl.js"></script>
 <script type="text/javascript" src="main/controller/DeviceLocationCtrl.js"></script>
 <script type="text/javascript" src="../js/libs/pdfmaker/pdfmake.min.js"></script>
-<script type="text/javascript" src="../js/libs/pdfmaker/vfs_fonts.js"></script>
+<script type="text/javascript">
+
+    (function() {
+        var s = document.createElement('script');
+        s.type = 'text/javascript';
+        s.async = true;
+        s.src = '../js/libs/pdfmaker/vfs_fonts.js';
+        var x = document.getElementsByTagName('script')[0];
+        x.parentNode.insertBefore(s, x);
+    })();
+
+</script>
 <script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=ErVT7KaBBsrD5q4lQqbMDisw4R2ssOFh"></script>
 </body>
 </html>

@@ -7,7 +7,7 @@ userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore,
     var accountType = $cookieStore.get("USER_TYPE");
 
     if (accountId && accountType == 1) {
-        $http.get(HTTP_BASE + 'user/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
+        $http.get(HTTP_BASE + 'user/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
             .success(function (data) {
                 $scope.userList = data.items;
                 $('#page1').bootstrapPaginator({
@@ -16,7 +16,7 @@ userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore,
                     totalPages: data.totalPage,
                     bootstrapMajorVersion: 3,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadUserPromise = $http.get(HTTP_BASE + 'user/e_query?accountId=' + accountId + '&pageSize=5&pageNo=' + page)
+                        $scope.loadUserPromise = $http.get(HTTP_BASE + 'user/e_query?accountId=' + accountId + '&pageSize=8&pageNo=' + page)
                             .success(function (data) {
                                 $scope.userList = data.items;
                             }).error(function (data) {

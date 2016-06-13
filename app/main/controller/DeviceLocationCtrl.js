@@ -6,7 +6,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
 
     var accountId = $cookieStore.get("USER_ID");
     if (accountId) {
-        $http.get(HTTP_BASE+'devicerecord/e_query?accountId=' + accountId + '&pageSize=5&pageNo=1&type=3') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
+        $http.get(HTTP_BASE+'devicerecord/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
             .success(function (data) {
                 $scope.deviceRecordList = data.items;
 
@@ -16,7 +16,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                     totalPages: data.totalPage,
                     bootstrapMajorVersion: 3,
                     onPageClicked: function (e, originalEvent, type, page) {
-                        $scope.loadRecordPromise = $http.get(HTTP_BASE+'devicerecord/e_query?accountId=' + accountId + '&type=3&pageSize=5&pageNo=' + page)
+                        $scope.loadRecordPromise = $http.get(HTTP_BASE+'devicerecord/e_query?accountId=' + accountId + '&type=3&pageSize=8&pageNo=' + page)
                             .success(function (data) {
                                 $scope.selectAll = false;
                                 $scope.deviceRecordList = data.items;
@@ -72,6 +72,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                 .success(function (data) {
                     // 百度地图API功能
                     if (data.length != 0) {
+                        console.log(data);
                         $('#modifyModal').modal('toggle');
 
                         $timeout(function(){
@@ -93,7 +94,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                             };
                             for (var i = 0; i < data.length; i++) {
                                 var marker = new BMap.Marker(new BMap.Point(data[i].longitude, data[i].latitude));  // 创建标注
-                                var datedater = $filter('date');
+                                var dateFilter = $filter('date');
                                 var filteredDate = dateFilter(data[i].realTime, 'yyyy-MM-dd HH:mm:ss')//坐标采集时间
                                 var deviceinfo = "<p style=’font-size:12px;lineheight:1.8em;’>名称：" + data[i].deviceName
                                     + "</br>设备坐标：" + (data[i].latitude == undefined ? "" : "经度: " + data[i].latitude + " 纬度: " + data[i].longitude)
@@ -228,7 +229,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
             $scope.deviceHisRecordName = deviceName;
             $('#deviceHisModal').modal('toggle');
             $scope.deviceHisRecordList=null;
-            $http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=1&pageSize=5&accountId=' + accountId + '&deviceId=' + deviceId)
+            $http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=1&pageSize=8&accountId=' + accountId + '&deviceId=' + deviceId)
                 .success(function (data) {
 
                     $scope.deviceHisRecordList = data.items;
@@ -241,7 +242,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                         numberOfPages: 5,
                         onPageClicked: function (e, originalEvent, type, page) {
                             console.log(page);
-                            $scope.loadDeviceHisPromise=$http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=' + page + '&pageSize=5&accountId=' + accountId + '&deviceId=' + deviceId)
+                            $scope.loadDeviceHisPromise=$http.get(HTTP_BASE+'devicerecord/e_queryallhistory?&pageNo=' + page + '&pageSize=8&accountId=' + accountId + '&deviceId=' + deviceId)
                                 .success(function (data) {
                                     $scope.deviceHisRecordList = data.items;
                                 }).error(function (data) {

@@ -1,4 +1,5 @@
 <div style="margin-left:20px;margin-top: 20px; ">
+    <button type="button" style="float: right" class="btn btn-primary" ng-click="printData()">打印</button>
 
     <div class="clearfix"></div>
     <div class="row" cg-busy="{promise:loadDevicePromise,message:'加载中',backdrop:false}">
@@ -11,13 +12,13 @@
             <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[2]}"><a
                     ng-click="alreadyOffList(2)">关闭设备</a></li>
             <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[3]}"><a
-                    ng-click="alreadyErrorList(3)">位置异常设备</a></li>
+                    ng-click="alreadyErrorList(3)">位置异常设备<span class="count">{{positionTotalCount}}</span></a></li>
         </ul>
         <div class="panel-group">
             <div class="panel panel-default">
                 <div class="panel-heading row">
                     <div class="col-md-1"><h4 class="panel-title" align="center">ID</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">设备名称</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">设备名称</h4></div>
                     <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">设备有效期</h4>
                     </div>
                     <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">租赁方</h4>
@@ -54,16 +55,14 @@
             <div class="panel panel-default" ng-show="!deviceErrorType" ng-repeat="device in deviceList">
                 <div class="panel-heading row" role="tab">
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{device.deviceId}}</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center"><a href=""
+                    <div class="col-md-2"><h4 class="panel-title" align="center"><a href=""
                                                                                     ng-click="getDeviceHisDataById(device.deviceId,device.deviceName)">
                         {{device.deviceName}}</a></h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">{{device.validTime | date:'yyyy-MM-dd
-                        HH:mm:ss'}}</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">{{device.validTime | date:'yyyy-MM-d HH:mm:ss'}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{device.lesseeName}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{device.lesseePhone}}</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">{{device.deviceStatus}}</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">{{device.regTime | date:'yyyy-MM-dd
-                        HH:mm:ss'}}</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center" >{{device.deviceStatus |deviceStatusFilter}}</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">{{device.regTime | date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
                     <div class="col-md-1">
                         <h4 class="panel-title" align="center">
                             <button class="btn btn-danger"
@@ -84,8 +83,7 @@
                         <h4 class="panel-title" align="center">
                             <button class="btn btn-success" loading="" ng-click="downloadFile(device.deviceId)">下载
                             </button>
-                            <button class="btn btn-primary" loading="" ng-disabled="device.updateCRT"
-                                    ng-click="updateCRT(device.deviceId)">更新
+                            <button class="btn btn-primary" ng-disabled="device.updateCRT" ng-click="updateDeviceCRT(device.deviceId)">更新
                             </button>
                         </h4>
                     </div>
@@ -97,7 +95,7 @@
             <div class="panel panel-default" ng-show="deviceErrorType" ng-repeat="deviceError in deviceErrorList">
                 <div class="panel-heading row" role="tab">
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{deviceError.deviceId}}</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center"><a href=""
+                    <div class="col-md-2"><h4 class="panel-title" align="center"><a href=""
                                                                                     ng-click="getDeviceHisDataById(deviceError.deviceId,deviceError.deviceName)">
                         {{deviceError.deviceName}}</a></h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{deviceError.lesseeName}}</h4></div>
@@ -109,11 +107,12 @@
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{deviceError.errorNumber}}</h4></div>
                     <div class="col-md-2">
                         <h4 class="panel-title" align="center">
-                            <button class="btn btn-success" loading="" ng-click="errorConfirm(deviceError.deviceId,deviceError.startTime,deviceError.endTime)">
+                            <button class="btn btn-success" loading=""
+                                    ng-click="errorConfirm(deviceError.deviceId,deviceError.startTime,deviceError.endTime)">
                                 确定
                             </button>
                             <button class="btn btn-danger"
-                                    ng-click="changeDeviceManageStatus(deviceError.deviceId,deviceError.deviceName,deviceError.validTime)"
+                                    ng-click="changeErrPositionDeviceStatus(deviceError.deviceId,deviceError.startTime,deviceError.endTime)"
                                     loading="">关闭
                             </button>
                         </h4>
@@ -130,10 +129,9 @@
             </div>
 
             <div style="text-align: right">
-                <ul id="page1"></ul>
+                <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
             </div>
         </div>
-        <button type="button" class="btn btn-primary" ng-click="printData()" >打印</button>
         <!--增加期限弹出框-->
         <div class="modal fade bs-example-modal-lg" id="modifyModal" tabindex="-1" role="dia"
              aria-labelledby="modifyModalLabel" aria-hidden="true">
@@ -233,7 +231,7 @@
                         </div>
 
                         <div style="text-align: right">
-                            <ul id="page2"></ul>
+                            <ul id="page2" style="padding-right: 20px;margin: 5px;"></ul>
                         </div>
                     </div>
                 </div>
@@ -245,7 +243,7 @@
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <button type="button" class="close"  data-dismiss="modal" aria-label="Close"><span
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
                                 aria-hidden="true">&times;</span></button>
                     </div>
 
@@ -258,14 +256,10 @@
                                      style="display: block;width:100%;height: 500px;overflow: hidden;margin:0;font-family:'微软雅黑';">
                                 </div>
                             </div>
-
-
                         </div>
                     </div>
-
                 </div>
             </div>
         </div>
-
-</div>
+    </div>
 </div>
