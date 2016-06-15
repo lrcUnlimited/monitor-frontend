@@ -40,18 +40,15 @@
                             <label>确认密码:</label>
                             <input class="col-md-9 form-control" type="password" id="pw2" name="pw2" required
                                    ng-model="pw2" pw-check="pw2"/>
-
                             <span class="msg-error"
                                   style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
                                   ng-show="useradd.pw2.$error.pwmatch">密码不匹配.</span>
-
-                            <!--<input class="col-md-9 form-control" type="password" name="confirmPassword" required ng-model="confirmPassword"/>-->
                         </div>
 
                         <div class="col-md-12 field-box textarea">
                             <label>备注:</label>
-                            <textarea class="col-md-9" ng-maxlength="10" name="note" ng-model="note"></textarea>
-                            <span class="charactersleft">最多输入10字符</span>
+                            <textarea class="col-md-9" ng-maxlength="20" name="note" ng-model="note"></textarea>
+                            <span class="charactersleft">最多输入20字符</span>
                         </div>
                         <div class="col-md-9" field-box>
                             <label>用户权限:</label>
