@@ -5,9 +5,9 @@
  * Created by li on 2016/5/4.
  */
 var deviceListModule = angular.module("monitor-frontend.deviceListModule", ['cgBusy', 'ui.router']);
-deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state,$filter,$timeout,HTTP_BASE) {
+deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state,$filter,$timeout,$interval,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");
-    $scope.pdtOnSale = new Array(true, false, false,false);
+    $scope.pdtOnSale = new Array(true, false, false,false,false);
     $scope.deviceMangeName = "关闭";
     $scope.deviceManageType = 0;
     $scope.deviceErrorType=0;
@@ -43,28 +43,72 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 content: data.message
             });
         })
-    //过期设备条数
-    $http.get(HTTP_BASE+'device/e_odtotalcount?accountId=' + accountId)
-        .success(function (data) {
-            $scope.odTotalCount = data;
 
-        }).error(function (data) {
-            $.teninedialog({
-                title: '<h3 style="font-weight:bold">系统提示</h3>',
-                content: data.message
-            });
-        })
-    //位置异常设备条数
-    $http.get(HTTP_BASE+'devicerecord/e_queryErrorDeviceCount?accountId=' + accountId)
-        .success(function (data) {
-            $scope.positionTotalCount = data;
+    //请求设备异常数据的条数
+    function getExceptionDeviceNum(){
+        //过期设备条数
+        $http.get(HTTP_BASE+'device/e_odtotalcount?accountId=' + accountId)
+            .success(function (data) {
+                $scope.odTotalCount = data;
 
-        }).error(function (data) {
-            $.teninedialog({
-                title: '<h3 style="font-weight:bold">系统提示</h3>',
-                content: data.message
-            });
-        })
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            })
+        //位置异常设备条数
+        $http.get(HTTP_BASE+'devicerecord/e_queryErrorDeviceCount?accountId=' + accountId)
+            .success(function (data) {
+                $scope.positionTotalCount = data;
+
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            })
+        //通讯设备异常条数
+        $http.get(HTTP_BASE+'devicerecord/e_queryCommuDeviceCount?accountId=' + accountId)
+            .success(function (data) {
+                $scope.commuTotalCount = data;
+
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            })
+    }
+    //获取最新条数
+    getExceptionDeviceNum();
+    //定时刷新条数
+    var stop;
+    $scope.timerDefine=1;//默认刷新频率为1
+    $scope.timerRefresh=function(){
+        console.log($scope.timerDefine);
+        //已经有定时器，则停止定时器
+        if(angular.isDefined(stop)){
+            $interval.cancel(stop);
+        }
+
+        //开始定时器
+        stop=$interval(function(){
+            getExceptionDeviceNum();
+        },$scope.timerDefine*1000*30);
+        $.teninedialog({
+            title: '<h3 style="font-weight:bold">系统提示</h3>',
+            content: "系统将自动刷新获取最新信息"
+        });
+
+    }
+    $scope.$on('$destroy', function() {
+        if (angular.isDefined(stop)) {
+            $interval.cancel(stop);
+            console.log("stop timer task");
+            stop = undefined;
+        }
+    });
 
     //设备打印请求
     $http.get(HTTP_BASE+'device/e_queryPrint?accountId=' + accountId)
@@ -106,7 +150,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                         user_array[index++]='开机';
                     }
                 }
-                if(j=='regTime'||j=='validTime'||j=='startTime'||j=='endTime'){
+                if(j=='regTime'||j=='validTime'||j=='startTime'||j=='endTime'||j=='lastCommunicateTime'){
                     user_array[index++]=lineWrap($scope.dateFilter(user[j], 'yyyy-MM-dd HH:mm:ss'),10)//坐标采
                 }
             }
@@ -150,9 +194,12 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         }else if(i==2){
             headerName='关闭设备列表';
             printData.unshift(['设备Id','设备名称','租用商','租用商电话','录入时间','当前状态','过期时间'])
-        }else{
+        }else if(i==3){
             headerName="位置异常设备列表";
             printData.unshift(['设备Id','设备名称','异常开始时间','异常截止时间','租用商','租用商电话','异常次数'])
+        }else{
+            headerName="通信异常设备列表";
+            printData.unshift(['设备Id','设备名称','最后通信时间','租用商','租用商电话','过期时间','录入时间'])
         }
 
         pdfMake.fonts={
@@ -167,7 +214,16 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     alignment: 'center'
                 }
             },
-            header:headerName,
+            header: {
+                columns: [
+                    { text: headerName, alignment: 'center' }
+                ]
+            },
+            footer: {
+                columns: [
+                    { text: '打印时间:'+$scope.dateFilter(new Date(),'yyyy-MM-dd HH:mm:ss'), alignment: 'center' }
+                ]
+            },
             content: [
                 {
                     table: {
@@ -183,9 +239,9 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         };        // open the PDF in a new window
         pdfMake.createPdf(docDefinition).open();
     }
-
+    //正常设备
     $scope.allPdtList = function (t) {
-        var i = 3;
+        var i = 4;
         while (i >= 0) {
             $scope.pdtOnSale[i] = false;
             i--;
@@ -238,7 +294,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             })
     }
     $scope.alreadyOnList = function (t) {   //过期设备
-        var i = 3;
+        var i = 4;
         $scope.selectAll = false;
         while (i >= 0) {
             $scope.pdtOnSale[i] = false;
@@ -289,10 +345,10 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 });
             })
     }
-    $scope.alreadyOffList = function (t) {   //已下架
+    $scope.alreadyOffList = function (t) {   //已关闭设备
         $scope.selectAll = false;
 
-        var i = 3;
+        var i = 4;
         while (i >= 0) {
             $scope.pdtOnSale[i] = false;
             i--;
@@ -344,7 +400,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             })
     }
     $scope.alreadyErrorList = function (t) {   //位置异常设备
-        var i = 3;
+        var i = 4;
         $scope.selectAll = false;
 
         while (i >= 0) {
@@ -394,6 +450,59 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     content: data.message
                 });
             })
+    }
+
+    $scope.communicationErrorList = function (t) {   //通信异常设备
+        var i = 3;
+        $scope.selectAll = false;
+        while (i >= 0) {
+            $scope.pdtOnSale[i] = false;
+            i--;
+        }
+        $scope.pdtOnSale[4]=true;
+        $http.get(HTTP_BASE+'devicerecord/e_queryallCommuDevice?accountId=' + accountId + '&pageSize=8&pageNo=1')
+            .success(function (data) {
+                $scope.deviceCommuList = data.items;
+                $scope.commuTotalCount=data.totalCount;
+                console.log($scope.deviceCommuList);
+                $('#page1').bootstrapPaginator({
+                    currentPage: 1,
+                    size: "normal",
+                    totalPages: data.totalPage || 1,
+                    bootstrapMajorVersion: 3,
+                    numberOfPages: 5,
+                    onPageClicked: function (e, originalEvent, type, page) {
+                        $scope.loadDevicePromise = $http.get(HTTP_BASE+'devicerecord/e_queryallCommuDevice?accountId=' + accountId + '&pageSize=8&pageNo=' + page)
+                            .success(function (data) {
+                                $scope.deviceCommuList = data.items;
+                                $scope.commuTotalCount=data.totalCount;
+                            }).error(function (data) {
+                                $.teninedialog({
+                                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                    content: data.message
+                                });
+                            })
+                    }
+                })
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            })
+        $http.get(HTTP_BASE+'devicerecord/e_queryallErCommunicationDevice?accountId=' + accountId)
+            .success(function (data) {
+                $scope.printList= data;
+                console.log(data)
+
+            }).error(function (data) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: data.message
+                });
+            })
+
+
     }
     //初始化日历控件
     $('#datepicker').datepicker({
@@ -593,7 +702,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
         $scope.myDeviceId = deviceId;
         $scope.myDeviceName = deviceName;
-        $scope.historyMap = new BMap.Map("hisMap");
+        //$scope.historyMap = new BMap.Map("hisMap");
         $('#devicehistorymodal').modal('toggle');
     }
 
@@ -629,11 +738,10 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
                     if (data.length > 0) {
                         $('#errormodifyModal').modal('toggle');
+                        console.log(data);
                         $timeout(function(){
                             $scope.historyMap = new BMap.Map("errormap");
-
                             $scope.historyMap.clearOverlays();
-
                             $scope.historyMap.centerAndZoom(new BMap.Point(data[0].longitude, data[0].latitude), 12);
                             $scope.historyMap.enableScrollWheelZoom(true);
                             var opts = {
@@ -646,7 +754,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                                 var marker = new BMap.Marker(new BMap.Point(data[i].longitude, data[i].latitude));  // 创建标注
                                 var dateFilter = $filter('date');
                                 var filteredDate = dateFilter(data[i].realTime, 'yyyy-MM-dd HH:mm:ss')//坐标采集时间
-                                var deviceinfo = "<p style=’font-size:12px;lineheight:1.8em;’>名称：" + data[i].deviceName
+                                var deviceinfo = "<p style=’font-size:12px;lineheight:1.8em;’>名称：" + data[i].deviceName+"</br>设备有效期: "+dateFilter(data[i].validTime,'yyyy-MM-dd HH:mm:ss')
                                     + "</br>设备坐标：" + (data[i].latitude == undefined ? "" : "经度: " + data[i].latitude + " 纬度" + data[i].longitude)
                                     + "</br> 采集时间：" + (filteredDate == undefined ? "" : filteredDate ) + "</br></p>";
                                 $scope.historyMap.addOverlay(marker);               // 将标注添加到地图中
