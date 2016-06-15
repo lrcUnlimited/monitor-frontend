@@ -29,6 +29,7 @@ login.controller('LoginCtrl', function ($scope, $cookieStore, $timeout, $http, $
 
             $scope.loginPromise = $http.post(HTTP_BASE+"user/e_login", data)
                 .success(function (data) {
+                    console.log(data);
                     $cookieStore.put("USER_ID",data.id);
                     $cookieStore.put("USER_TYPE",data.type);
                     $cookieStore.put("USER_NAME",data.userName);

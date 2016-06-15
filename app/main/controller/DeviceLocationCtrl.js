@@ -96,7 +96,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                                 var marker = new BMap.Marker(new BMap.Point(data[i].longitude, data[i].latitude));  // 创建标注
                                 var dateFilter = $filter('date');
                                 var filteredDate = dateFilter(data[i].realTime, 'yyyy-MM-dd HH:mm:ss')//坐标采集时间
-                                var deviceinfo = "<p style=’font-size:12px;lineheight:1.8em;’>名称：" + data[i].deviceName
+                                var deviceinfo = "<p style=’font-size:12px;lineheight:1.8em;’>名称：" + data[i].deviceName+"</br>设备有效期: "+dateFilter(data[i].validTime,'yyyy-MM-dd HH:mm:ss')
                                     + "</br>设备坐标：" + (data[i].latitude == undefined ? "" : "经度: " + data[i].latitude + " 纬度: " + data[i].longitude)
                                     + "</br> 采集时间：" + (filteredDate == undefined ? "" : filteredDate ) + "</br></p>";
                                 $scope.map.addOverlay(marker);               // 将标注添加到地图中
@@ -189,7 +189,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                             var marker = new BMap.Marker(new BMap.Point(data[i].longitude, data[i].latitude));  // 创建标注
                             var dateFilter = $filter('date');
                             var filteredDate = dateFilter(data[i].realTime, 'yyyy-MM-dd HH:mm:ss')//坐标采集时间
-                            var deviceinfo = "<p style=’font-size:12px;lineheight:1.8em;’>名称：" + data[i].deviceName
+                            var deviceinfo = "<p style=’font-size:12px;lineheight:1.8em;’>名称：" + data[i].deviceName+"</br>设备有效期: "+dateFilter(data[i].validTime,'yyyy-MM-dd HH:mm:ss')
                                 + "</br>设备坐标：" + (data[i].latitude == undefined ? "" : "经度: " + data[i].latitude + " 纬度" + data[i].longitude)
                                 + "</br> 采集时间：" + (filteredDate == undefined ? "" : filteredDate ) + "</br></p>";
                             $scope.historyMap.addOverlay(marker);               // 将标注添加到地图中

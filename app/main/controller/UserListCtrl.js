@@ -10,6 +10,7 @@ userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore,
         $http.get(HTTP_BASE + 'user/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
             .success(function (data) {
                 $scope.userList = data.items;
+                console.log(data.items);
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,
                     size: "normal",
