@@ -5,6 +5,7 @@ var addUserModule = angular.module("monitor-frontend.addUserModule", ['cgBusy'])
 addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStore, $http, $state,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");
     var accountType = $cookieStore.get("USER_TYPE");
+    $scope.userName="";
 
     $scope.userType = 0;
     $scope.addUser = function () {

@@ -10,23 +10,24 @@
         <div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading row" role="tab">
-                    <div class="col-md-1"><h4 class="panel-title" align="center">记录Id</h4></div>
+                    <!--<div class="col-md-1"><h4 class="panel-title" align="center">记录Id</h4></div>-->
                     <div class="col-md-2"><h4 class="panel-title" align="center">操作人员</h4></div>
-                    <div class="col-md-4"><h4 class="panel-title" align="center">操作内容</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">操作时间</h4></div>
                     <div class="col-md-3"><h4 class="panel-title" align="center">操作分类</h4></div>
+                    <div class="col-md-4"><h4 class="panel-title" align="center">操作内容</h4></div>
                 </div>
             </div>
 
             <div class="panel panel-default" ng-repeat="commandRecord in commandRecordList">
                 <div class="panel-heading row" role="tab">
-                    <div class="col-md-1"><h4 class="panel-title" align="center">{{commandRecord.id}}</h4></div>
+                    <!--<div class="col-md-1"><h4 class="panel-title" align="center">{{commandRecord.id}}</h4></div>-->
                     <div class="col-md-2"><h4 class="panel-title" align="center">{{commandRecord.accountName}}</h4>
                     </div>
-                    <div class="col-md-4"><h4 class="panel-title" align="center">{{commandRecord.content}}</h4></div>
+
                     <div class="col-md-2"><h4 class="panel-title" align="center">{{commandRecord.recordTime | date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
                     <div class="col-md-3"><h4 class="panel-title" align="center">{{commandRecord.type |
                         operateNameFilter}}</h4></div>
+                    <div class="col-md-4"><h4 class="panel-title" align="center">{{commandRecord.content}}</h4></div>
                 </div>
             </div>
             <div style="text-align: right;">

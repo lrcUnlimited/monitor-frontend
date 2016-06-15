@@ -24,7 +24,9 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
         }else{
             var data = {
                 deviceName: $scope.deviceName,
-                validTime:$scope.validTime
+                validTime:$scope.validTime,
+                lesseeName:$scope.lesseeName,
+                lesseePhone:$scope.lesseePhone
             };
             $scope.addDevicePromise = $http.post(HTTP_BASE+"device/e_add?accountId=" + accountId, data)
                 .success(function (data) {
@@ -53,3 +55,4 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
 
 
 })
+

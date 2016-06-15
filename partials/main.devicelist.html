@@ -109,7 +109,7 @@
                         <h4 class="panel-title" align="center">
                             <button class="btn btn-success" loading=""
                                     ng-click="errorConfirm(deviceError.deviceId,deviceError.startTime,deviceError.endTime)">
-                                确定
+                                忽略
                             </button>
                             <button class="btn btn-danger"
                                     ng-click="changeErrPositionDeviceStatus(deviceError.deviceId,deviceError.startTime,deviceError.endTime)"
@@ -129,7 +129,13 @@
             </div>
 
             <div style="text-align: right">
-                <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
+                <div style="float: right">
+                    <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
+                </div>
+                <div style="height: 40px;line-height: 40px; font-size: 18px ">
+                记录总数：{{nowDeviceTotalCount}}
+                </div>
+
             </div>
         </div>
         <!--增加期限弹出框-->
@@ -169,6 +175,27 @@
                                             <span class="input-group-addon"><span
                                                     class="glyphicon glyphicon-calendar"></span></span>
                                         </div>
+                                        <label class="radio-inline"><input type="radio" name="optradio" value="0" ng-model="validType">无</label>
+                                        <label class="radio-inline"><input type="radio" name="optradio" value="1" ng-model="validType">三个月</label>
+                                        <label class="radio-inline"><input type="radio" name="optradio" value="2" ng-model="validType">六个月</label>
+                                        <label class="radio-inline"><input type="radio" name="optradio" value="3" ng-model="validType">1年</label>
+
+                                    </div>
+
+                                    <div class="col-md-7 field-box" style="margin-top: 10px">
+                                        <label>增加有效期原因:</label>
+                                        <select name="singleSelect" ng-model="addReason">
+                                            <option value="1">续费</option>
+                                            <option value="2">协商延期</option>
+                                            <option value="3">其他</option>
+                                        </select>
+                                    </div>
+
+                                    <div class="col-md-7 field-box" style="margin-top: 10px">
+                                        <label>备注:</label>
+                                        <textarea class="form-control"  ng-maxlength="20" name="addNote" ng-model="addNote" required
+                                                  placeholder="输入不能为空，最多输入20字符"></textarea>
+
                                     </div>
                                 </div>
                             </div>

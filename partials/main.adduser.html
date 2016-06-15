@@ -14,7 +14,8 @@
                           cg-busy="{promise:addUserPromise,message:'加载中',backdrop:false}">
                         <div class="col-md-12 field-box">
                             <label>用户名:</label>
-                            <input class="col-md-9 form-control" type="text" name="userName" user-check="userName" required ng-model="userName">
+                            <input class="col-md-9 form-control" ng-minlength="2" ng-maxlength="10" type="text" name="userName" user-check="userName" required ng-model="userName"
+                                   placeholder="用户名不能低于2位，不能多于10位">
                             <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
                                   ng-show="useradd.userName.$error.userUnique">该用户名被使用</span>
 
@@ -49,8 +50,8 @@
 
                         <div class="col-md-12 field-box textarea">
                             <label>备注:</label>
-                            <textarea class="col-md-9" ng-maxlength="100" name="note" ng-model="note"></textarea>
-                            <span class="charactersleft">最多输入100字符</span>
+                            <textarea class="col-md-9" ng-maxlength="10" name="note" ng-model="note"></textarea>
+                            <span class="charactersleft">最多输入10字符</span>
                         </div>
                         <div class="col-md-9" field-box>
                             <label>用户权限:</label>

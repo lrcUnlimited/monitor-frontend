@@ -17,6 +17,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
     $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1')
         .success(function (data) {
             $scope.deviceList = data.items;
+            $scope.nowDeviceTotalCount=data.totalCount;
             console.log($scope.deviceList);
             $('#page1').bootstrapPaginator({
                 currentPage: 1,
@@ -27,6 +28,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=' + page)
                         .success(function (data) {
                             $scope.deviceList = data.items;
+                            $scope.nowDeviceTotalCount=data.totalCount;
                         }).error(function (data) {
                             $.teninedialog({
                                 title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -194,7 +196,10 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.deviceErrorType=0;
         $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1')
             .success(function (data) {
+                console.log(data);
                 $scope.deviceList = data.items;
+                $scope.totolCount=data.totalCount;
+                $scope.nowDeviceTotalCount=data.totalCount;
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,
                     size: "normal",
@@ -205,6 +210,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                         $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
+                                $scope.nowDeviceTotalCount=data.totalCount;
                             }).error(function (data) {
                                 $.teninedialog({
                                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -234,7 +240,6 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
     $scope.alreadyOnList = function (t) {   //过期设备
         var i = 3;
         $scope.selectAll = false;
-
         while (i >= 0) {
             $scope.pdtOnSale[i] = false;
             i--;
@@ -247,6 +252,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             .success(function (data) {
                 $scope.deviceList = data.items;
                 $scope.odTotalCount = data.totalCount;
+                $scope.nowDeviceTotalCount=data.totalCount;
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,
                     size: "normal",
@@ -257,6 +263,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                         $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=1&pageSize=8&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
+                                $scope.nowDeviceTotalCount=data.totalCount;
                             }).error(function (data) {
                                 $.teninedialog({
                                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -298,6 +305,8 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=2&pageSize=8&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
+                $scope.nowDeviceTotalCount=data.totalCount;
+
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,
                     size: "normal",
@@ -308,6 +317,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                         $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=2&pageSize=8&pageNo=' + page)
                             .success(function (data) {
                                 $scope.deviceList = data.items;
+                                $scope.nowDeviceTotalCount=data.totalCount;
                             }).error(function (data) {
                                 $.teninedialog({
                                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -347,6 +357,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             .success(function (data) {
                 $scope.deviceErrorList = data.items;
                 $scope.positionTotalCount=data.totalCount;
+                $scope.nowDeviceTotalCount=data.totalCount;
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,
                     size: "normal",
@@ -358,6 +369,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                             .success(function (data) {
                                 $scope.deviceList = data.items;
                                 $scope.positionTotalCount=data.totalCount;
+                                $scope.nowDeviceTotalCount=data.totalCount;
                             }).error(function (data) {
                                 $.teninedialog({
                                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -398,6 +410,8 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.modifyNowValidTime = validTime
         $scope.modifyDeviceValidTime = validTime;
         $scope.modifyType = 0;//增加期限
+        $scope.validType=0;//默认为无
+        $scope.addReason=1;//默认为续费
         $('#modifyModal').modal('toggle');
     }
     //更改异常设备位置信息
@@ -426,9 +440,26 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
     //更改设备的管理状态
     $scope.changeDeviceManageStatus = function (deviceId, deviceName, validTime) {
+
         if ($scope.deviceManageType == 0) {
             //关闭设备
-            changeDeviceStatus($scope.deviceManageType, 0, deviceId, accountId, validTime);
+            $.teninedialog({
+                title: '<h3 style="font-weight:bold">系统提示</h3>',
+                content: '确定关闭设备?',
+                showCloseButton: true,
+                otherButtons: ["确定"],
+                otherButtonStyles: ['btn-primary'],
+                bootstrapModalOption: {
+                    keyboard: true
+                },
+
+                clickButton:function (sender, modal, index) {
+                    console.log("click")
+                    $(this).closeDialog(modal);
+                    changeDeviceStatus($scope.deviceManageType, 0, deviceId, accountId, validTime);
+                }
+            });
+
 
         } else {
             //开启设备
@@ -450,6 +481,15 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
     }
     $scope.changeDevice = function () {
+        if($scope.add=1){
+            $scope.modifyDeviceValidTime = $scope.modifyNowValidTime+7776000000;
+        }else if($scope.add=1){
+            $scope.modifyDeviceValidTime = $scope.modifyNowValidTime+15552000000;
+        }else if($scope.add=2){
+            $scope.modifyDeviceValidTime = $scope.modifyNowValidTime+31104000000;
+        }
+
+
         if ($scope.modifyType == 0) {
             console.log("修改有效期");
             if ($scope.modifyNowValidTime >= $scope.modifyDeviceValidTime) {
@@ -460,9 +500,21 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 })
 
 
+
             } else {
                 //只增加有效期
-                $scope.loadDevicePromise = $http.get(HTTP_BASE+'device/e_updateValidTime?accountId=' + accountId + '&deviceId=' + $scope.modifyDeviceId + '&modifyDeviceValidTime=' + $scope.modifyDeviceValidTime.getTime())
+                console.log("addNote"+$scope.addNote);
+                if(!$scope.addNote){
+                    $.teninedialog({
+                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                        content: '增加有效期备注不能为空'
+                    })
+                    return;
+                }
+
+                $scope.loadDevaicePromise = $http.get(HTTP_BASE+'device/e_updateValidTime?accountId=' + accountId + '&deviceId=' + $scope.modifyDeviceId +
+                    '&modifyDeviceValidTime=' + $scope.modifyDeviceValidTime +"&addReason"+$scope.addReason +"&addNote"+$scope.addNote)
+
                     .success(function (data) {
                         $.teninedialog({
                             title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -511,8 +563,6 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 });
             });
     }
-
-
     //下载文件
     $scope.downloadFile = function (deviceId) {
         window.location.href = HTTP_BASE+'device/zip/' + deviceId + '?accountId=' + accountId;

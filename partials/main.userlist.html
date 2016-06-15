@@ -10,14 +10,13 @@
             <div class="panel panel-default">
                 <div class="panel-heading row" role="tab">
                     <div class="col-md-1"><h4 class="panel-title" align="center">ID</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">用户姓名</h4></div>
-                    <div class="col-md-2"><h4 class="panel-title" align="center">用户电话</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">用户密码</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">用户类型</h4></div>
-                    <div class="col-md-2"><h4 class="panel-title" align="center">用户备注</h4></div>
-                    <div class="col-md-2"><h4 class="panel-title" align="center">用户添加时间</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">修改</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">删除</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">姓名</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">电话</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">密码</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">类型</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">备注</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">添加时间</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">操作</h4></div>
                 </div>
             </div>
 
@@ -27,21 +26,30 @@
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{account.userName}}</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">{{account.userPhone}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{account.passWord}}</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">{{account.type | userTypeFilter}}</h4>
-                    </div>
-
+                    <div class="col-md-1"><h4 class="panel-title" align="center">{{account.type | userTypeFilter}}</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">{{account.note}}</h4></div>
-                    <div class="col-md-2"><h4 class="panel-title" align="center">{{account.registerDate |
-                        date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{account.registerDate | date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
                     <!--<div class="col-md-3"><h4 class="panel-title" align="center"><a class="hand" ng-click="chkstfinfo(stf.id)">查看详细信息</a>-->
-                    <div class="col-md-1"><h4 class="panel-title" align="center"><a style="cursor: pointer"
-                                                                                    ng-click="modify(account.userName,account.userPhone,account.note,account.id,account.type,account.passWord)">修改信息</a>
-                    </h4></div>
-                    <div class="col-md-1">
+                    <div class="col-md-2">
                         <h4 class="panel-title" align="center">
-                            <button class="btn btn-danger" ng-click="deleteUser(account.id)" loading="">删除</button>
+                            <button class="btn btn-success"
+                                    ng-click="modify(account.userName,account.userPhone,account.note,account.id,account.type,account.passWord)"
+                                    loading="">修改
+                            </button>
+                            <button class="btn btn-danger"
+                                    ng-click="deleteUser(account.id)"
+                                    loading="">删除
+                            </button>
                         </h4>
                     </div>
+                    <!--<div class="col-md-1">-->
+                        <!--<h4 class="btn btn-success" align="center"><a style="cursor: pointer"-->
+                                                                                    <!--ng-click="modify(account.userName,account.userPhone,account.note,account.id,account.type,account.passWord)">修改</a>-->
+                    <!-- -->
+                         <!-- -->
+                            <!--<button class="btn btn-danger" ng-click="deleteUser(account.id)" loading="">删除</button>-->
+                        <!--</h4>-->
+                    <!--</div>-->
                 </div>
             </div>
             <div style="text-align: right">
