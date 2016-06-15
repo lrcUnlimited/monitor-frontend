@@ -18,6 +18,42 @@ addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStor
                 type: $scope.userType
             };
             console.log(data);
+            if(data.userName){
+                if($scope.useradd.userName.$error.userUnique){
+                    dialogShow("用户名已被占用，请修改");
+                    return;
+                }
+            }else{
+                dialogShow("用户名不能为空");
+                return ;
+            }
+            if(data.userPhone){
+                if($scope.useradd.userPhone.$error.pattern){
+                    dialogShow("请输入正确的电话号码");
+                    return ;
+                }
+            }else{
+                dialogShow("请输入正确的电话号码");
+                return ;
+            }
+            if(data.passWord){
+                if($scope.useradd.pw2.$error.pwmatch){
+                    dialogShow("两次密码不匹配");
+                    return;
+                }
+            }else{
+                dialogShow("请输入密码");
+                return;
+            }
+            if(data.note){
+                if(data.note.length>20){
+                    dialogShow("备注长度太大");
+                    return;
+                }
+            }else{
+                dialogShow("请输入备注");
+                return;
+            }
             $scope.addUserPromise = $http.post(HTTP_BASE+"user/e_add?accountId=" + accountId, data)
                 .success(function (data) {
 
@@ -43,6 +79,12 @@ addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStor
 
         }
 
+    }
+    function dialogShow(msg){
+        $.teninedialog({
+            title: '<h3 style="font-weight:bold">系统提示</h3>',
+            content: msg
+        })
     }
 
 }).directive('pwCheck', [function () {

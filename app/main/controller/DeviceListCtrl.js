@@ -11,7 +11,6 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
     $scope.deviceMangeName = "关闭";
     $scope.deviceManageType = 0;
     $scope.deviceErrorType=0;
-
     $scope.dateFilter=$filter('date');
     //正常设备
     $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1')
@@ -361,6 +360,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $http.get(HTTP_BASE+'device/e_query?accountId=' + accountId + '&type=2&pageSize=8&pageNo=1')
             .success(function (data) {
                 $scope.deviceList = data.items;
+                console.log("过期设备"+data.items);
                 $scope.nowDeviceTotalCount=data.totalCount;
 
                 $('#page1').bootstrapPaginator({
@@ -464,6 +464,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             .success(function (data) {
                 $scope.deviceCommuList = data.items;
                 $scope.commuTotalCount=data.totalCount;
+                $scope.nowDeviceTotalCount=data.totalCount;
                 console.log($scope.deviceCommuList);
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,
@@ -476,6 +477,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                             .success(function (data) {
                                 $scope.deviceCommuList = data.items;
                                 $scope.commuTotalCount=data.totalCount;
+                                $scope.nowDeviceTotalCount=data.totalCount;
                             }).error(function (data) {
                                 $.teninedialog({
                                     title: '<h3 style="font-weight:bold">系统提示</h3>',

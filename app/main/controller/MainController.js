@@ -10,6 +10,7 @@ mainModule.controller("MainCtrl", function ($scope, $rootScope, $cookieStore, $l
     $scope.changeActive = function () {
         $scope.isActive = !$scope.isActive;
     }
+
     $scope.inOutClick = function () {
         if ($cookieStore.get("USER_ID") == null) {
             $location.path("/signin");
