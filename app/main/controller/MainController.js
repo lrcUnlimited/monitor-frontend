@@ -59,8 +59,7 @@ mainModule.controller("MainCtrl", function ($scope, $rootScope, $cookieStore, $l
                 userName: $scope.myUserInfo.userName,
                 userPhone: $scope.myUserInfo.userPhone,
                 id: $scope.myUserInfo.id,
-                passWord: $scope.myUserInfo.passWord,
-                note: $scope.myUserInfo.note
+                passWord: $scope.myUserInfo.passWord
             };
             console.log(data);
             $scope.changeUserInfoPromise = $http.post(HTTP_BASE + "user/e_updatePersonal?accountId=" + userId, data)

@@ -590,12 +590,12 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
     }
     $scope.changeDevice = function () {
-        if($scope.add=1){
-            $scope.modifyDeviceValidTime = $scope.modifyNowValidTime+7776000000;
-        }else if($scope.add=1){
-            $scope.modifyDeviceValidTime = $scope.modifyNowValidTime+15552000000;
-        }else if($scope.add=2){
-            $scope.modifyDeviceValidTime = $scope.modifyNowValidTime+31104000000;
+        if($scope.add==1){
+            $scope.modifyDeviceValidTime = new Date($scope.modifyNowValidTime+7776000000);
+        }else if($scope.add==2){
+            $scope.modifyDeviceValidTime =new Date($scope.modifyNowValidTime+15552000000);
+        }else if($scope.add==3){
+            $scope.modifyDeviceValidTime = new Date($scope.modifyNowValidTime+31104000000);
         }
 
 
@@ -607,8 +607,6 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     title: '<h3 style="font-weight:bold">系统提示</h3>',
                     content: '不能小于当前有效期'
                 })
-
-
 
             } else {
                 //只增加有效期
@@ -622,7 +620,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                 }
 
                 $scope.loadDevaicePromise = $http.get(HTTP_BASE+'device/e_updateValidTime?accountId=' + accountId + '&deviceId=' + $scope.modifyDeviceId +
-                    '&modifyDeviceValidTime=' + $scope.modifyDeviceValidTime +"&addReason"+$scope.addReason +"&addNote"+$scope.addNote)
+                    '&modifyDeviceValidTime=' + $scope.modifyDeviceValidTime.getTime() +"&addReason="+$scope.addReason +"&addNote="+$scope.addNote)
 
                     .success(function (data) {
                         $.teninedialog({
@@ -730,7 +728,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
     //设备位置异常显示
     $scope.getHisData = function (deviceId,startTime,endTime) {
-        $http.get(HTTP_BASE+'devicerecord/e_queryhistory?accountId=' + accountId + '&deviceId=' + deviceId + '&startTime=' + startTime + '&endTime=' + endTime)
+        $http.get(HTTP_BASE+'devicerecord/e_queryhistory?accountId=' + accountId + '&deviceId=' + deviceId + '&startTime=' + startTime + '&endTime=' + endTime+"&type=1")
             .success(function (data) {
                 console.log(data);
 

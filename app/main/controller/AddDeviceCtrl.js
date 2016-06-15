@@ -28,6 +28,18 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
                 lesseeName:$scope.lesseeName,
                 lesseePhone:$scope.lesseePhone
             };
+            if(!data.deviceName){
+                dialogShow("请输入设备名");
+                return
+            }
+            if(!data.lesseeName){
+                dialogShow("请输入租赁商名称")
+                return
+            }
+            if(!data.lesseePhone){
+                dialogShow("请输入租赁商电话")
+                return
+            }
             $scope.addDevicePromise = $http.post(HTTP_BASE+"device/e_add?accountId=" + accountId, data)
                 .success(function (data) {
                     $.teninedialog({
@@ -51,6 +63,12 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
         }
 
 
+    }
+    function dialogShow(msg){
+        $.teninedialog({
+            title: '<h3 style="font-weight:bold">系统提示</h3>',
+            content:msg
+        });
     }
 
 

@@ -9,6 +9,7 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
         $http.get(HTTP_BASE+'devicerecord/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
             .success(function (data) {
                 $scope.deviceRecordList = data.items;
+                $scope.nowDeviceTotalCount=data.totalCount;
 
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,

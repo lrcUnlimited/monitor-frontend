@@ -30,13 +30,13 @@
     <ul id="dashboard-menu">
         <li>
             <a href="#main/devicelocation">
-                <i class="icon-calendar-empty"></i>
+                <i class="icon-align-left"></i>
                 <span>设备信息</span>
             </a>
         </li>
         <li ng-show="showManage">
             <a class="dropdown-toggle" href="#">
-                <i class="icon-edit"></i>
+                <i class="icon-th"></i>
                 <span>设备管理</span>
                 <i class="icon-chevron-down"></i>
             </a>
@@ -48,7 +48,7 @@
 
         <li>
             <a href="#main/commandList">
-                <i class="icon-picture"></i>
+                <i class="icon-list-alt"></i>
                 <span>日志管理</span>
             </a>
         </li>
@@ -98,7 +98,7 @@
                         <div  class="panel-body">
                             <div class="col-md-6 form-group">
                                 <label>姓名：</label>
-                                <input type="text" class="form-control" ng-model="myUserInfo.userName" value={{myUserInfo.userName}}
+                                <input type="text" class="form-control" readonly="true" ng-model="myUserInfo.userName" value={{myUserInfo.userName}}
                                        required>
                             </div>
                             <div class="col-md-6 form-group">
@@ -114,8 +114,8 @@
                             </div>
 
                             <div class="col-md-12 form-group" style="margin-top: 10px">
-                                <label>备注信息：（最多不超过100个字符）</label>
-                                    <textarea name="stf_remark" ng-model="myUserInfo.note" value={{myUserInfo.note}} rows="3"
+                                <label>备注信息：（最多不超过20个字符）</label>
+                                    <textarea name="stf_remark" ng-model="myUserInfo.note" maxlength="20" value={{myUserInfo.note}} rows="3"
                                               cols="20" class="form-control"
                                               required></textarea>
                             </div>
