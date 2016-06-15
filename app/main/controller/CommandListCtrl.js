@@ -9,6 +9,7 @@ recordListModule.controller("CommandListCtrl", function ($scope, $http, $cookieS
         $http.get(HTTP_BASE+'commandrecord/e_query?accountId=' + accountId + '&pageSize=12&pageNo=1') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
             .success(function (data) {
                 $scope.commandRecordList = data.items;
+                $scope.commandTotalCount=data.totalCount;
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,
                     size: "normal",
@@ -18,6 +19,7 @@ recordListModule.controller("CommandListCtrl", function ($scope, $http, $cookieS
                         $scope.loadRecordPromise = $http.get(HTTP_BASE+'commandrecord/e_query?accountId=' + accountId + '&pageSize=12&pageNo=' + page)
                             .success(function (data) {
                                 $scope.commandRecordList = data.items;
+                                $scope.commandTotalCount=data.totalCount;
                             }).error(function (data) {
                                 $.teninedialog({
                                     title: '<h3 style="font-weight:bold">系统提示</h3>',

@@ -12,6 +12,7 @@ userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore,
         $http.get(HTTP_BASE + 'user/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1') //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
             .success(function (data) {
                 $scope.userList = data.items;
+                $scope.userTotalCount=data.totalCount;
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,
                     size: "normal",
@@ -21,6 +22,7 @@ userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore,
                         $scope.loadUserPromise = $http.get(HTTP_BASE + 'user/e_query?accountId=' + accountId + '&pageSize=8&pageNo=' + page)
                             .success(function (data) {
                                 $scope.userList = data.items;
+                                $scope.userTotalCount=data.totalCount;
                             }).error(function (data) {
                                 $.teninedialog({
                                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -97,7 +99,7 @@ userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore,
                 var index = 0;
                 for (var j in user) {
                     if(j=='userName'||j=='note'){
-                        user_array[index++]=lineWrap(user[j],7);
+                        user_array[index++]=lineWrap(user[j],10);
                     }
                     if(j=='userPhone'){
                         user_array[index++]=user[j];
