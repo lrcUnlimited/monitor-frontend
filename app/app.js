@@ -1,4 +1,4 @@
-/**
+﻿/**
  * Created by li on 2016/5/3.
  */
 var myApp = angular.module('monitor-frontend', [
