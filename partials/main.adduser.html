@@ -18,14 +18,12 @@
                                    placeholder="用户名不能低于2位，不能多于10位">
                             <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
                                   ng-show="useradd.userName.$error.userUnique">该用户名被使用</span>
-
-                            <!--<input class="form-control" type="text" name="userName" required ng-model="userName"/>-->
                         </div>
 
                         <div class="col-md-12 field-box">
                             <label>用户手机:</label>
                             <input class="col-md-9 form-control" type="text" name="userPhone"
-                                   placeholder="please input your phone number"
+                                   placeholder="请输入手机号"
                                    ng-pattern="/^[1][3458][0-9]{9}$/" required ng-model="userPhone"/>
                             <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
                                   ng-show="useradd.userPhone.$error.pattern">请输入正确的手机号码</span>
@@ -44,10 +42,9 @@
                                   style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
                                   ng-show="useradd.pw2.$error.pwmatch">密码不匹配.</span>
                         </div>
-
                         <div class="col-md-12 field-box textarea">
                             <label>备注:</label>
-                            <textarea class="col-md-9" ng-maxlength="20" name="note" ng-model="note"></textarea>
+                            <textarea class="col-md-9" maxlength="20" name="note" ng-model="note"></textarea>
                             <span class="charactersleft">最多输入20字符</span>
                         </div>
                         <div class="col-md-9" field-box>
@@ -55,12 +52,9 @@
                             <label class="radio-inline"><input type="radio" name="optradio" value="1" ng-model="userType">管理员权限</label>
                             <label class="radio-inline"><input type="radio" name="optradio" value="0"   ng-model="userType">普通用户权限</label>
                         </div>
-
-                        <div class="col-md-11 field-box actions">
+                        <div class="col-md-9 field-box actions">
                             <input type="submit" class="btn-glow primary" ng-disabled="useradd.$invalid" value="增加用户"
                                    loading="">
-                            <spsan>OR</spsan>
-                            <input type="reset" value="重置" class="reset">
                         </div>
                     </form>
                 </div>

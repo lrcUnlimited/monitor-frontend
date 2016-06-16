@@ -14,7 +14,7 @@
                           cg-busy="{promise:addDevicePromise,message:'加载中',backdrop:false}">
                         <div class="col-md-12 field-box">
                             <label>设备名称:</label>
-                            <input class="form-control" type="text" name="deviceName"  required ng-model="deviceName"/>
+                            <input class="form-control" placeholder="最多输入20个字符" maxlength="20" type="text" name="deviceName"  required ng-model="deviceName"/>
                         </div>
                         <div class="col-md-6 field-box">
                             <label>设备有效期限:</label>
@@ -25,7 +25,7 @@
                         </div>
                         <div class="col-md-12 field-box">
                             <label>租赁方:</label>
-                            <input class="form-control" type="text" name="lesseeName" required ng-model="lesseeName"/>
+                            <input class="form-control" type="text" placeholder="最多输入20个字符" maxlength="20" name="lesseeName" required ng-model="lesseeName"/>
                         </div>
                         <div class="col-md-12 field-box">
                             <label>租赁方电话:</label>

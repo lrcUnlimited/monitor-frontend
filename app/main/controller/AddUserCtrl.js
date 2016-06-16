@@ -20,11 +20,11 @@ addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStor
             console.log(data);
             if(data.userName){
                 if($scope.useradd.userName.$error.userUnique){
-                    dialogShow("用户名已被占用，请修改");
+                    dialogShow("请重新输入用户名");
                     return;
                 }
             }else{
-                dialogShow("用户名不能为空");
+                dialogShow("请重新输入用户名");
                 return ;
             }
             if(data.userPhone){
@@ -65,8 +65,6 @@ addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStor
                                 $state.go('main.userlist', {}, {reload: true})
                             }, 200)
                         }
-
-
                     })
                 })
                 .error(function (data) {

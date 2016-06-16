@@ -85,7 +85,15 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
                             $scope.map.enableScrollWheelZoom(true);
 
                             $scope.map.centerAndZoom(new BMap.Point(data[0].longitude, data[0].latitude), 12);
+                            // 添加带有定位的导航控件
+                            var navigationControl = new BMap.NavigationControl({
+                                // 靠左上角位置
+                                anchor: BMAP_ANCHOR_TOP_LEFT,
+                                // LARGE类型
+                                type: BMAP_NAVIGATION_CONTROL_LARGE,
 
+                            });
+                            $scope.map.addControl(navigationControl);
 
                             var opts = {
                                 width: 260,     // 信息窗口宽度
@@ -180,6 +188,15 @@ deviceLocationModule.controller("DeviceLocationCtrl", function ($scope, $http, $
 
                         $scope.historyMap.centerAndZoom(new BMap.Point(data[0].longitude, data[0].latitude), 12);
                         $scope.historyMap.enableScrollWheelZoom(true);
+                        // 添加带有定位的导航控件
+                        var navigationControl = new BMap.NavigationControl({
+                            // 靠左上角位置
+                            anchor: BMAP_ANCHOR_TOP_LEFT,
+                            // LARGE类型
+                            type: BMAP_NAVIGATION_CONTROL_LARGE,
+
+                        });
+                        $scope.historyMap.addControl(navigationControl);
                         var opts = {
                             width: 260,     // 信息窗口宽度
                             height: 90,     // 信息窗口高度
