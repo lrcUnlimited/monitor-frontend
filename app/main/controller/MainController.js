@@ -54,6 +54,25 @@ mainModule.controller("MainCtrl", function ($scope, $rootScope, $cookieStore, $l
                 });
             })
     }
+    function validatemobile(mobile) {
+        if (mobile.length == 0) {
+            return false;
+        }
+        if (mobile.length != 11) {
+            return false;
+        }
+        var myreg = /^[1][3458][0-9]{9}$/;
+        if (!myreg.test(mobile)) {
+            return false;
+        }
+        return true;
+    }
+    function dialogShow(msg){
+        $.teninedialog({
+            title: '<h3 style="font-weight:bold">系统提示</h3>',
+            content: msg
+        })
+    }
     $scope.changeUserInfo = function () {
         if (userId) {
             var data = {
@@ -63,6 +82,10 @@ mainModule.controller("MainCtrl", function ($scope, $rootScope, $cookieStore, $l
                 passWord: $scope.myUserInfo.passWord
             };
             console.log(data);
+            if(!validatemobile(data.userPhone)){
+                dialogShow("请输入正确的手机号")
+                return;
+            }
             $scope.changeUserInfoPromise = $http.post(HTTP_BASE + "user/e_updatePersonal?accountId=" + userId, data)
                 .success(function (data) {
                     $.teninedialog({
