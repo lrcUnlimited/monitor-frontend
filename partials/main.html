@@ -34,8 +34,8 @@
                 <span>设备信息</span>
             </a>
         </li>
-        <li ng-show="showManage">
-            <a class="dropdown-toggle" href="#">
+        <li ng-show="showManage" id="initToggle">
+            <a class="dropdown-toggle" href="#" >
                 <i class="icon-th"></i>
                 <span>设备管理</span>
                 <i class="icon-chevron-down"></i>
@@ -103,7 +103,7 @@
                             </div>
                             <div class="col-md-6 form-group">
                                 <label>电话：</label>
-                                <input type="text" class="form-control" ng-model="myUserInfo.userPhone" value={{myUserInfo.userPhone}}
+                                <input type="text" class="form-control" ng-model="myUserInfo.userPhone" maxlength="11"  value={{myUserInfo.userPhone}}
                                        required>
                             </div>
                             <div class="col-md-6 ">

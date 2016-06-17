@@ -11,6 +11,8 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
     $scope.deviceMangeName = "关闭";
     $scope.deviceManageType = 0;
     $scope.deviceErrorType = 0;
+    $('#initToggle').toggleClass("active");
+    $('#initToggle').find(".submenu").slideDown("fast");
     $scope.dateFilter = $filter('date');
     //初始化日历控件
     $('#startdatepicker').datepicker({
