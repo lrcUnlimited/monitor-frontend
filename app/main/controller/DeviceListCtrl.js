@@ -327,12 +327,12 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             },
             header: {
                 columns: [
-                    {text: headerName, alignment: 'right',margin: [ 0, 20, 0, 0 ]},
-                    {text: '打印时间:' + $scope.dateFilter(new Date(), 'yyyy-MM-dd HH:mm:ss'), alignment: 'right'}
+                    {text: '打印时间:' + $scope.dateFilter(new Date(), 'yyyy-MM-dd HH:mm:ss'), alignment: 'right',margin: [ 0, 15, 0, 0 ]}
                 ]
             },
             footer: function(currentPage, pageCount) { return {text:"第"+currentPage.toString()+"页",alignment: 'center'}; },
             content: [
+                {text: headerName, alignment: 'center',margin: [ 0, 0, 0, 0 ]},
                 {
                     table: {
                         headerRows: 1,
