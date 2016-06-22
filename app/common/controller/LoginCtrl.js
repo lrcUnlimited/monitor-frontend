@@ -52,6 +52,16 @@ login.controller('LoginCtrl', function ($scope, $cookieStore, $timeout, $http, $
             title: '<h3 style="font-weight:bold">系统提示</h3>',
             content: msg
         });
+    }
+}).directive('ngEnter', function() {
+    return function(scope, element, attrs) {
+        element.bind("keydown keypress", function(event) {
+            if(event.which === 13) {
+                scope.$apply(function(){
+                    scope.$eval(attrs.ngEnter, {'event': event});
+                });
+                event.preventDefault();
+            }
+        });
     };
-
 })

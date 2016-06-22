@@ -5,6 +5,22 @@
         </div>
 
     </div>
+    <form class="form-inline">
+        <div class="form-group">
+            <label>操作人员</label>
+            <input type="text" class="form-control" id="searchUser" name="searchUser" ng-model="searchUser">
+        </div>
+        <div class="form-group">
+            <label>操作分类</label>
+            <select  style="margin-left: 5px"  class="form-control" name="searchType" ng-model="searchType">
+                <option value="0">用户管理操作</option>
+                <option value="2">设备管理操作</option>
+                <option value="3">设备更新操作</option>
+                <option value="4">设备充值操作</option>
+            </select>
+        </div>
+        <button type="button"  class="btn btn-primary" ng-click="searchCommand()">搜索</button>
+    </form>
     <div class="clearfix"></div>
     <div class="row" style="margin-left: 10px" cg-busy="{promise:loadRecordPromise,message:'加载中',backdrop:false}">
         <div class="panel-group" role="tablist" aria-multiselectable="true">

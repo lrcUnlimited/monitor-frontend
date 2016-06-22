@@ -247,7 +247,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
 
                 if (j == 'lesseePhone') {
                     if (user[j] == null || user[j].length == 0) {
-                        user[j] = '暂无数据';
+                        user[j] = '无';
                     }
                     user_array[index++] = user[j];
                 }
