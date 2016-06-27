@@ -2,7 +2,7 @@
     <div id="pad-wrapper" class="new-user" style="margin: 5px;padding: 5px;" >
         <div class="row header">
             <div class="col-md-12">
-                <h3>添加用户</h3>
+                <h3 style="font-weight:bold; margin-left: 10px">用户注册</h3>
             </div>
         </div>
 
@@ -25,8 +25,9 @@
                             <input class="col-md-9 form-control" type="text" name="userPhone"
                                    placeholder="请输入手机号"
                                    ng-pattern="/^[1][3458][0-9]{9}$/" required ng-model="userPhone"/>
-                            <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
-                                  ng-show="useradd.userPhone.$error.pattern">请输入正确的手机号码</span>
+                                <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
+                                      ng-show="useradd.userPhone.$error.pattern">请输入正确号码</span>
+
                         </div>
                         <div class="col-md-12 field-box">
                             <label>密码:</label>
@@ -40,7 +41,7 @@
                                    ng-model="pw2" pw-check="pw2"/>
                             <span class="msg-error"
                                   style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
-                                  ng-show="useradd.pw2.$error.pwmatch">密码不匹配.</span>
+                                  ng-show="useradd.pw2.$error.pwmatch">密码不匹配</span>
                         </div>
                         <div class="col-md-12 field-box textarea">
                             <label>备注:</label>
@@ -52,8 +53,8 @@
                             <label class="radio-inline"><input type="radio" name="optradio" value="1" ng-model="userType">管理员权限</label>
                             <label class="radio-inline"><input type="radio" name="optradio" value="0"   ng-model="userType">普通用户权限</label>
                         </div>
-                        <div class="col-md-9 field-box actions">
-                            <input type="submit" class="btn-glow primary"  style="position: relative;right: 100px" ng-disabled="useradd.$invalid" value="增加用户"
+                        <div class="col-md-11 field-box actions">
+                            <input type="submit" class="btn-glow primary"   style="float: right" ng-disabled="useradd.$invalid" value="增加用户"
                                    loading="">
                         </div>
                     </form>

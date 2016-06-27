@@ -49,24 +49,24 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
     $scope.searchExceptionLessName="";
 
     $scope.searchDevice = function () {
-        var startSearchDate = document.getElementById("startSearchDate").value;
-        var endSearchDate = document.getElementById("endSearchDate").value;
+        //var startSearchDate = document.getElementById("startSearchDate").value;
+        //var endSearchDate = document.getElementById("endSearchDate").value;
         var startValidSearchDate = document.getElementById("startValidSearchDate").value;
         var endValidSearchDate = document.getElementById("endValidSearchDate").value;
-        if (!startSearchDate) {
-            $scope.startTime = startSearchDate;
-        }
-        if (!endSearchDate) {
-            $scope.endTime = endSearchDate;
-        }
+        //if (!startSearchDate) {
+        //    $scope.startTime = startSearchDate;
+        //}
+        //if (!endSearchDate) {
+        //    $scope.endTime = endSearchDate;
+        //}
         if (!startValidSearchDate) {
             $scope.startValidTime = startValidSearchDate;
         }
         if (!endValidSearchDate) {
             $scope.endValidTime = endValidSearchDate;
         }
-        var params = "&searchDeviceName=" + $scope.searchDeviceName + "&searchLessName=" + $scope.searchLessName + "&startTime=" + $scope.startTime +
-            "&endTime=" + $scope.endTime + "&startValidTime=" + $scope.startValidTime + "&endValidTime=" + $scope.endValidTime;
+        var params = "&searchDeviceName=" + $scope.searchDeviceName + "&searchLessName=" + $scope.searchLessName + "&startTime=" + 0 +
+            "&endTime=" + 0 + "&startValidTime=" + $scope.startValidTime + "&endValidTime=" + $scope.endValidTime;
         var errorDeviceParams="&searchExceptionDeviceName="+$scope.searchExceptionDeviceName+"&searchExceptionLessName="+$scope.searchExceptionLessName;
         for (var i = 0; i < $scope.pdtOnSale.length; i++) {
             if ($scope.pdtOnSale[i]) {
