@@ -684,7 +684,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             $.teninedialog({
                 title: '<h3 style="font-weight:bold">系统提示</h3>',
                 content: '确定关闭设备?',
-                showCloseButton: true,
+                showCloseButton: false,
                 otherButtons: ["确定"],
                 otherButtonStyles: ['btn-primary'],
                 bootstrapModalOption: {

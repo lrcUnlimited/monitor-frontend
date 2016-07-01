@@ -20,6 +20,7 @@ h3 {
   font-family: "Microsoft YaHei" ! important;
   font-weight:bold;
 }
+
 h1 small, h2 small, h3 small, h4 small, h5 small {
   margin-left: 15px;
   font-style: italic;
@@ -417,8 +418,7 @@ input.search {
 }
 
 #pad-wrapper {
-  padding: 0px 50px;
-  margin-top: 55px;
+  padding: 0px 0px;
 }
 #pad-wrapper h4 {
   color: #696d73;

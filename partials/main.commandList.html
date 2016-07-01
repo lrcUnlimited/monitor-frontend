@@ -1,8 +1,7 @@
 <div>
-    <div class="page-title" style="margin-left: 10px;margin-bottom: 10px;margin-top: 10px">
-        <div class="title_left" >
+    <div class="page-title" style="background:url('../img/deciveloaction.png');">
+        <div class="title_left" style="padding-bottom: 10px;padding-top: 50px;">
             <h3 style="font-weight:bold;">日志管理</h3>
-            <hr style="height:10px;border:none;border-top:10px groove skyblue;" />
         </div>
     </div>
     <form class="form-inline"  style="float: right">
@@ -21,7 +20,7 @@
         </div>
         <button type="button"  class="btn btn-primary" ng-click="searchCommand()">搜索</button>
     </form>
-    <div class="clearfix"></div>
+    <div class="clearfix" style="background:url('../img/deciveloaction.png');"></div>
     <div class="row" style="margin-top: 5px" cg-busy="{promise:loadRecordPromise,message:'加载中',backdrop:false}">
         <div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
