@@ -1,15 +1,14 @@
 ﻿
 <script src="../js/libs/theme.js"></script>
 <header class="navbar navbar-inverse" role="banner">
-    <div class="navbar-header"  style="color: #30696c">
+    <div class="navbar-header">
         <button class="navbar-toggle" type="button" data-toggle="collapse" id="menu-toggler">
             <span class="sr-only">Toggle navigation</span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
         </button>
-        <h1 class="navbar-brand" style="color: #e2de14;font-size: 25px;margin-left: 10px">美脊康设备远程监控管理平台</h1>
-        <!--<h1 class="navbar-brand" style="color: #e2de14;font-size: 18px;margin-left: 10px;margin-top: 2px">MEI JI KANG SHE BEI YUAN CHENG JIAN KONG GUAN LI PING TAI</h1>-->
+         <!--<h1 class="navbar-brand" style="color: #e2e2e2">设备远程监控管理平台</h1> -->
     </div>
     <ul class="nav navbar-nav pull-right hidden-xs">
         <li class="dropdown" ng-class="{true:'open'}[isActive]" ng-click="changeActive()">
@@ -43,7 +42,7 @@
             </a>
             <ul class="submenu">
                 <li><a href="#main/devicelist">设备操作</a></li>
-                <li><a href="#main/adddevice">设备注册</a></li>
+                <li><a href="#main/adddevice">增加设备</a></li>
             </ul>
         </li>
 
@@ -74,14 +73,14 @@
 
 <!-- main container -->
 <div ui-view class="content"></div>
-<!--<div style="width: 100%;height: 30px; background-color: #f5f5f5;position:fixed;bottom: 0px">-->
-    <!--<div style="margin-top: 5px;width: 45%;float: left;text-align: right;border-right:1px solid #ffffff ">-->
-    <!--<img src="../img/logo.png" style="height: 30px;width: 30px;">-->
-    <!--</div>-->
-    <!--<div style="margin-top: 5px;width: 55%; padding-left: 5px; float: left;text-align: left;line-height:30px;font-size: 16px;">-->
-        <!--平台设计维护宏宝数据科技有限公司-->
-    <!--</div>-->
-<!--</div>-->
+<div style="width: 100%;height: 30px; background-color: #f5f5f5;position:fixed;bottom: 0px">
+    <div style="margin-top: 5px;width: 45%;float: left;text-align: right;border-right:1px solid #ffffff ">
+    <img src="../img/logo.png" style="height: 30px;width: 30px;">
+    </div>
+    <div style="margin-top: 5px;width: 55%; padding-left: 5px; float: left;text-align: left;line-height:30px;font-size: 16px;">
+        平台设计维护宏宝数据科技有限公司
+    </div>
+</div>
 <div class="modal fade bs-example-modal-lg" id="modifyMyInfoModal" tabindex="-1" role="dialog"
      aria-labelledby="modifyModalLabel"
      aria-hidden="true">

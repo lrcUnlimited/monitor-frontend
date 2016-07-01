@@ -58,6 +58,9 @@ input.search {
 /* Custom navbar stuff */
 /* search input */
 .navbar-inverse {
+  background-image: url("../../img/bgs/header.png");
+
+  height: 100px;
   /* navbar settings and logout icons */
   /* notification menu with custom dropdowns */
   /* navbar popup dialog */
@@ -260,10 +263,12 @@ input.search {
 /* Sidebar */
 #sidebar-nav {
   position: absolute;
-  width: 180px;
+  width: 176px;/* 原來為180px */
+  height:100%;
   float: left;
   margin: 0em;
   padding-top: 5.8em;
+  background-image: url("../../img/bgs/1-left.png");
 }
 #sidebar-nav #dashboard-menu {
   list-style: none;
@@ -280,7 +285,7 @@ input.search {
   margin-bottom: 5px;
   border-bottom: 1px solid #dae1e8;
   box-shadow: 0 2px 1px -1px #FFFFFF;
-  color: #6e829b;
+  color: #000000;/* 原來為#6e829b,加上背景圖片后看不清楚 */
   outline: 0px;
   line-height: 21px;
 }
