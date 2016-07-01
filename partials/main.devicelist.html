@@ -70,16 +70,16 @@
     <div class="clearfix"></div>
     <div class="row" style="margin-top: 5px;margin-left: 0px" cg-busy="{promise:loadDevicePromise,message:'加载中',backdrop:false}">
         <ul class="nav nav-tabs">
-            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a ng-click="allPdtList(0)">正常设备</a>
+            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a class="hand" ng-click="allPdtList(0)">正常设备</a>
             </li>
-            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[1]}"><a
+            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[1]}"><a class="hand"
                     ng-click="alreadyOnList(1)">即将过期设备
                 <span class="count">{{odTotalCount}}</span></a></li>
-            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[2]}"><a
+            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[2]}"><a class="hand"
                     ng-click="alreadyOffList(2)">关闭设备</a></li>
-            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[3]}"><a
+            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[3]}"><a class="hand"
                     ng-click="alreadyErrorList(3)">位置异常设备<span class="count">{{positionTotalCount}}</span></a></li>
-            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[4]}"><a
+            <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[4]}"><a class="hand"
                     ng-click="communicationErrorList(4)">通信异常设备<span class="count">{{commuTotalCount}}</span></a></li>
         </ul>
         <div class="panel-group">

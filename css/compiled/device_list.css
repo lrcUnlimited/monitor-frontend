@@ -32,7 +32,15 @@ h2 {
 }
 .hand {
     cursor: pointer;
+    background-color: #1E8BA0;
+    color: #ffffff;
 }
+
+.hand:hover{
+    background-color: #1E8BA0;
+    color: #ffffff;
+}
+
 .danger{
     background-color: #c9302c;
     color: white;
