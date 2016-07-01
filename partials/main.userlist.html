@@ -1,26 +1,26 @@
 <div>
     <div class="page-title" style="margin-left: 10px;margin-bottom: 10px;margin-top: 10px">
         <div class="title_left">
-            <h3>用户信息查看</h3>
+            <h3 style="font-weight:bold;">用户列表</h3>
         </div>
     </div>
-    <form class="form-inline">
+    <form class="form-inline" style="margin-left: 10px">
         <div class="form-group">
             <label>用户名</label>
-            <input type="text" class="form-control" id="searchUserName" name="searchUserName" ng-model="searchUserName">
+            <input type="text" style="width: 135px" class="form-control" id="searchUserName" name="searchUserName" ng-model="searchUserName">
         </div>
         <div class="form-group">
             <label>电话</label>
-            <input type="text" class="form-control" id="searchUserPhone" name="searchUserPhone" ng-model="searchUserPhone">
+            <input type="text" style="width: 135px" class="form-control" id="searchUserPhone" name="searchUserPhone" ng-model="searchUserPhone">
         </div>
         <div class="form-group">
             <label>添加时间</label>
             <div class="input-group date" id="startdatepicker">
-                <input class="form-control" type="text"   placeholder="开始日期" id="startSearchDate">
+                <input class="form-control" style="width: 135px" type="text"   placeholder="开始日期" id="startSearchDate">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
             <div class="input-group date" id="enddatepicker">
-                <input class="form-control" type="text"   placeholder="截止日期" id="endSearchDate">
+                <input class="form-control" style="width: 135px" type="text"   placeholder="截止日期" id="endSearchDate">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
         </div>
@@ -29,7 +29,7 @@
 
     </form>
     <div class="clearfix"></div>
-    <div class="row" cg-busy="{promise:loadUserPromise,message:'加载中',backdrop:false}">
+    <div class="row" style="margin-top: 5px" cg-busy="{promise:loadUserPromise,message:'加载中',backdrop:false}">
         <div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading row" role="tab">
@@ -51,7 +51,7 @@
                     <!--<div class="col-md-3"><h4 class="panel-title" align="center"><a class="hand" ng-click="chkstfinfo(stf.id)">查看详细信息</a>-->
                     <div class="col-md-2">
                         <h4 class="panel-title" align="center">
-                            <button class="btn btn-success"
+                            <button class="btn btn-primary"
                                     ng-click="modify(account.userName,account.userPhone,account.note,account.id,account.type,account.passWord)"
                                     loading="">修改
                             </button>

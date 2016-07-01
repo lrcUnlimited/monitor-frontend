@@ -1,14 +1,13 @@
 <div>
-    <div id="pad-wrapper" class="new-user">
-        <div class="row header">
-            <div class="col-md-12">
-                <h3>新增设备</h3>
-            </div>
+    <div class="page-title" style="margin-bottom: 10px;margin-top: 10px">
+        <div class="title_left" >
+            <h3 style="font-weight:bold; margin-left: 10px">设备注册</h3>
         </div>
-
+    </div>
+    <div id="pad-wrapper" class="new-user">
         <div class="row form-wrapper">
             <!-- left column -->
-            <div class="col-md-9 with-sidebar">
+            <div class="col-md-6 with-sidebar">
                 <div class="container">
                     <form class="new_user_form" name="deviceadd" novalidate ng-submit="addDevice()"
                           cg-busy="{promise:addDevicePromise,message:'加载中',backdrop:false}">
@@ -23,22 +22,22 @@
                                     <span class="input-group-addon" style="display: none"></span>
                                 </div>
                         </div>
-                        <div class="col-md-12 field-box">
-                            <label>租赁方:</label>
+                        <div class="col-md-6 field-box">
+                            <label>租赁商:</label>
                             <input class="form-control" type="text" placeholder="最多输入20个字符" maxlength="20" name="lesseeName" required ng-model="lesseeName"/>
                         </div>
-                        <div class="col-md-12 field-box">
-                            <label>租赁方电话:</label>
+                        <div class="col-md-6 field-box">
+                            <label>租赁商电话:</label>
                             <input class="form-control" type="text"
                                    name="lesseePhone" ng-pattern="/^[1][3458][0-9]{9}$/"required ng-model="lesseePhone"/>
                             <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
-                                  ng-show="deviceadd.lesseePhone.$error.pattern">请输入正确的手机号码</span>
+                                  ng-show="deviceadd.lesseePhone.$error.pattern">请输入正确号码</span>
                              <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
                                    ng-show="deviceadd.lesseePhone.required">*必填项</span>
                         </div>
 
-                        <div class="col-md-12 field-box actions">
-                            <input type="submit" class="btn-glow primary" style="position: relative;right: 30px" ng-disabled="deviceadd.$invalid"  value="增加设备" loading="">
+                        <div class="col-md-6 field-box actions">
+                            <input type="submit" class="btn-glow primary" style="float:left ;margin-left:100px" ng-dsabled="deviceadd.$invalid"  value="增加设备" loading="">
                             <!--<spsan>OR</spsan>-->
                             <!--<input type="reset" value="Cancel" class="reset">-->
                         </div>

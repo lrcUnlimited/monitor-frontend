@@ -49,24 +49,24 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
     $scope.searchExceptionLessName="";
 
     $scope.searchDevice = function () {
-        var startSearchDate = document.getElementById("startSearchDate").value;
-        var endSearchDate = document.getElementById("endSearchDate").value;
+        //var startSearchDate = document.getElementById("startSearchDate").value;
+        //var endSearchDate = document.getElementById("endSearchDate").value;
         var startValidSearchDate = document.getElementById("startValidSearchDate").value;
         var endValidSearchDate = document.getElementById("endValidSearchDate").value;
-        if (!startSearchDate) {
-            $scope.startTime = startSearchDate;
-        }
-        if (!endSearchDate) {
-            $scope.endTime = endSearchDate;
-        }
+        //if (!startSearchDate) {
+        //    $scope.startTime = startSearchDate;
+        //}
+        //if (!endSearchDate) {
+        //    $scope.endTime = endSearchDate;
+        //}
         if (!startValidSearchDate) {
             $scope.startValidTime = startValidSearchDate;
         }
         if (!endValidSearchDate) {
             $scope.endValidTime = endValidSearchDate;
         }
-        var params = "&searchDeviceName=" + $scope.searchDeviceName + "&searchLessName=" + $scope.searchLessName + "&startTime=" + $scope.startTime +
-            "&endTime=" + $scope.endTime + "&startValidTime=" + $scope.startValidTime + "&endValidTime=" + $scope.endValidTime;
+        var params = "&searchDeviceName=" + $scope.searchDeviceName + "&searchLessName=" + $scope.searchLessName + "&startTime=" + 0 +
+            "&endTime=" + 0 + "&startValidTime=" + $scope.startValidTime + "&endValidTime=" + $scope.endValidTime;
         var errorDeviceParams="&searchExceptionDeviceName="+$scope.searchExceptionDeviceName+"&searchExceptionLessName="+$scope.searchExceptionLessName;
         for (var i = 0; i < $scope.pdtOnSale.length; i++) {
             if ($scope.pdtOnSale[i]) {
@@ -252,7 +252,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     user_array[index++] = user[j];
                 }
                 if (j == 'deviceName' || j == 'lesseeName') {
-                    user_array[index++] = lineWrap(user[j], 6);
+                    user_array[index++] = lineWrap(user[j], 9);
                 }
                 if (j == 'deviceStatus') {
                     if (user[j] == 0) {
@@ -327,12 +327,14 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             },
             header: {
                 columns: [
-                    {text: headerName, alignment: 'right',margin: [ 0, 20, 0, 0 ]},
-                    {text: '打印时间:' + $scope.dateFilter(new Date(), 'yyyy-MM-dd HH:mm:ss'), alignment: 'right'}
+                    {text: '打印时间:' + $scope.dateFilter(new Date(), 'yyyy-MM-dd'), alignment: 'right',margin: [ 0, 15, 20, 0 ]}
                 ]
             },
             footer: function(currentPage, pageCount) { return {text:"第"+currentPage.toString()+"页",alignment: 'center'}; },
             content: [
+                {text: headerName, alignment: 'center',margin: [ 0, 0, 0, 0 ]},
+                {text: "\n", alignment: 'center',margin: [ 0, 0, 0, 0 ]},
+
                 {
                     table: {
                         headerRows: 1,

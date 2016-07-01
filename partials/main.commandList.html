@@ -1,18 +1,18 @@
 <div>
     <div class="page-title" style="margin-left: 10px;margin-bottom: 10px;margin-top: 10px">
-        <div class="title_left">
-            <h3>日志查看</h3>
+        <div class="title_left" >
+            <h3 style="font-weight:bold;">日志管理</h3>
+            <hr style="height:10px;border:none;border-top:10px groove skyblue;" />
         </div>
-
     </div>
-    <form class="form-inline">
-        <div class="form-group">
+    <form class="form-inline"  style="float: right">
+        <div class="form-group" >
             <label>操作人员</label>
-            <input type="text" class="form-control" id="searchUser" name="searchUser" ng-model="searchUser">
+            <input type="text" class="form-control" style="width: 135px" id="searchUser" name="searchUser" ng-model="searchUser">
         </div>
-        <div class="form-group">
+        <div class="form-group"  style="margin-left: 10px">
             <label>操作分类</label>
-            <select  style="margin-left: 5px"  class="form-control" name="searchType" ng-model="searchType">
+            <select  style="margin-left: 2px width: 200px"  class="form-control"   name="searchType" ng-model="searchType">
                 <option value="0">用户管理操作</option>
                 <option value="2">设备管理操作</option>
                 <option value="3">设备更新操作</option>
@@ -22,7 +22,7 @@
         <button type="button"  class="btn btn-primary" ng-click="searchCommand()">搜索</button>
     </form>
     <div class="clearfix"></div>
-    <div class="row" style="margin-left: 10px" cg-busy="{promise:loadRecordPromise,message:'加载中',backdrop:false}">
+    <div class="row" style="margin-top: 5px" cg-busy="{promise:loadRecordPromise,message:'加载中',backdrop:false}">
         <div class="panel-group" role="tablist" aria-multiselectable="true">
             <div class="panel panel-default">
                 <div class="panel-heading row" role="tab">

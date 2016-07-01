@@ -34,7 +34,7 @@ login.controller('LoginCtrl', function ($scope, $cookieStore, $timeout, $http, $
                     $cookieStore.put("USER_TYPE",data.type);
                     $cookieStore.put("USER_NAME",data.userName);
                     if(data.type==1){
-                        $location.path("/main/devicelist");
+                        $location.path("/main/devicelocation");
                     }else{
                         $location.path("/main/devicelocation")
                     }

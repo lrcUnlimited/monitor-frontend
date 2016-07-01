@@ -6,7 +6,7 @@ addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStor
     var accountId = $cookieStore.get("USER_ID");
     var accountType = $cookieStore.get("USER_TYPE");
     $scope.userName="";
-
+    $scope.passWord="";
     $scope.userType = 0;
     $scope.addUser = function () {
         if (accountId && accountType == 1) {
@@ -105,7 +105,6 @@ addUserModule.controller("AddUserCtrl", function ($scope, $location, $cookieStor
             var accountId = $cookieStore.get("USER_ID");
             elem.on('blur', function (evt) {
                 scope.$apply(function () {
-
                     $http.get(HTTP_BASE+"user/e_queryUser?accountId=" + accountId + '&userName=' + elem.val())
                         .success(function (data) {
                             if (data) {

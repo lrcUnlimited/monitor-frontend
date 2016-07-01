@@ -186,7 +186,7 @@ userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore,
                 var index = 0;
                 for (var j in user) {
                     if (j == 'userName' || j == 'note') {
-                        user_array[index++] = lineWrap(user[j], 10);
+                        user_array[index++] = lineWrap(user[j], 8);
                     }
                     if (j == 'userPhone') {
                         user_array[index++] = user[j];
@@ -243,13 +243,13 @@ userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore,
                 },
                 header: {
                     columns: [
-                        {text: "用户列表", alignment: 'right',margin: [ 0, 20, 0, 0 ]},
-                        {text: '打印时间:' + $scope.dateFilter(new Date(), 'yyyy-MM-dd HH:mm:ss'), alignment: 'right'}
+                        {text: '打印时间:' + $scope.dateFilter(new Date(), 'yyyy-MM-dd HH:mm:ss'), alignment: 'right',margin: [ 0, 15, 0, 0 ]}
                     ]
                 },
                 footer: function(currentPage, pageCount) { return {text:"第"+currentPage.toString()+"页",alignment: 'center'}; },
 
                 content: [
+                    {text: "用户列表", alignment: 'center'},
                     {
                         table: {
                             headerRows: 1,

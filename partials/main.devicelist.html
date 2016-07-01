@@ -1,5 +1,10 @@
-<div style="margin-left:20px;margin-top: 20px; ">
-    <div class="col-md-12" style="float: right">
+<div style="margin-left:10px;">
+    <div class="page-title" style="margin-bottom: 10px;margin-top: 10px">
+        <div class="title_left" >
+            <h3 style="font-weight:bold;">设备操作</h3>
+        </div>
+    </div>
+    <div class="col-md-12" style="float: right;display: inline">
         <button type="button"  class="btn btn-primary" style="height: 30px;float: right" ng-click="timerRefresh()">自动刷新</button>
         <select  style="height: 30px; float: right;position: relative;right: 5px"  ng-model="timerDefine">
             <option value="1">手动刷新</option>
@@ -8,35 +13,35 @@
             <option value="1800">30分钟</option>
         </select>
     </div>
-    <form class="form-inline" ng-show="pdtOnSale[0]||pdtOnSale[1]||pdtOnSale[2]">
+    <form class="form-inline" ng-show="pdtOnSale[0]||pdtOnSale[1]||pdtOnSale[2]" >
         <div class="form-group">
             <label>设备名</label>
-            <input type="text" class="form-control" id="searchDeviceName" name="searchDeviceName" ng-model="searchDeviceName">
+            <input type="text" style="width: 135px" class="form-control" id="searchDeviceName" name="searchDeviceName" ng-model="searchDeviceName">
         </div>
         <div class="form-group">
-            <label>租赁方</label>
-            <input type="text" class="form-control" id="searchLessName" name="searchLessName" ng-model="searchLessName">
+            <label>租凭商</label>
+            <input type="text" style="width: 135px" class="form-control" id="searchLessName" name="searchLessName" ng-model="searchLessName">
         </div>
-        <div class="form-group">
-            <label>录入时间</label>
-            <div class="input-group date" id="startdatepicker">
-                <input class="form-control" type="text"   placeholder="开始日期" id="startSearchDate">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
-            <div class="input-group date" id="enddatepicker">
-                <input class="form-control" type="text"   placeholder="截止日期" id="endSearchDate">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
-            </div>
-        </div>
+        <!--<div class="form-group">-->
+            <!--<label>录入时间</label>-->
+            <!--<div class="input-group date" id="startdatepicker">-->
+                <!--<input class="form-control" type="text"   placeholder="开始日期" id="startSearchDate">-->
+                <!--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>-->
+            <!--</div>-->
+            <!--<div class="input-group date" id="enddatepicker">-->
+                <!--<input class="form-control" type="text"   placeholder="截止日期" id="endSearchDate">-->
+                <!--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>-->
+            <!--</div>-->
+        <!--</div>-->
 
         <div class="form-group">
             <label>有效期</label>
             <div class="input-group date" id="startvaliddatepicker">
-                <input class="form-control" type="text"   placeholder="开始日期" id="startValidSearchDate">
+                <input class="form-control" style="width: 135px" type="text"   placeholder="开始日期" id="startValidSearchDate">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
             <div class="input-group date" id="endvaliddatepicker">
-                <input class="form-control" type="text"   placeholder="截止日期" id="endValidSearchDate">
+                <input class="form-control" style="width: 135px" type="text"   placeholder="截止日期" id="endValidSearchDate">
                 <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
             </div>
             <button type="button"  class="btn btn-primary" ng-click="searchDevice()">搜索</button>
@@ -61,7 +66,7 @@
 
 
     <div class="clearfix"></div>
-    <div class="row" cg-busy="{promise:loadDevicePromise,message:'加载中',backdrop:false}">
+    <div class="row" style="margin-top: 5px;margin-left: 0px" cg-busy="{promise:loadDevicePromise,message:'加载中',backdrop:false}">
         <ul class="nav nav-tabs">
             <li role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a ng-click="allPdtList(0)">正常设备</a>
             </li>
@@ -78,14 +83,16 @@
         <div class="panel-group">
             <div class="panel panel-default" ng-show="!pdtOnSale[4]">
                 <div class="panel-heading row">
+                    <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">租凭商</h4>
+                    </div>
+                    <div class="col-md-2" ng-show="deviceErrorType"><h4 class="panel-title" align="center">租赁商 </h4>
+                    </div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">设备名称</h4></div>
                     <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">设备有效期</h4>
                     </div>
                     <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">录入时间</h4>
                     </div>
-                    <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">租赁方</h4>
-                    </div>
-                    <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">租赁方电话</h4>
+                    <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">租凭商电话</h4>
                     </div>
                     <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">设备状态</h4>
                     </div>
@@ -95,13 +102,11 @@
                     </div>
                     <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">证书文件</h4>
                     </div>
-                    <div class="col-md-2" ng-show="deviceErrorType"><h4 class="panel-title" align="center">租赁方</h4>
+                    <div class="col-md-1" ng-show="deviceErrorType"><h4 class="panel-title" align="center">租赁商电话</h4>
                     </div>
-                    <div class="col-md-1" ng-show="deviceErrorType"><h4 class="panel-title" align="center">租赁方电话</h4>
+                    <div class="col-md-1" ng-show="deviceErrorType"><h4 class="panel-title" align="center">开始时间</h4>
                     </div>
-                    <div class="col-md-1" ng-show="deviceErrorType"><h4 class="panel-title" align="center">异常开始时间</h4>
-                    </div>
-                    <div class="col-md-1" ng-show="deviceErrorType"><h4 class="panel-title" align="center">异常截止时间</h4>
+                    <div class="col-md-1" ng-show="deviceErrorType"><h4 class="panel-title" align="center">截止时间</h4>
                     </div>
                     <div class="col-md-1" ng-show="deviceErrorType"><h4 class="panel-title" align="center">异常次数</h4>
                     </div>
@@ -113,12 +118,12 @@
 
             <div class="panel panel-default" ng-show="!deviceErrorType&&!pdtOnSale[4]" ng-repeat="device in deviceList">
                 <div class="panel-heading row" role="tab">
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{device.lesseeName}}</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center"><a href=""
                                                                                     ng-click="getDeviceHisDataById(device.deviceId,device.deviceName)">
                         {{device.deviceName}}</a></h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{device.validTime | date:'yyyy-MM-d HH:mm:ss'}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{device.regTime | date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
-                    <div class="col-md-2"><h4 class="panel-title" align="center">{{device.lesseeName}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{device.lesseePhone}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center" >{{device.deviceStatus |deviceStatusFilter}}</h4></div>
 
@@ -132,7 +137,7 @@
                     </div>
                     <div class="col-md-1" ng-show="!deviceManageType">
                         <h4 class="panel-title" align="center">
-                            <button class="btn btn-success"
+                            <button class="btn btn-primary"
                                     ng-click="modify(device.deviceId,device.deviceName,device.validTime)" loading="">
                                 增加有效期
                             </button>
@@ -140,9 +145,9 @@
                     </div>
                     <div class="col-md-2">
                         <h4 class="panel-title" align="center">
-                            <button class="btn btn-success" loading="" ng-click="downloadFile(device.deviceId)">下载
+                            <button class="btn btn-primary" loading="" ng-click="downloadFile(device.deviceId)">下载
                             </button>
-                            <button class="btn btn-primary" ng-disabled="device.updateCRT" ng-click="updateDeviceCRT(device.deviceId)">更新
+                            <button class="btn btn-success" ng-disabled="device.updateCRT" ng-click="updateDeviceCRT(device.deviceId)">更新
                             </button>
                         </h4>
                     </div>
@@ -153,10 +158,10 @@
 
             <div class="panel panel-default" ng-show="deviceErrorType&&pdtOnSale[3]" ng-repeat="deviceError in deviceErrorList">
                 <div class="panel-heading row" role="tab">
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{deviceError.lesseeName}}</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center"><a href=""
                                                                                     ng-click="getDeviceHisDataById(deviceError.deviceId,deviceError.deviceName)">
                         {{deviceError.deviceName}}</a></h4></div>
-                    <div class="col-md-2"><h4 class="panel-title" align="center">{{deviceError.lesseeName}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{deviceError.lesseePhone}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{deviceError.startTime |
                         date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
