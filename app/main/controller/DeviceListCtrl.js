@@ -252,7 +252,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
                     user_array[index++] = user[j];
                 }
                 if (j == 'deviceName' || j == 'lesseeName') {
-                    user_array[index++] = lineWrap(user[j], 6);
+                    user_array[index++] = lineWrap(user[j], 9);
                 }
                 if (j == 'deviceStatus') {
                     if (user[j] == 0) {
@@ -327,12 +327,14 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             },
             header: {
                 columns: [
-                    {text: '打印时间:' + $scope.dateFilter(new Date(), 'yyyy-MM-dd HH:mm:ss'), alignment: 'right',margin: [ 0, 15, 0, 0 ]}
+                    {text: '打印时间:' + $scope.dateFilter(new Date(), 'yyyy-MM-dd'), alignment: 'right',margin: [ 0, 15, 20, 0 ]}
                 ]
             },
             footer: function(currentPage, pageCount) { return {text:"第"+currentPage.toString()+"页",alignment: 'center'}; },
             content: [
                 {text: headerName, alignment: 'center',margin: [ 0, 0, 0, 0 ]},
+                {text: "\n", alignment: 'center',margin: [ 0, 0, 0, 0 ]},
+
                 {
                     table: {
                         headerRows: 1,

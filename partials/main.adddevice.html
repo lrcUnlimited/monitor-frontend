@@ -23,15 +23,15 @@
                                 </div>
                         </div>
                         <div class="col-md-6 field-box">
-                            <label>租赁方:</label>
+                            <label>租赁商:</label>
                             <input class="form-control" type="text" placeholder="最多输入20个字符" maxlength="20" name="lesseeName" required ng-model="lesseeName"/>
                         </div>
                         <div class="col-md-6 field-box">
-                            <label>租赁方电话:</label>
+                            <label>租赁商电话:</label>
                             <input class="form-control" type="text"
                                    name="lesseePhone" ng-pattern="/^[1][3458][0-9]{9}$/"required ng-model="lesseePhone"/>
                             <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
-                                  ng-show="deviceadd.lesseePhone.$error.pattern">请输入正确的手机号码</span>
+                                  ng-show="deviceadd.lesseePhone.$error.pattern">请输入正确号码</span>
                              <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;"
                                    ng-show="deviceadd.lesseePhone.required">*必填项</span>
                         </div>
