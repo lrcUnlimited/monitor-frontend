@@ -13,6 +13,11 @@ h1, h2, h3, h4, h5 {
   line-height: inherit;
   color: #29323d;
 }
+h3 {
+  margin: 25px 0px 0px 25px;
+  font-family: "Microsoft YaHei" ! important;
+  font-weight:bold;
+}
 h1 small, h2 small, h3 small, h4 small, h5 small {
   margin-left: 15px;
   font-style: italic;
@@ -370,7 +375,7 @@ input.search {
   float: right;
   top: 5px;
   font-size: 11px;
-  color: #686868;
+  color: #000000;
   width: initial;
   height: initial;
 }
@@ -396,7 +401,7 @@ input.search {
 #sidebar-nav #dashboard-menu ul.submenu a {
   font-weight: normal;
   font-size: 13px;
-  color: #4c535a;
+  color: #04294F;
   text-decoration: none;
   display: block;
   margin-bottom: 7px;
