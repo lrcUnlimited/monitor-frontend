@@ -30,15 +30,20 @@ h2 {
     font-size: 18px;
     font-weight: 400;
 }
-.hand {
+a.hand {
     cursor: pointer;
-    background-color: #1E8BA0;
-    color: #ffffff;
+    background-color: #ffffff;
+    color: #1E8BA0;
+
 }
 
-.hand:hover{
-    background-color: #1E8BA0;
-    color: #ffffff;
+a.hand:hover{
+    background-color: #ffffff;
+    color: #1E8BA0;
+}
+a.hand:visited{
+    background-color:#ffffff ;
+    color: #1E8BA0;
 }
 
 .danger{
