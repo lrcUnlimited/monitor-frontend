@@ -1,10 +1,12 @@
-body {
+html, body {
   font-family: 'Open Sans', sans-serif;
   background-color: #f7f7f7;
   position: relative;
   margin: 0px;
   font-size: 12px;
   padding: 0px;
+    height: 100%;
+    width: 100%;
   /*-webkit-font-smoothing: antialiased;*/
 }
 
