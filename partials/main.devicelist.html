@@ -1,10 +1,11 @@
-<div style="margin-left:10px;">
-    <div class="page-title" style="margin-bottom: 10px;margin-top: 10px">
+<div style="margin-left:0px;">
+    <div style="background:url('../img/deciveloaction.png');">
+    <div class="page-title" style="padding-bottom: 10px;padding-top: 10px">
         <div class="title_left" >
             <h3 style="font-weight:bold;">设备操作</h3>
         </div>
     </div>
-    <div class="col-md-12" style="float: right;display: inline">
+    <div class="col-md-12" style="background:url('../img/deciveloaction.png');float: right;display: inline">
         <button type="button"  class="btn btn-primary" style="height: 30px;float: right" ng-click="timerRefresh()">自动刷新</button>
         <select  style="height: 30px; float: right;position: relative;right: 5px"  ng-model="timerDefine">
             <option value="1">手动刷新</option>
@@ -13,7 +14,8 @@
             <option value="1800">30分钟</option>
         </select>
     </div>
-    <form class="form-inline" ng-show="pdtOnSale[0]||pdtOnSale[1]||pdtOnSale[2]" >
+    </div>
+    <form style="background:url('../img/deciveloaction.png');padding-bottom: 5px;" class="form-inline" ng-show="pdtOnSale[0]||pdtOnSale[1]||pdtOnSale[2]" >
         <div class="form-group">
             <label>设备名</label>
             <input type="text" style="width: 135px" class="form-control" id="searchDeviceName" name="searchDeviceName" ng-model="searchDeviceName">
