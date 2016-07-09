@@ -1,13 +1,14 @@
-<style>
-    body {
+<!--<style>-->
+    <!--body {-->
 
-        background: url("../img/bgs/signin.png") no-repeat center center fixed;
-        background-size: 100% 100%;
-    }
-</style>
+        <!--background: url("../img/bgs/signin.png") no-repeat center center fixed;-->
+        <!--background-size: 100% 100%;-->
+    <!--}-->
+<!--</style>-->
 <div class="login-wrapper"  style="margin-top: 100px">
     <!--<img src="../img/bgs/1-denglu.png" height="100%" width="100%"/>-->
-    <!--<div class="box" >-->
+    <div class="box" >
+        <h3 style="margin:0 auto; font-weight: normal">登录</h3>
         <div class="content-wrap" cg-busy="{promise:loginPromise,message:'加载中',backdrop:false}">
             <div style="width: 200px;margin: 10px auto 10px auto">
             <form action="#" method="post">
@@ -17,9 +18,9 @@
                 <br><br/>
                 <input class="form-control" style="margin-bottom: 30px;" type="password" name="passWord" ng-model="passWord" placeholder="密码">
 
-                <a class="btn-glow primary login"  ng-click="checkSubmit()" ng-enter="checkSubmit()"  loading="">登录</a>
+                <a class="btn btn-primary login"  ng-click="checkSubmit()" ng-enter="checkSubmit()"  loading="">登录</a>
             </form>
             </div>
         </div>
-    <!--</div>-->
+    </div>
 </div>
