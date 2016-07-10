@@ -14,7 +14,9 @@ var myApp = angular.module('monitor-frontend', [
     "monitor-frontend.commandListModule",
     "monitor-frontend.addDeviceModule",
     "monitor-frontend.deviceListModule",
-    "monitor-frontend.deviceLocationModule"
+    "monitor-frontend.deviceLocationModule",
+    "monitor-frontend.deviceBarModule",
+    "monitor-frontend.devicePieModule"
 ]);
 
 myApp.constant('HTTP_BASE', 'http://localhost:8080/monitor/')
@@ -61,6 +63,14 @@ myApp.constant('HTTP_BASE', 'http://localhost:8080/monitor/')
                 templateUrl: "../partials/main.devicelocation.html",
                 controller: "DeviceLocationCtrl",
                 cache: false
+            }).state('main.devicebar', {
+                url: "/devicebar",
+                templateUrl: "../partials/main.devicebar.html",
+                controller: "DeviceBarCtrl"
+            }).state('main.devicepie', {
+                url: "/devicepie",
+                templateUrl: "../partials/main.devicepie.html",
+                controller: "DevicePieCtrl"
             });
     }).factory('authHttpResponseInterceptor', ['$rootScope', '$q', '$location', '$cookieStore', function ($rootScope, $q, $location, $cookieStore) {
         //拦截器配置
