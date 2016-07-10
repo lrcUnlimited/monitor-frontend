@@ -9,15 +9,15 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                 type: 'column'
             },
             title: {
-                text: '图标示例'
+                text: '各省结点分布'
             },
             xAxis: {
-                categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                categories:['北京','天津','重庆','上海市','河北','山西','辽宁','吉林','黑龙江','江苏','浙江','安徽','福建','江西','山东','河南','湖北','湖南','广东','海南省','四川省','贵州省','云南省','陕西省','甘肃省','青海省','广西','西藏','宁夏','新疆','香港','澳门']
             },
             yAxis: {
                 min: 0,
                 title: {
-                    text: 'Total fruit consumption'
+                    text: '各省结点总数'
                 },
                 stackLabels: {
                     enabled: true,
@@ -54,15 +54,12 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                     }
                 }
             },
-            series: [{
-                name: 'John',
-                data: [5, 3, 4, 7, 2]
+            series: [ {
+                name: '在线',
+                data: [2, 2, 3, 2, 1,2, 2, 3, 2, 1,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3]
             }, {
-                name: 'Jane',
-                data: [2, 2, 3, 2, 1]
-            }, {
-                name: 'Joe',
-                data: [3, 4, 4, 2, 5]
+                name: '离线',
+                data: [3, 4, 4, 2, 5,3, 4, 4, 2, 5,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3]
             }]
         });
     }
