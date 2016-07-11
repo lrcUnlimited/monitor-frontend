@@ -1,86 +1,129 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml">
-<head>
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-    <title>如何让DIV固定在页面的某个位置而不随着滚动条随意滚动</title>
-    <style type="text/css">
+<style type="text/css">
 
-        html,body {
-
-            overflow:hidden;
-
-            margin:0px;
-
-            width:100%;
-
-            height:100%;
-
-        }/**把body中的所有信息给隐藏了**/
-
-        .virtual_body {
-
-            width:100%;
-
-            height:100%;
-
-            overflow-y:scroll;
-
-            overflow-x:auto;
-
-        }/**用一个层来模仿body**/
-
-        .fixed_div {
+        #fixed_div {
 
             position:absolute;
-            z-index:998;
+            z-index:2008;
             top:0px;
             min-width:1090.91px;
-            height:40px;
+            height:300px;
             background:#e5e5e5;
 
         }/**用定位来控制层的位置**/
 
+        tr th{
+            width: 20%;
+            text-align: center;
+        }
+        tr td{
+            width: 20%;
+            text-align: center;
+        }
     </style>
-</head>
 
-<body>
+
 <div class="fixed_div">
-<div id="pieContainerOne" style="min-width:50%;height:300px;float:left;margin:0px;pargin:0px;display: inline;">
+    <div id="pieContainerOne" style="min-width:50%;height:300px;float:left;margin:0px;pargin:0px;display: inline;">
 
+    </div>
+
+    <div id="pieContainerTwo" style="min-width:50%;height:300px;float:right;margin:0px;padding:0px;display: inline;">
+
+    </div>
+    <table class="table table-bordered" style="min-width:1000px;position: relative;margin:0px;padding:0px;">
+        <thead>
+        <tr>
+            <th >租赁商</th>
+            <th >设备总数</th>
+            <th >正常设备数</th>
+            <th >欠费设备数</th>
+            <th>即将欠费设备数</th>
+        </tr>
+        </thead>
+        </table>
 </div>
 
-<div id="pieContainerTwo" style="min-width:50%;height:300px;float:right;margin:0px;pargin:0px;display: inline;">
-
+<div style="min-width:1000px;height:200px;overflow: scroll;overflow-x:hidden;overflow-y:hidden;position: relative;margin:0px;padding:0px;">
+    <table class="table table-bordered">
+        <tbody>
+        <tr>
+            <td >xx</td>
+            <td >10</td>
+            <td >7</td>
+            <td >2</td>
+            <td >1</td>
+        </tr>
+        <tr>
+            <td>yy</td>
+            <td>12</td>
+            <td>7</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>zz</td>
+            <td>9</td>
+            <td>7</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>yy</td>
+            <td>12</td>
+            <td>7</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>zz</td>
+            <td>9</td>
+            <td>7</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>yy</td>
+            <td>12</td>
+            <td>7</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
+        </tbody>
+        </table>
 </div>
-   <table class="table table-bordered">
-    <thead>
-    <tr>
-        <th>租赁商</th>
-        <th>设备总数</th>
-        <th>正常设备数</th>
-        <th>欠费设备数</th>
-        <th>即将欠费设备数</th>
-    </tr>
-    </thead>
-    </table>
-</div>
 
-<!--<div class="virtual_body" style="min-width:1090.91px;height:1000px;margin-top:600px;pargin:0px;">-->
-    <!--是德国德国的说法是对国家考试的话鬼哭狼嚎似的进攻了但是开发技术的雷锋精神的；理科就的两款手机法律的快捷方式六度空间-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br/>-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
-    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
-<!--</div>-->
-</body>
-</html>
+<!--<script>-->
+    <!--window.onload = function() {-->
+        <!--// 监听鼠标滑轮-->
+        <!--var mousewheelevt = (/Firefox/i.test(navigator.userAgent))-->
+                <!--? "DOMMouseScroll" : "mousewheel";-->
+        <!--if(document.attachEvent) {-->
+            <!--document.attachEvent("on" + mousewheelevt, function(e){-->
+                <!--mousewheel_event(e.wheelDelta);-->
+            <!--});-->
+        <!--}-->
+        <!--else if(document.addEventListener) {-->
+            <!--document.addEventListener(mousewheelevt, function(e){-->
+                <!--mousewheel_event(e.detail);-->
+            <!--}, false);-->
+        <!--}-->
+
+        <!--// 设置每次滚动长度，单位 px-->
+        <!--var scroll_width = 100;-->
+
+        <!--function mousewheel_event(delta) {-->
+            <!--// 滑轮向下滚动，滚动条向右移动，scrollleft+-->
+            <!--if(delta > 0) {-->
+                <!--document.getElementsByTagName("html")[0].scrollLeft-->
+                        <!--+= scroll_width;-->
+            <!--}-->
+            <!--// 滑轮向上滚动，滚动条向座移动，scrollleft- -->
+            <!--else {-->
+                <!--document.getElementsByTagName("html")[0].scrollLeft-->
+                        <!-&#45;&#45;= scroll_width;-->
+            <!--}-->
+        <!--}-->
+    <!--};-->
+<!--</script>-->
 
 
