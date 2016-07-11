@@ -3,6 +3,7 @@
  */
 var devicePieModule = angular.module("monitor-frontend.devicePieModule", ['ui.router']);
 devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state, $filter, $timeout, $interval, HTTP_BASE) {
+
     function showPieChart() {
         $('#pieContainerOne').highcharts({
             chart: {
