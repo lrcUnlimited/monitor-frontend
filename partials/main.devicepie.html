@@ -1,3 +1,86 @@
-<div id="pieContainer" style="min-width:700px;height:400px">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>如何让DIV固定在页面的某个位置而不随着滚动条随意滚动</title>
+    <style type="text/css">
+
+        html,body {
+
+            overflow:hidden;
+
+            margin:0px;
+
+            width:100%;
+
+            height:100%;
+
+        }/**把body中的所有信息给隐藏了**/
+
+        .virtual_body {
+
+            width:100%;
+
+            height:100%;
+
+            overflow-y:scroll;
+
+            overflow-x:auto;
+
+        }/**用一个层来模仿body**/
+
+        .fixed_div {
+
+            position:absolute;
+            z-index:998;
+            top:0px;
+            min-width:1090.91px;
+            height:40px;
+            background:#e5e5e5;
+
+        }/**用定位来控制层的位置**/
+
+    </style>
+</head>
+
+<body>
+<div class="fixed_div">
+<div id="pieContainerOne" style="min-width:50%;height:300px;float:left;margin:0px;pargin:0px;display: inline;">
 
 </div>
+
+<div id="pieContainerTwo" style="min-width:50%;height:300px;float:right;margin:0px;pargin:0px;display: inline;">
+
+</div>
+   <table class="table table-bordered">
+    <thead>
+    <tr>
+        <th>租赁商</th>
+        <th>设备总数</th>
+        <th>正常设备数</th>
+        <th>欠费设备数</th>
+        <th>即将欠费设备数</th>
+    </tr>
+    </thead>
+    </table>
+</div>
+
+<!--<div class="virtual_body" style="min-width:1090.91px;height:1000px;margin-top:600px;pargin:0px;">-->
+    <!--是德国德国的说法是对国家考试的话鬼哭狼嚎似的进攻了但是开发技术的雷锋精神的；理科就的两款手机法律的快捷方式六度空间-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br/>-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
+    <!--<br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br /><br />-->
+<!--</div>-->
+</body>
+</html>
+
+

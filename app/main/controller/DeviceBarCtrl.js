@@ -56,9 +56,11 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
             },
             series: [ {
                 name: '在线',
+                color:'RGB(144,237,125)',
                 data: [2, 2, 3, 2, 1,2, 2, 3, 2, 1,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3]
             }, {
                 name: '离线',
+                color:'#ff2E33',
                 data: [3, 4, 4, 2, 5,3, 4, 4, 2, 5,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3, 4, 7, 2,5, 3]
             }]
         });

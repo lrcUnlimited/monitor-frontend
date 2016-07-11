@@ -4,14 +4,50 @@
 var devicePieModule = angular.module("monitor-frontend.devicePieModule", ['ui.router']);
 devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state, $filter, $timeout, $interval, HTTP_BASE) {
     function showPieChart() {
-        $('#pieContainer').highcharts({
+        $('#pieContainerOne').highcharts({
             chart: {
                 plotBackgroundColor: null,
                 plotBorderWidth: null,
                 plotShadow: false
             },
             title: {
-                text: '饼图示例'
+                text: '在线（离线）百分比'
+            },
+            tooltip: {
+                pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+            },
+            plotOptions: {
+                pie: {
+                    allowPointSelect: true,
+                    cursor: 'pointer',
+                    dataLabels: {
+                        enabled: false
+                    },
+                    showInLegend: true
+                }
+            },
+            series: [{
+                type: 'pie',
+                name: 'Browser share',
+                data: [
+                    {
+                        name: '在线',
+                        y: 55.0,
+                        sliced: true,
+                        selected: true
+                    },
+                    ['离线', 45.0],
+                ]
+            }]
+        });
+        $('#pieContainerTwo').highcharts({
+            chart: {
+                plotBackgroundColor: null,
+                plotBorderWidth: null,
+                plotShadow: false
+            },
+            title: {
+                text: '欠费率'
             },
             tooltip: {
                 pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
