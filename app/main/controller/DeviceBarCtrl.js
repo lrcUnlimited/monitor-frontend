@@ -7,7 +7,6 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
     var type = $cookieStore.get("USER_TYPE");
     if (accountId) {
         function showBarChar() {
-            pro
             $http.get(HTTP_BASE + 'device/e_queryDeviceStatus?accountId=' + accountId + '&type=' +　type)
                 .success(function (data) {
                     console.log(data);
