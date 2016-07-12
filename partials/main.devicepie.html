@@ -1,41 +1,44 @@
 <style type="text/css">
-    tr th{
-        width: 20%;
-        text-align: center;
-    }
-    tr td{
-        width: 20%;
-        text-align: center;
-    }
-</style>
 
 
-<div>
-    <div id="pieContainerOne" style="min-width:49%;height:300px;float:left;margin:0px;pargin:0px;display: inline;">
+        tr th{
+            width: 20%;
+            text-align: center;
+        }
+        tr td{
+            width: 20%;
+            text-align: center;
+        }
+    </style>
+
+
+<div >
+   <div id="pieContainerOne" style="position:absolute;z-index:2008;top:0px;min-width:50%;height:300px;float:left;margin:0px;pargin:0px;display: inline;">
 
     </div>
 
-    <div id="pieContainerTwo" style="min-width:49%;height:300px;float:right;margin:0px;padding:0px;display: inline;">
+    <div id="pieContainerTwo" style="min-width:50%;height:300px;float:right;margin:0px;padding:0px;display: inline;">
 
     </div>
     <table class="table table-bordered" style="min-width:1000px;position: relative;margin:0px;padding:0px;">
         <thead>
         <tr>
-            <th>设备商</th>
-            <th>设备总数</th>
-            <th>正常设备总数</th>
-            <th>欠费设备总数</th>
-            <th>即将欠费设备总数</th>
+            <th >租赁商</th>
+            <th >设备总数</th>
+            <th >正常设备数</th>
+            <th >欠费设备数</th>
+            <th>即将欠费设备数</th>
         </tr>
         </thead>
-    </table>
-</div>
+        </table>
+    </div>
 
-<div style="min-width:1000px;height:200px;overflow: scroll;overflow-x:hidden;overflow-y:hidden;position: relative;margin:0px;padding:0px;">
-    <table class="table table-bordered">
+<div id="A1" style="min-width:1000px;height:200px;overflow: scroll;overflow-x:hidden;overflow-y:hidden;position: relative;margin:0px;padding:0px;">
+    <div id="A2" style="min-width:1075px;height:200px;overflow: scroll;overflow-x:hidden;overflow-y:auto;position: relative;margin:0px;padding:0px;">
+            <table class="table table-hover" style="min-width:1000px;position: relative;margin:0px;padding:0px;">
         <tbody>
         <tr>
-            <td></td>
+            <td >xx</td>
             <td >10</td>
             <td >7</td>
             <td >2</td>
@@ -76,8 +79,59 @@
             <td>2</td>
             <td>3</td>
         </tr>
+        <tr>
+            <td>zz</td>
+            <td>9</td>
+            <td>7</td>
+            <td>1</td>
+            <td>1</td>
+        </tr>
+        <tr>
+            <td>yy</td>
+            <td>12</td>
+            <td>7</td>
+            <td>2</td>
+            <td>3</td>
+        </tr>
         </tbody>
-    </table>
+        </table>
+        </div>
+    </div>
 </div>
+
+
+<!--<script>-->
+    <!--window.onload = function() {-->
+        <!--// 监听鼠标滑轮-->
+        <!--var mousewheelevt = (/Firefox/i.test(navigator.userAgent))-->
+                <!--? "DOMMouseScroll" : "mousewheel";-->
+        <!--if(document.attachEvent) {-->
+            <!--document.attachEvent("on" + mousewheelevt, function(e){-->
+                <!--mousewheel_event(e.wheelDelta);-->
+            <!--});-->
+        <!--}-->
+        <!--else if(document.addEventListener) {-->
+            <!--document.addEventListener(mousewheelevt, function(e){-->
+                <!--mousewheel_event(e.detail);-->
+            <!--}, false);-->
+        <!--}-->
+
+        <!--// 设置每次滚动长度，单位 px-->
+        <!--var scroll_width = 100;-->
+
+        <!--function mousewheel_event(delta) {-->
+            <!--// 滑轮向下滚动，滚动条向右移动，scrollleft+-->
+            <!--if(delta > 0) {-->
+                <!--document.getElementsByTagName("html")[0].scrollLeft-->
+                        <!--+= scroll_width;-->
+            <!--}-->
+            <!--// 滑轮向上滚动，滚动条向座移动，scrollleft- -->
+            <!--else {-->
+                <!--document.getElementsByTagName("html")[0].scrollLeft-->
+                        <!-&#45;&#45;= scroll_width;-->
+            <!--}-->
+        <!--}-->
+    <!--};-->
+<!--</script>-->
 
 
