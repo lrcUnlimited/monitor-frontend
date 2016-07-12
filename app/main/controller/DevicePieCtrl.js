@@ -9,53 +9,24 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     offDevice = [];
     arrearagePercentageArray = [];
     if (accountId) {
-        function showPieChartOne() {
-            $('#pieContainerOne').highcharts({
-                chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie'
-                },
-                title: {
-                    text: '在线（离线）百分比'
-                },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                            }
-                        }
-                    }
-                },
-                series: [{
-                    name: 'Brands',
-                    colorByPoint: true,
-                    data: [
-                        onDevice,
-                        offDevice
-                    ]
-                }]
-            });
-        }
-
-        function showPieChart() {
-
-            $(function () {
-                $('#pieContainerTwo').highcharts({
+        $scope.showPieChartOne = function() {
+            $("#ContainerOne").css({
+                "display" : "block"
+            })
+            $("#ContainerTwo").css({
+                "display" : "none"
+            })
+            $("#ContainerThree").css({
+                "display" : "none"
+            })
+                $('#ContainerOne').highcharts({
                     chart: {
-                        plotBackgroundColor: null,
-                        plotBorderWidth: null,
-                        plotShadow: false,
-                        type: 'pie'
+                        type: 'pie',
+                        options3d: {
+                            enabled: true,
+                            alpha: 45,
+                            beta: 0
+                        }
                     },
                     title: {
                         text: '欠费率'
@@ -67,79 +38,212 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         pie: {
                             allowPointSelect: true,
                             cursor: 'pointer',
+                            depth: 35,
                             dataLabels: {
                                 enabled: true,
-                                format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                                style: {
-                                    color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                                }
+                                format: '{point.name}'
                             }
                         }
                     },
                     series: [{
-                        name: 'Brands',
-                        colorByPoint: true,
-                        data: [{
-                            name: 'Firefox',
-                            y: 56.33
-                        }, {
-                            name: 'Chrome',
-                            y: 24.03,
-                            sliced: true,
-                            selected: true
-                        }, {
-                            name: 'IE',
-                            y: 10.38
-                        }, {
-                            name: 'Safari',
-                            y: 4.77
-                        }, {
-                            name: 'Opera',
-                            y: 0.91
-                        }, {
-                            name: 'others',
-                            y: 0.2
-                        }]
+                        type: 'pie',
+                        name: 'Browser share',
+                        data: [
+                            ['Firefox',   45.0],
+                            ['IE',       26.8],
+                            {
+                                name: 'Chrome',
+                                y: 12.8,
+                                sliced: true,
+                                selected: true
+                            },
+                            ['Safari',    8.5],
+                            ['Opera',     6.2],
+                            ['Others',   0.7]
+                        ]
                     }]
                 });
-            });
-
         }
 
-        function showPieChartTwo() {
-            $('#pieContainerTwo').highcharts({
+        $scope.showPieChartTwo = function() {
+            $("#ContainerTwo").css({
+                "display" : "block"
+            })
+            $("#ContainerOne").css({
+                "display" : "none"
+            })
+            $("#ContainerThree").css({
+                "display" : "none"
+            })
+            $('#columnContainerOne').highcharts({
+
                 chart: {
-                    plotBackgroundColor: null,
-                    plotBorderWidth: null,
-                    plotShadow: false,
-                    type: 'pie'
+                    type: 'column',
+                    options3d: {
+                        enabled: true,
+                        alpha: 15,
+                        beta: 15,
+                        viewDistance: 25,
+                        depth: 40
+                    },
+                    marginTop: 80,
+                    marginRight: 40
                 },
+
                 title: {
-                    text: '欠费率'
+                    text: '前10名欠费率（低）'
                 },
-                tooltip: {
-                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+
+                xAxis: {
+                    categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
                 },
-                plotOptions: {
-                    pie: {
-                        allowPointSelect: true,
-                        cursor: 'pointer',
-                        dataLabels: {
-                            enabled: true,
-                            format: '<b>{point.name}</b>: {point.percentage:.1f} %',
-                            style: {
-                                color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
-                            }
-                        }
+
+                yAxis: {
+                    allowDecimals: false,
+                    min: 0,
+                    title: {
+                        text: '欠费率'
                     }
                 },
+
+                tooltip: {
+                    headerFormat: '<b>{point.key}</b><br>',
+                    pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'
+                },
+
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        depth: 40
+                    }
+                },
+
                 series: [{
-                    type: 'pie',
-                    name: 'Browser share',
-                    data: arrearagePercentageArray,
+                    name: 'John',
+                    data: [5, 3, 4, 7, 2],
+                    stack: 'male'
+                }, {
+                    name: 'Joe',
+                    data: [3, 4, 4, 2, 5],
+                    stack: 'male'
+                }, {
+                    name: 'Jane',
+                    data: [2, 5, 6, 2, 1],
+                    stack: 'female'
+                }, {
+                    name: 'Janet',
+                    data: [3, 0, 4, 4, 3],
+                    stack: 'female'
+                }]
+            });
+            $('#columnContainerTwo').highcharts({
+
+                chart: {
+                    type: 'column',
+                    options3d: {
+                        enabled: true,
+                        alpha: 15,
+                        beta: 15,
+                        viewDistance: 25,
+                        depth: 40
+                    },
+                    marginTop: 80,
+                    marginRight: 40
+                },
+
+                title: {
+                    text: '前10名欠费率（高）'
+                },
+
+                xAxis: {
+                    categories: ['Apples', 'Oranges', 'Pears', 'Grapes', 'Bananas']
+                },
+
+                yAxis: {
+                    allowDecimals: false,
+                    min: 0,
+                    title: {
+                        text: '欠费率'
+                    }
+                },
+
+                tooltip: {
+                    headerFormat: '<b>{point.key}</b><br>',
+                    pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'
+                },
+
+                plotOptions: {
+                    column: {
+                        stacking: 'normal',
+                        depth: 40
+                    }
+                },
+
+                series: [{
+                    name: 'John',
+                    data: [5, 3, 4, 7, 2],
+                    stack: 'male'
+                }, {
+                    name: 'Joe',
+                    data: [3, 4, 4, 2, 5],
+                    stack: 'male'
+                }, {
+                    name: 'Jane',
+                    data: [2, 5, 6, 2, 1],
+                    stack: 'female'
+                }, {
+                    name: 'Janet',
+                    data: [3, 0, 4, 4, 3],
+                    stack: 'female'
                 }]
             });
         }
+
+        $scope.showPieChartThree = function() {
+            $("#ContainerThree").css({
+                "display": "block"
+            })
+            $("#ContainerOne").css({
+                "display" : "none"
+            })
+            $("#ContainerTwo").css({
+                "display" : "none"
+            })
+        }
+        //function showPieChartTwo() {
+        //    $('#pieContainerTwo').highcharts({
+        //        chart: {
+        //            plotBackgroundColor: null,
+        //            plotBorderWidth: null,
+        //            plotShadow: false,
+        //            type: 'pie'
+        //        },
+        //        title: {
+        //            text: '欠费率'
+        //        },
+        //        tooltip: {
+        //            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+        //        },
+        //        plotOptions: {
+        //            pie: {
+        //                allowPointSelect: true,
+        //                cursor: 'pointer',
+        //                dataLabels: {
+        //                    enabled: true,
+        //                    format: '<b>{point.name}</b>: {point.percentage:.1f} %',
+        //                    style: {
+        //                        color: (Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black'
+        //                    }
+        //                }
+        //            }
+        //        },
+        //        series: [{
+        //            type: 'pie',
+        //            name: 'Browser share',
+        //            data: arrearagePercentageArray,
+        //        }]
+        //    });
+        //}
 
         function requestTotalNumOfDeviceStatus() {
             $http.get(HTTP_BASE + 'device/e_queryTotalNumOfDeviceStatus?accountId=' + accountId + '&type=' + type)
@@ -174,6 +278,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         requestLesseeDeviceInfo();
 
     }
+
 });
 
 
