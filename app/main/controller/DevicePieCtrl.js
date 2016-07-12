@@ -1,16 +1,47 @@
 /**
  * Created by li on 2016/7/10.
  */
-var devicePieModule = angular.module("monitor-frontend.devicePieModule", ['ui.router']);
+var devicePieModule = angular.module("monitor-frontend.devicePieModule", ['cgBusy','ui.router']);
 devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state, $filter, $timeout, $interval, HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");
     var type = $cookieStore.get("USER_TYPE");
     onDevice = [];
     offDevice = [];
     arrearagePercentageArray = [];
+    $scope.pdtOnSale = new Array(true, false, false);
+
     if (accountId) {
+    $scope.allPdtList = function (t) {
+        var i = 2;
+        while (i >= 0) {
+            $scope.pdtOnSale[i] = false;
+            i--;
+        }
+        $scope.pdtOnSale[t] = true;
+
+    }
+    $scope.alreadyPdtList = function (t) {
+        var i = 2;
+        while (i >= 0) {
+            $scope.pdtOnSale[i] = false;
+            i--;
+        }
+        $scope.pdtOnSale[t] = true;
+    }
+    $scope.alreadyPdtList = function (t) {
+        var i = 2;
+        while (i >= 0) {
+            $scope.pdtOnSale[i] = false;
+            i--;
+        }
+        $scope.pdtOnSale[t] = true;
+    }
+
         $scope.showPieChartOne = function() {
             $("#ContainerOne").css({
+                "display" : "block"
+            })
+            $("#ContainerOneMonthCheck").css({
                 "display" : "block"
             })
             $("#ContainerTwo").css({
@@ -63,6 +94,50 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         ]
                     }]
                 });
+            $('#pieContainerTwo').highcharts({
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 45,
+                        beta: 0
+                    }
+                },
+                title: {
+                    text: '欠费率'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: [
+                        ['Firefox',   45.0],
+                        ['IE',       26.8],
+                        {
+                            name: 'Chrome',
+                            y: 12.8,
+                            sliced: true,
+                            selected: true
+                        },
+                        ['Safari',    8.5],
+                        ['Opera',     6.2],
+                        ['Others',   0.7]
+                    ]
+                }]
+            });
         }
 
         $scope.showPieChartTwo = function() {
@@ -279,6 +354,6 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
 
     }
 
-});
+})
 
 
