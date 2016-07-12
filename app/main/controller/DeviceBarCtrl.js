@@ -10,9 +10,11 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
     offDevice = [];
     offAndArrearageDevice = [];
     resultArray = [];
+    $scope.searchType=3;
+    $scope.statisticClip = new Array(true, false);
     if (accountId) {
         function showBarChar() {
-            $('#container').highcharts({
+            $('#barChart').highcharts({
                 chart: {
                     type: 'column'
                 },
@@ -78,6 +80,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
             });
         }
 
+        //请求设备离线在线状态按省份分类的数据
         function requestInfo(){
             $http.get(HTTP_BASE + 'device/e_queryDeviceStatus?accountId=' + accountId + '&type=' +　type)
                 .success(function (data) {
@@ -109,12 +112,98 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
         }
         requestInfo();
 
+        //发送查询设备详细信息的请求
+        function requestDeviceDetailInfo(){
+            $http.get(HTTP_BASE + 'devicerecord/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3')
+                .success(function (data) {
+                    $scope.deviceDetailList = data.items;
+                    $scope.nowDeviceDetailTotalCount = data.totalCount;
+                    $('#page1').bootstrapPaginator({
+                        currentPage: 1,
+                        size: "normal",
+                        totalPages: data.totalPage,
+                        bootstrapMajorVersion: 3,
+                        onPageClicked: function (e, originalEvent, type, page) {
+                            $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=' + page + '&type=3')
+                                .success(function (data) {
+                                    $scope.deviceDetailList = data.items;
+                                    $scope.nowDeviceDetailTotalCount = data.totalCount;
+                                }).error(function (data) {
+                                    $.teninedialog({
+                                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                        content: data.message
+                                    });
+                                })
+                        }
+                    })
+                }).error(function (data) {
+                    $.teninedialog({
+                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                        content: data.message
+                    });
+                })
+        }
+
         $scope.showDeviceLocationBarChart = function () {
+            for(i = 0; i < 2; i++){
+                $scope.statisticClip[i] = false;
+            }
+            $scope.statisticClip[0] = true;
             requestInfo();
         }
 
+        //展示设备在线状况详细信息
         $scope.showDeviceLocationInfoDetail = function () {
-            requestInfo();
+            $("#barChart").html('');
+            for(i = 0; i < 2; i++){
+                $scope.statisticClip[i] = false;
+            }
+            $scope.statisticClip[1] = true;
+
+            requestDeviceDetailInfo()
+        }
+
+        $scope.searchProvice = "";
+        $scope.searchLessName = "";
+
+
+        //查找设备执行信息并返回分页
+        $scope.searchDeviceInfoDetail = function () {
+            var province =  encodeURI(encodeURI($scope.searchProvice));
+            var params = "&provice=" + province + "&searchLessName=" + $scope.searchLessName +
+                "&type=" + $scope.searchType;
+            console.log(params);
+            $http.get(HTTP_BASE + 'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
+                .success(function (data) {
+                    console.log(data);
+                    $scope.deviceDetailList = data.items;
+                    $scope.totolCount = data.totalCount;
+                    $scope.nowDeviceTotalCount = data.totalCount;
+                    $('#page1').bootstrapPaginator({
+                        currentPage: 1,
+                        size: "normal",
+                        totalPages: data.totalPage || 1,
+                        bootstrapMajorVersion: 3,
+                        numberOfPages: 5,
+                        onPageClicked: function (e, originalEvent, type, page) {
+                            $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=' + page + params)
+                                .success(function (data) {
+                                    $scope.deviceDetailList = data.items;
+                                    $scope.nowDeviceTotalCount = data.totalCount;
+                                }).error(function (data) {
+                                    $.teninedialog({
+                                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                        content: data.message
+                                    });
+                                })
+                        }
+                    })
+                }).error(function (data) {
+                    $.teninedialog({
+                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                        content: data.message
+                    });
+                })
         }
     }
 });
