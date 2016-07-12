@@ -8,6 +8,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
     province = [];
     onDevice = [];
     offDevice = [];
+    offAndArrearageDevice = [];
     resultArray = [];
     if (accountId) {
         function showBarChar() {
@@ -68,7 +69,11 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                 }, {
                     name: '离线',
                     color: '#ff2E33',
-                    data:offDevice
+                    data: offDevice
+                }, {
+                    name: '欠费',
+                    color: '#ffff93',
+                    data: offAndArrearageDevice
                 }]
             });
         }
@@ -76,14 +81,18 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
         function requestInfo(){
             $http.get(HTTP_BASE + 'device/e_queryDeviceStatus?accountId=' + accountId + '&type=' +　type)
                 .success(function (data) {
+                    province = [];
+                    onDevice = [];
+                    offDevice = [];
+                    offAndArrearageDevice = [];
                     for(i = 0; i < data.length; i++)
                     {
                         temp = data[i];
-                        resultArray[i] = [temp.province, temp.onDeviceNum, temp.offDeviceNum, temp.onDeviceNum + temp.offDeviceNum]
+                        resultArray[i] = [temp.province, temp.onDeviceNum, temp.offDeviceNum, temp.offAndArrearageDeviceNum,temp.onDeviceNum + temp.offDeviceNum]
                     }
 
                     resultArray.sort(function(a, b){
-                        return a[3] > b[3];
+                        return a[4] > b[4];
                     });
 
                     for(i = 0; i < resultArray.length; i++)
@@ -92,14 +101,20 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                         province.push(temp[0]);
                         onDevice.push(temp[1]);
                         offDevice.push(temp[2]);
+                        offAndArrearageDevice.push(temp[3]);
                     }
 
                     showBarChar();
                 });
         }
         requestInfo();
+
+        $scope.showDeviceLocationBarChart = function () {
+            requestInfo();
+        }
+
+        $scope.showDeviceLocationInfoDetail = function () {
+            requestInfo();
+        }
     }
-
-
-    //showBarChar();
 });
