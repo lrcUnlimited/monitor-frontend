@@ -5,14 +5,12 @@ var deviceBarModule = angular.module("monitor-frontend.deviceBarModule", ['ui.ro
 deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope, $cookieStore, $location, $state, $filter, $timeout, $interval, HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");
     var type = $cookieStore.get("USER_TYPE");
+    province = [];
+    onDevice = [];
+    offDevice = [];
+    resultArray = [];
     if (accountId) {
         function showBarChar() {
-            $http.get(HTTP_BASE + 'device/e_queryDeviceStatus?accountId=' + accountId + '&type=' +　type)
-                .success(function (data) {
-                    console.log(data);
-                });
-
-
             $('#container').highcharts({
                 chart: {
                     type: 'column'
@@ -21,7 +19,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                     text: '各省结点分布'
                 },
                 xAxis: {
-                    categories: ['北京', '天津', '重庆', '上海市', '河北', '山西', '辽宁', '吉林', '黑龙江', '江苏', '浙江', '安徽', '福建', '江西', '山东', '河南', '湖北', '湖南', '广东', '海南省', '四川省', '贵州省', '云南省', '陕西省', '甘肃省', '青海省', '广西', '西藏', '宁夏', '新疆', '香港', '澳门']
+                    categories: province
                 },
                 yAxis: {
                     min: 0,
@@ -60,20 +58,49 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                         dataLabels: {
                             enabled: true,
                             color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
-                        }
+                        },
                     }
                 },
                 series: [{
                     name: '在线',
                     color: 'RGB(144,237,125)',
-                    data: [2, 2, 3, 2, 1, 2, 2, 3, 2, 1, 5, 3, 4, 7, 2, 5, 3, 4, 7, 2, 5, 3, 4, 7, 2, 5, 3, 4, 7, 2, 5, 3]
+                    data: onDevice
                 }, {
                     name: '离线',
                     color: '#ff2E33',
-                    data: [3, 4, 4, 2, 5, 3, 4, 4, 2, 5, 5, 3, 4, 7, 2, 5, 3, 4, 7, 2, 5, 3, 4, 7, 2, 5, 3, 4, 7, 2, 5, 3]
+                    data:offDevice
                 }]
             });
         }
+
+        function requestInfo(){
+            $http.get(HTTP_BASE + 'device/e_queryDeviceStatus?accountId=' + accountId + '&type=' +　type)
+                .success(function (data) {
+                    console.log(data);
+                    for(i = 0; i < data.length; i++)
+                    {
+                        temp = data[i];
+                        resultArray[i] = [temp.province, temp.onDeviceNum, temp.offDeviceNum, temp.onDeviceNum + temp.offDeviceNum]
+                    }
+
+                    resultArray.sort(function(a, b){
+                        return a[3] > b[3];
+                    });
+
+                    for(i = 0; i < resultArray.length; i++)
+                    {
+                        temp = resultArray[i];
+                        province.push(temp[0]);
+                        onDevice.push(temp[1]);
+                        offDevice.push(temp[2]);
+                    }
+
+                    showBarChar();
+                });
+        }
+        requestInfo();
     }
-    showBarChar();
+
+
+    //showBarChar();
 });
