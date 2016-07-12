@@ -76,6 +76,9 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
         function requestInfo(){
             $http.get(HTTP_BASE + 'device/e_queryDeviceStatus?accountId=' + accountId + '&type=' +　type)
                 .success(function (data) {
+                    province = [];
+                    onDevice = [];
+                    offDevice = [];
                     for(i = 0; i < data.length; i++)
                     {
                         temp = data[i];
@@ -98,8 +101,13 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                 });
         }
         requestInfo();
+
+        $scope.showDeviceLocationBarChart = function () {
+            requestInfo();
+        }
+
+        $scope.showDeviceLocationInfoDetail = function () {
+            requestInfo();
+        }
     }
-
-
-    //showBarChar();
 });
