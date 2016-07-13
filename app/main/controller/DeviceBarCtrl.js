@@ -175,7 +175,6 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
             console.log(params);
             $http.get(HTTP_BASE + 'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
                 .success(function (data) {
-                    console.log(data);
                     $scope.deviceDetailList = data.items;
                     $scope.totolCount = data.totalCount;
                     $scope.nowDeviceTotalCount = data.totalCount;

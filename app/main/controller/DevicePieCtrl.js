@@ -318,6 +318,42 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         //requestArrearagePercentage();
         //requestLesseeDeviceInfo();
 
+        //请求按设备租赁商分类的设备信息
+        $scope.searchLesseeDeviceInfo = function () {
+            //var province =  encodeURI(encodeURI($scope.searchProvice));
+            var params = "";
+            console.log(params);
+            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformation?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
+                .success(function (data) {
+                    $scope.deviceDetailList = data.items;
+                    $scope.totolCount = data.totalCount;
+                    $scope.nowDeviceTotalCount = data.totalCount;
+                    $('#page1').bootstrapPaginator({
+                        currentPage: 1,
+                        size: "normal",
+                        totalPages: data.totalPage || 1,
+                        bootstrapMajorVersion: 3,
+                        numberOfPages: 5,
+                        onPageClicked: function (e, originalEvent, type, page) {
+                            $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformation?accountId=' + accountId + '&pageSize=8&pageNo=' + page + params)
+                                .success(function (data) {
+                                    $scope.deviceDetailList = data.items;
+                                    $scope.nowDeviceTotalCount = data.totalCount;
+                                }).error(function (data) {
+                                    $.teninedialog({
+                                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                        content: data.message
+                                    });
+                                })
+                        }
+                    })
+                }).error(function (data) {
+                    $.teninedialog({
+                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                        content: data.message
+                    });
+                })
+        }
     }
 
 })
