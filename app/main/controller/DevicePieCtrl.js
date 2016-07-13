@@ -223,6 +223,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         },
 
                         series: [{
+                            name:'租赁商',
                             data: arrearagePercentageArray
                         }]
                     });
@@ -283,6 +284,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         },
 
                         series: [{
+                            name:'租赁商',
                             data: arrearagePercentageArray,
                         }]
                     });
