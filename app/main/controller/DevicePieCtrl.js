@@ -83,11 +83,12 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 .success(function (data) {
                             console.log(data);
 
-                            var ArrearPercentageNum = [0, 0, 0, 0, 0, 0, 0, 0];
+                            ArrearPercentageNum = [0, 0, 0, 0, 0, 0, 0, 0];
+                            ArrearPercentageStatus = ['无欠费','0%-5%', '5%-10%', '10%-15%', '15%-20%', '20%-25%', '25%-30%', '>30%'];
 
                             for (i = 0; i < data.length; i++) {
                                 //console.log(data[i].percentage);
-                                if (data[i].percentage == 0) {
+                                if (data[i].percentage ==  parseFloat("0")) {
                                     ArrearPercentageNum[0] += 1;
                                 } else if ((data[i].percentage > parseFloat("0")) && (data[i].percentage < parseFloat("0.05"))) {
                                     ArrearPercentageNum[1] += 1;
@@ -104,7 +105,18 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                                 } else {
                                     ArrearPercentageNum[7] += 1;
                                 }
-                }
+                            }
+                            ArrearTemp = [];
+                            resultArrearageArray =[];
+                            for (i = 0; i < ArrearPercentageNum.length; i++) {
+                                ArrearTemp[i] = [ArrearPercentageStatus[i],ArrearPercentageNum[i]];
+                            }
+                            for (i = 0; i < ArrearTemp.length; i++) {
+                                if(ArrearTemp[i][1] != 0){
+                                    resultArrearageArray.push(ArrearTemp[i]);
+                                }
+                            }
+                            console.log(ArrearTemp);
                 $('#pieContainerTwo').highcharts({
                         chart: {
                             type: 'pie',
@@ -134,21 +146,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         series: [{
                             type: 'pie',
                             name: 'Browser share',
-                            data: [
-                                ['无欠费', ArrearPercentageNum[0]],
-                                ['0%-5%',  ArrearPercentageNum[1]],
-                                {
-                                    name: '5%-10%',
-                                    y:  ArrearPercentageNum[2],
-                                    sliced: true,
-                                    selected: true
-                                },
-                                ['10%-15%',  ArrearPercentageNum[3]],
-                                ['15%-20%',  ArrearPercentageNum[4]],
-                                ['20%-25%',  ArrearPercentageNum[5]],
-                                ['25%-30%', ArrearPercentageNum[6]],
-                                ['>30%', ArrearPercentageNum[7]]
-                            ]
+                            data: resultArrearageArray,
                         }]
                     });
                 });
