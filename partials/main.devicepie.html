@@ -31,7 +31,7 @@
         </div>
         <div class="form-group">
             <label>租赁商</label>
-            <input type="text" class="form-control" name="searchExceptionLessName" >
+            <input type="text" class="form-control" name="searchExceptionLessName" ng-model="searchExceptionLessName">
         </div>
         <button type="button"  class="btn btn-primary" ng-click="searchArrearageLesseeInfo()">搜索</button>
         <button type="button"  class="btn btn-primary">打印</button>
@@ -110,7 +110,7 @@
                     </table>
                 </div>
                 <div style="width:100%;height:200px;overflow: scroll;overflow-x:hidden;overflow-y:auto;position: relative;margin:0px;padding:0px;">
-                    <table class="table table-hover" style="min-width:100%;position: relative;margin:0px;padding:0px;">
+                    <table class="table table-bordered" style="min-width:100%;position: relative;margin:0px;padding:0px;">
                         <tbody ng-repeat="deviceInfo in deviceDetailList">
                         <tr>
                             <td >{{deviceInfo.percentage}}</td>
