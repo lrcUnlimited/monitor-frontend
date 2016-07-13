@@ -10,6 +10,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     arrearagePercentageArray = [];
     $scope.pdtOnSale = new Array(true, false, false);
     $scope.arrearagePercentage = 0;
+    $scope.arrearagePercentageType = -1;
     if (accountId) {
         $scope.alreadyPdtList = function (t) {
             var i = 2;
