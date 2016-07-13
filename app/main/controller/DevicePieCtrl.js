@@ -8,49 +8,34 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     onDevice = [];
     offDevice = [];
     arrearagePercentageArray = [];
-    $scope.pdtOnSale = new Array(false, false, false);
+    $scope.pdtOnSale = new Array(true, false, false);
 
     if (accountId) {
-    $scope.allPdtList = function (t) {
-        var i = 2;
-        while (i >= 0) {
-            $scope.pdtOnSale[i] = false;
-            i--;
-        }
-        $scope.pdtOnSale[t] = true;
+        $scope.allPdtList = function (t) {
+            var i = 2;
+            while (i >= 0) {
+                $scope.pdtOnSale[i] = false;
+                i--;
+            }
+            $scope.pdtOnSale[t] = true;
 
-    }
-    $scope.alreadyPdtList = function (t) {
-        var i = 2;
-        while (i >= 0) {
-            $scope.pdtOnSale[i] = false;
-            i--;
         }
-        $scope.pdtOnSale[t] = true;
-    }
-    $scope.alreadyPdtList = function (t) {
-        var i = 2;
-        while (i >= 0) {
-            $scope.pdtOnSale[i] = false;
-            i--;
+        $scope.alreadyPdtList = function (t) {
+            var i = 2;
+            while (i >= 0) {
+                $scope.pdtOnSale[i] = false;
+                i--;
+            }
+            $scope.pdtOnSale[t] = true;
         }
-        $scope.pdtOnSale[t] = true;
-    }
 
         $scope.showPieChartOne = function() {
-            $("#ContainerOne").css({
-                "display" : "block"
-            })
-            $("#ContainerOneMonthCheck").css({
-                "display" : "block"
-            })
-            $("#ContainerTwo").css({
-                "display" : "none"
-            })
-            $("#ContainerThree").css({
-                "display" : "none"
-            })
-                $('#pieContainerOne').highcharts({
+            alreadyPdtList(0);
+            showChartOnClipOne();
+        }
+        showChartOnClipOne();
+        function showChartOnClipOne(){
+            $('#pieContainerOne').highcharts({
                 chart: {
                     type: 'pie',
                     options3d: {
