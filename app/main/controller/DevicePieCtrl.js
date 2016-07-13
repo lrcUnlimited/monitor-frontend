@@ -28,14 +28,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         }
         $scope.pdtOnSale[t] = true;
     }
-    $scope.alreadyPdtList = function (t) {
-        var i = 2;
-        while (i >= 0) {
-            $scope.pdtOnSale[i] = false;
-            i--;
-        }
-        $scope.pdtOnSale[t] = true;
-    }
+  
 
         $scope.showPieChartOne = function() {
             $("#ContainerOne").css({
@@ -294,16 +287,16 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         //        });
         //}
 
-        //function requestArrearagePercentage(){
-        //    $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' + type)
-        //        .success(function (data) {
-        //            for(i = 0; i < data.length; i++){
-        //                arrearagePercentageArray.push([data[i].lessee, data[i].percantage]);
-        //            }
-        //            showPieChartTwo();
-        //        });
-        //
-        //}
+        function requestArrearagePercentage(){
+            $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' + type)
+                .success(function (data) {
+                    for(i = 0; i < data.length; i++){
+                        arrearagePercentageArray.push([data[i].lessee, data[i].percantage]);
+                    }
+                    showPieChartTwo();
+                });
+
+        }
 
 
         //function requestLesseeDeviceInfo() {

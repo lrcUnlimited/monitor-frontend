@@ -2,11 +2,10 @@
     <div style="background:url('../img/deciveloaction.png');">
         <div class="page-title" style="padding-bottom: 10px;padding-top: 10px">
             <div class="title_left" >
-                <h3 style="font-weight:bold;">设备操作</h3>
+                <h3 style="font-weight:bold;">数据统计</h3>
             </div>
         </div>
-        <div class="col-md-12" style="background:url('../img/deciveloaction.png');float: right;display: inline">
-            <button type="button"  class="btn btn-primary" style="height: 30px;float: right" ng-click="timerRefresh()">自动刷新</button>
+        <div class="col-md-12" style="background:url('../img/deciveloaction.png');float: right;display: inline" ng-show="pdtOnSale[0]||pdtOnSale[1]">
             <select  style="height: 30px; float: right;position: relative;right: 5px"  ng-model="timerDefine">
                 <option value="1">月欠费率</option>
                 <option value="4">季度欠费率</option>
@@ -15,20 +14,16 @@
             </select>
         </div>
     </div>
-    <div style="height: 39px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;" class="form-inline" ng-show="statisticClip[0]">
+    <form style="background:url('../img/deciveloaction.png');padding-bottom: 5px;" class="form-inline" ng-show="pdtOnSale[2]" style="margin-top: 10px;" >
+        <div class="form-group">
+            <label>租凭商</label>
+            <input type="text" style="width: 135px" class="form-control" id="searchLessName" name="searchLessName" ng-model="searchLessName">
+        </div>
 
-    </div>
-    <form class="form-inline" style="margin-top: 5px;">
         <div class="form-group">
-            <label>欠费率</label>
-            <input type="text" class="form-control" name="searchExceptionArrearsRate" >
+            <button type="button"  class="btn btn-primary" ng-click="searchDevice()">搜索</button>
+            <button type="button"  class="btn btn-primary" ng-click="printData()">打印</button>
         </div>
-        <div class="form-group">
-            <label>租赁商</label>
-            <input type="text" class="form-control" name="searchExceptionLessName" >
-        </div>
-        <button type="button"  class="btn btn-primary">搜索</button>
-        <button type="button"  class="btn btn-primary">打印</button>
     </form>
 
     <div class="clearfix"></div>
@@ -37,7 +32,7 @@
             <li id="0" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a class="hand" ng-click="allPdtList(0);showPieChartOne()">客户统计</a>
             </li>
             <li id="1" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[1]}"><a class="hand"
-                                                                                    ng-click="alreadyPdtList(1);showPieChartTwo()">欠费率统计
+                                                                                    ng-click="alreadyPdtList(1);showPieChartTwo();searchLesseeDeviceInfo()">欠费率统计
                 <span class="count">{{odTotalCount}}</span></a></li>
             <li id="2" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[2]}"><a class="hand"
                                                                                     ng-click="alreadyPdtList(2);showPieChartThree()" >详细列表</a></li>
@@ -145,5 +140,5 @@
         </div>
 
     </div>
-
-
+    </div>
+</div>
