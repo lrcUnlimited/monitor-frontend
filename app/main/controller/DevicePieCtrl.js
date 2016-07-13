@@ -8,7 +8,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     onDevice = [];
     offDevice = [];
     arrearagePercentageArray = [];
-    $scope.pdtOnSale = new Array(true, false, false);
+    $scope.pdtOnSale = new Array(false, false, false);
 
     if (accountId) {
     $scope.allPdtList = function (t) {
@@ -50,56 +50,53 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             $("#ContainerThree").css({
                 "display" : "none"
             })
-                $('#ContainerOne').highcharts({
-                    chart: {
-                        type: 'pie',
-                        options3d: {
+                $('#pieContainerOne').highcharts({
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 60,
+                        beta: 0
+                    }
+                },
+                title: {
+                    text: '开、关、欠费机总数比例'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
                             enabled: true,
-                            alpha: 45,
-                            beta: 0
+                            format: '{point.name}'
                         }
-                    },
-                    title: {
-                        text: '欠费率'
-                    },
-                    tooltip: {
-                        pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                    },
-                    plotOptions: {
-                        pie: {
-                            allowPointSelect: true,
-                            cursor: 'pointer',
-                            depth: 35,
-                            dataLabels: {
-                                enabled: true,
-                                format: '{point.name}'
-                            }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: [
+                        ['开机',   45.0],
+                        ['关机',       26.8],
+                        {
+                            name: '欠费',
+                            y: 12.8,
+                            sliced: true,
+                            selected: true
                         }
-                    },
-                    series: [{
-                        type: 'pie',
-                        name: 'Browser share',
-                        data: [
-                            ['Firefox',   45.0],
-                            ['IE',       26.8],
-                            {
-                                name: 'Chrome',
-                                y: 12.8,
-                                sliced: true,
-                                selected: true
-                            },
-                            ['Safari',    8.5],
-                            ['Opera',     6.2],
-                            ['Others',   0.7]
-                        ]
-                    }]
-                });
+                    ]
+                }]
+            });
             $('#pieContainerTwo').highcharts({
                 chart: {
                     type: 'pie',
                     options3d: {
                         enabled: true,
-                        alpha: 45,
+                        alpha: 60,
                         beta: 0
                     }
                 },
@@ -124,17 +121,19 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                     type: 'pie',
                     name: 'Browser share',
                     data: [
-                        ['Firefox',   45.0],
-                        ['IE',       26.8],
+                        ['无欠费',   35.0],
+                        ['0%-5%',       26.8],
                         {
-                            name: 'Chrome',
+                            name: '5%-10%',
                             y: 12.8,
                             sliced: true,
                             selected: true
                         },
-                        ['Safari',    8.5],
-                        ['Opera',     6.2],
-                        ['Others',   0.7]
+                        ['10%-15%',    8.5],
+                        ['15%-20%',     6.2],
+                        ['20%-25%',   0.7],
+                        ['25%-30%',5.0],
+                        ['>30%',5.0]
                     ]
                 }]
             });

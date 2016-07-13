@@ -2,7 +2,7 @@
     <div style="background:url('../img/deciveloaction.png');">
         <div class="page-title" style="padding-bottom: 10px;padding-top: 10px">
             <div class="title_left" >
-                <h3 style="font-weight:bold;">数据统计</h3>
+                <h3 style="font-weight:bold;">设备操作</h3>
             </div>
         </div>
         <div class="col-md-12" style="background:url('../img/deciveloaction.png');float: right;display: inline">
@@ -15,6 +15,21 @@
             </select>
         </div>
     </div>
+    <form style="background:url('../img/deciveloaction.png');padding-bottom: 5px;" class="form-inline" ng-show="pdtOnSale[2]" >
+        <div class="form-group">
+            <label>欠费率</label>
+            <input type="text" style="width: 135px" class="form-control" id="searchArrearDate" name="searchDeviceName" ng-model="searchArrearDate">
+        </div>
+        <div class="form-group">
+            <label>租凭商</label>
+            <input type="text" style="width: 135px" class="form-control" id="searchLessName" name="searchLessName" ng-model="searchLessName">
+        </div>
+
+        <div class="form-group">
+            <button type="button"  class="btn btn-primary" ng-click="searchDevice()">搜索</button>
+            <button type="button"  class="btn btn-primary" ng-click="printData()">打印</button>
+        </div>
+    </form>
 
 
 
@@ -30,8 +45,11 @@
                                                                                     ng-click="alreadyPdtList(2);showPieChartThree()" >详细列表</a></li>
         </ul>
 
-        <div id="ContainerOne" style="min-width:100%;height:400px;float:left;margin:0px;pargin:0px;display: inline;">
-
+        <div id="ContainerOne" style="min-width:100%;height:400px;margin:0px;pargin:0px;display: inline;">
+            <div id="pieContainerOne" style="min-width: 50%;height:400px;float:left;">
+                </div>
+            <div id="pieContainerTwo" style="min-width: 50%;height:400px;float:right;">
+            </div>
         </div>
 
         <div id="ContainerTwo" style="display: none;">
@@ -85,18 +103,6 @@
         </div>
 
     <div id="ContainerThree" style="display: none;">
-        <form class="form-inline" style="margin-top: 5px;">
-            <div class="form-group">
-                <label>欠费率</label>
-                <input type="text" class="form-control" name="searchExceptionArrearsRate" >
-            </div>
-            <div class="form-group">
-                <label>租赁商</label>
-                <input type="text" class="form-control" name="searchExceptionLessName" >
-            </div>
-            <button type="button"  class="btn btn-primary">搜索</button>
-            <button type="button"  class="btn btn-primary">打印</button>
-        </form>
 
         <div style="float: left;width:100%;">
             <div>
