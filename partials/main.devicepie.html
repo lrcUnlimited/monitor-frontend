@@ -17,21 +17,23 @@
     <form class="form-inline" style="background:url('../img/deciveloaction.png');" ng-show="pdtOnSale[2]">
         <div class="form-group">
             <label>欠费率</label>
-            <select  style="height: 30px;"  ng-model="arrearagePercentage">
-                <option value="0">所有信息</option>
+            <select  style="height: 30px;"  ng-model="arrearagePercentageType">
+                <option value="-1">所有记录</option>
+                <option value="0">无欠费</option>
                 <option value="1">0-5%</option>
                 <option value="2">5%-10%</option>
-                <option value="3">15%-20%</option>
-                <option value="4">20%-25%</option>
-                <option value="5">25%-30%</option>
-                <option value="6">>30%</option>
+                <option value="3">10%-15%</option>
+                <option value="4">15%-20%</option>
+                <option value="5">20%-25%</option>
+                <option value="6">25%-30%</option>
+                <option value="7">>30%</option>
             </select>
         </div>
         <div class="form-group">
             <label>租赁商</label>
             <input type="text" class="form-control" name="searchExceptionLessName" >
         </div>
-        <button type="button"  class="btn btn-primary">搜索</button>
+        <button type="button"  class="btn btn-primary" ng-click="searchArrearageLesseeInfo()">搜索</button>
         <button type="button"  class="btn btn-primary">打印</button>
     </form>
 
@@ -71,24 +73,12 @@
                 </div>
                 <div style="width:100%;height:200px;overflow: scroll;overflow-x:hidden;overflow-y:auto;position: relative;margin:0px;padding:0px;">
                     <table class="table table-hover" style="min-width:100%;position: relative;margin:0px;padding:0px;">
-                        <tbody ng-repeat="lesseeDeviceInfo in lesseeDeviceInfoList">
+                        <tbody ng-repeat="arrearagePercentageInfo in arrearagePercentageInformationList">
                         <tr>
-                            <td >{{lesseeDeviceInfo.lesseeName}}</td>
-                            <td >{{lesseeDeviceInfo.totalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.normalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.arrearageDeviceNum}}</td>
-                        </tr>
-                        <tr>
-                            <td >{{lesseeDeviceInfo.lesseeName}}</td>
-                            <td >{{lesseeDeviceInfo.totalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.normalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.arrearageDeviceNum}}</td>
-                        </tr>
-                        <tr>
-                            <td >{{lesseeDeviceInfo.lesseeName}}</td>
-                            <td >{{lesseeDeviceInfo.totalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.normalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.arrearageDeviceNum}}</td>
+                            <td >{{arrearagePercentageInfo.percentage}}</td>
+                            <td >{{arrearagePercentageInfo.lessee}}</td>
+                            <td >{{arrearagePercentageInfo.arrearageDeviceNum}}</td>
+                            <td >{{arrearagePercentageInfo.normalDeviceNum}}</td>
                         </tr>
                         </tbody>
                     </table>
@@ -121,33 +111,29 @@
                 </div>
                 <div style="width:100%;height:200px;overflow: scroll;overflow-x:hidden;overflow-y:auto;position: relative;margin:0px;padding:0px;">
                     <table class="table table-hover" style="min-width:100%;position: relative;margin:0px;padding:0px;">
-                        <tbody ng-repeat="lesseeDeviceInfo in lesseeDeviceInfoList">
+                        <tbody ng-repeat="deviceInfo in deviceDetailList">
                         <tr>
-                            <td >{{lesseeDeviceInfo.lesseeName}}</td>
-                            <td >{{lesseeDeviceInfo.totalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.normalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.normalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.arrearageDeviceNum}}</td>
-                        </tr>
-                        <tr>
-                            <td >{{lesseeDeviceInfo.lesseeName}}</td>
-                            <td >{{lesseeDeviceInfo.totalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.normalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.totalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.arrearageDeviceNum}}</td>
-                        </tr>
-                        <tr>
-                            <td >{{lesseeDeviceInfo.lesseeName}}</td>
-                            <td >{{lesseeDeviceInfo.totalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.normalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.totalDeviceNum}}</td>
-                            <td >{{lesseeDeviceInfo.arrearageDeviceNum}}</td>
+                            <td >{{deviceInfo.percentage}}</td>
+                            <td >{{deviceInfo.lessee}}</td>
+                            <td >{{deviceInfo.lesseePhone}}</td>
+                            <td >{{deviceInfo.arrearageDeviceNum}}</td>
+                            <td >{{deviceInfo.normalDeviceNum}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
+            <!--分页工具栏-->
+            <div style="text-align: right">
+                <div style="float: right">
+                    <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
+                </div>
+                <div style="height: 40px;line-height: 40px; font-size: 18px ">
+                    记录总数：{{nowDeviceTotalCount}}
+                    <label style="margin-left: 10px;font-weight:normal;">页码:</label>
+                </div>
 
+            </div>
         </div>
     </div>
 </div>

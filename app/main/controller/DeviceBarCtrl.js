@@ -116,6 +116,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
         function requestDeviceDetailInfo(){
             $http.get(HTTP_BASE + 'devicerecord/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3')
                 .success(function (data) {
+                    console.log(data);
                     $scope.deviceDetailList = data.items;
                     $scope.nowDeviceDetailTotalCount = data.totalCount;
                     $('#page1').bootstrapPaginator({
