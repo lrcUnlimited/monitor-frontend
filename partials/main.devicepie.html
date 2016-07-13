@@ -29,10 +29,10 @@
     <div class="clearfix"></div>
     <div class="row" style="margin-top: 5px;margin-left: 0px" cg-busy="{promise:loadDevicePromise,message:'加载中',backdrop:false}">
         <ul class="nav nav-tabs">
-            <li id="0" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a class="hand" ng-click="allPdtList(0);showPieChartOne()">客户统计</a>
+            <li id="0" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a class="hand" ng-click="alreadyPdtList(0);showPieChartOne()">客户统计</a>
             </li>
             <li id="1" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[1]}"><a class="hand"
-                                                                                    ng-click="alreadyPdtList(1);showPieChartTwo();searchLesseeDeviceInfo()">欠费率统计
+                                                                                    ng-click="alreadyPdtList(1);showPieChartTwo();">欠费率统计
                 <span class="count">{{odTotalCount}}</span></a></li>
             <li id="2" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[2]}"><a class="hand"
                                                                                     ng-click="alreadyPdtList(2);showPieChartThree()" >详细列表</a></li>

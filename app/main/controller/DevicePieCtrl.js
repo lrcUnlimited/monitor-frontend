@@ -11,7 +11,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     $scope.pdtOnSale = new Array(true, false, false);
 
     if (accountId) {
-    $scope.allPdtList = function (t) {
+    $scope.alreadyPdtList = function (t) {
         var i = 2;
         while (i >= 0) {
             $scope.pdtOnSale[i] = false;
@@ -20,9 +20,106 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         $scope.pdtOnSale[t] = true;
        }
 
-        $scope.showPieChartOne = function() {            alreadyPdtList(0);
-            showChartOnClipOne();
+        $scope.showPieChartOne = function() {
+            //showChartOnClipOne();
+            $("#ContainerTwo").css({
+                "display" : "none"
+            })
+            $("#ContainerOne").css({
+                "display" : "block"
+            })
+            $("#ContainerThree").css({
+                "display" : "none"
+            })
+            $('#pieContainerOne').highcharts({
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 60,
+                        beta: 0
+                    }
+                },
+                title: {
+                    text: '开、关、欠费机总数比例'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: [
+                        ['开机',   45.0],
+                        ['关机',       26.8],
+                        {
+                            name: '欠费',
+                            y: 12.8,
+                            sliced: true,
+                            selected: true
+                        }
+                    ]
+                }]
+            });
+            $('#pieContainerTwo').highcharts({
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 60,
+                        beta: 0
+                    }
+                },
+                title: {
+                    text: '欠费率'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: [
+                        ['无欠费',   35.0],
+                        ['0%-5%',       26.8],
+                        {
+                            name: '5%-10%',
+                            y: 12.8,
+                            sliced: true,
+                            selected: true
+                        },
+                        ['10%-15%',    8.5],
+                        ['15%-20%',     6.2],
+                        ['20%-25%',   0.7],
+                        ['25%-30%',5.0],
+                        ['>30%',5.0]
+                    ]
+                }]
+            });
         }
+
         showChartOnClipOne();
         function showChartOnClipOne(){
             $('#pieContainerOne').highcharts({
@@ -113,7 +210,6 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 }]
             });
         }
-
         $scope.showPieChartTwo = function() {
             $("#ContainerTwo").css({
                 "display" : "block"
