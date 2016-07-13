@@ -333,9 +333,15 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         }
 
         $scope.searchArrearageLesseeInfo = function (){
-            var params = "&lesseeName=" + $scope.searchExceptionLessName + "&arrearagePercentageType=" + $scope.arrearagePercentageType;
-            console.log(params);
-            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3')
+            var lesseeName = "";
+            if($scope.searchExceptionLessName == null){
+                lesseeName = "";
+            } else {
+                lesseeName = $scope.searchExceptionLessName;
+            }
+            var params = "&lesseeName=" + lesseeName + "&arrearagePercentageType=" + $scope.arrearagePercentageType;
+            console.log(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1' + params);
+            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
                 .success(function (data) {
                     console.log(data);
                     $scope.deviceDetailList = data.items;
@@ -346,7 +352,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         totalPages: data.totalPage,
                         bootstrapMajorVersion: 3,
                         onPageClicked: function (e, originalEvent, type, page) {
-                            $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=' + page + '&type=3')
+                            $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=' + page + params)
                                 .success(function (data) {
                                     $scope.deviceDetailList = data.items;
                                     $scope.nowDeviceDetailTotalCount = data.totalCount;
