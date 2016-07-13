@@ -6,7 +6,7 @@
             </div>
         </div>
         <div class="col-md-12" style="background:url('../img/deciveloaction.png');float: right;display: inline">
-            <button type="button"  class="btn btn-primary" style="height: 30px;float: right" ng-click="timerRefresh()">自动刷新</button>
+            <button type="button"  class="btn btn-primary" style="height: 30px;float: right" ng-click="timerRefresh()">月欠费率</button>
             <select  style="height: 30px; float: right;position: relative;right: 5px"  ng-model="timerDefine">
                 <option value="1">月欠费率</option>
                 <option value="4">季度欠费率</option>
@@ -14,43 +14,44 @@
                 <option value="12">年欠费率</option>
             </select>
         </div>
-    </div>
-    <div style="height: 39px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;" class="form-inline" ng-show="statisticClip[0]">
+        <div style="height: 64px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;" class="form-inline" ng-show="pdtOnSale[0] || pdtOnSale[1]">
 
+        </div>
+        <form class="form-inline" style="margin-top: 5px;background:url('../img/deciveloaction.png');" ng-show="pdtOnSale[2]">
+            <div class="form-group">
+                <label>欠费率</label>
+                <input type="text" class="form-control" name="searchExceptionArrearsRate" >
+            </div>
+            <div class="form-group">
+                <label>租赁商</label>
+                <input type="text" class="form-control" name="searchExceptionLessName" >
+            </div>
+            <button type="button"  class="btn btn-primary">搜索</button>
+            <button type="button"  class="btn btn-primary">打印</button>
+        </form>
     </div>
-    <form class="form-inline" style="margin-top: 5px;">
-        <div class="form-group">
-            <label>欠费率</label>
-            <input type="text" class="form-control" name="searchExceptionArrearsRate" >
-        </div>
-        <div class="form-group">
-            <label>租赁商</label>
-            <input type="text" class="form-control" name="searchExceptionLessName" >
-        </div>
-        <button type="button"  class="btn btn-primary">搜索</button>
-        <button type="button"  class="btn btn-primary">打印</button>
-    </form>
+
 
     <div class="clearfix"></div>
     <div class="row" style="margin-top: 5px;margin-left: 0px" cg-busy="{promise:loadDevicePromise,message:'加载中',backdrop:false}">
         <ul class="nav nav-tabs">
-            <li id="0" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a class="hand" ng-click="allPdtList(0);showPieChartOne()">客户统计</a>
+            <li id="0" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a class="hand" ng-click="showPieChartOne()">客户统计</a>
             </li>
             <li id="1" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[1]}"><a class="hand"
-                                                                                    ng-click="alreadyPdtList(1);showPieChartTwo()">欠费率统计
+                                                                                    ng-click="showPieChartTwo()">欠费率统计
                 <span class="count">{{odTotalCount}}</span></a></li>
             <li id="2" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[2]}"><a class="hand"
-                                                                                    ng-click="alreadyPdtList(2);showPieChartThree()" >详细列表</a></li>
+                                                                                    ng-click="showPieChartThree()" >详细列表</a></li>
         </ul>
 
-        <div id="ContainerOne" style="min-width:100%;height:400px;margin:0px;pargin:0px;display: inline;">
+        <div id="ContainerOne" style="min-width:100%;height:400px;margin:0px;pargin:0px;display: inline;" ng-show="pdtOnSale[0]">
             <div id="pieContainerOne" style="min-width: 50%;height:400px;float:left;">
                 </div>
             <div id="pieContainerTwo" style="min-width: 50%;height:400px;float:right;">
             </div>
         </div>
 
-        <div id="ContainerTwo" style="display: none;">
+        <div id="ContainerTwo" ng-show="pdtOnSale[1]">
 
         <div style="float: left;width:50%;">
                 <div>
@@ -100,7 +101,7 @@
     </div>
         </div>
 
-    <div id="ContainerThree" style="display: none;">
+    <div id="ContainerThree" ng-show="pdtOnSale[2]">
         <div style="float: left;width:100%;">
             <div>
                 <table class="table table-bordered" style="width:100%;position: relative;margin:0px;padding:0px;">

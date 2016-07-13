@@ -20,7 +20,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             $scope.pdtOnSale[t] = true;
 
         }
-        $scope.alreadyPdtList = function (t) {
+        function alreadyPdtList (t) {
             var i = 2;
             while (i >= 0) {
                 $scope.pdtOnSale[i] = false;
@@ -125,15 +125,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         }
 
         $scope.showPieChartTwo = function() {
-            $("#ContainerTwo").css({
-                "display" : "block"
-            })
-            $("#ContainerOne").css({
-                "display" : "none"
-            })
-            $("#ContainerThree").css({
-                "display" : "none"
-            })
+            alreadyPdtList(1);
             $('#columnContainerOne').highcharts({
 
                 chart: {
@@ -259,15 +251,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         }
 
         $scope.showPieChartThree = function() {
-            $("#ContainerThree").css({
-                "display": "block"
-            })
-            $("#ContainerOne").css({
-                "display" : "none"
-            })
-            $("#ContainerTwo").css({
-                "display" : "none"
-            })
+            alreadyPdtList(2);
         }
 
         //function requestTotalNumOfDeviceStatus() {
