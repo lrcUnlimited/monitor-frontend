@@ -9,9 +9,9 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     offDevice = [];
     arrearagePercentageArray = [];
     $scope.pdtOnSale = new Array(true, false, false);
-
+    $scope.arrearagePercentage = 0;
     if (accountId) {
-        $scope.allPdtList = function (t) {
+        $scope.alreadyPdtList = function (t) {
             var i = 2;
             while (i >= 0) {
                 $scope.pdtOnSale[i] = false;
@@ -20,21 +20,17 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             $scope.pdtOnSale[t] = true;
 
         }
-        function alreadyPdtList (t) {
-            var i = 2;
-            while (i >= 0) {
-                $scope.pdtOnSale[i] = false;
-                i--;
-            }
-            $scope.pdtOnSale[t] = true;
-        }
 
-        $scope.showPieChartOne = function() {
-            alreadyPdtList(0);
-            showChartOnClipOne();
-        }
-        showChartOnClipOne();
-        function showChartOnClipOne(){
+        $scope.showPieChartOne = function () {
+            $("#ContainerTwo").css({
+                "display": "none"
+            })
+            $("#ContainerOne").css({
+                "display": "block"
+            })
+            $("#ContainerThree").css({
+                "display": "none"
+            })
             $('#pieContainerOne').highcharts({
                 chart: {
                     type: 'pie',
@@ -65,8 +61,8 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                     type: 'pie',
                     name: 'Browser share',
                     data: [
-                        ['开机',   45.0],
-                        ['关机',       26.8],
+                        ['开机', 45.0],
+                        ['关机', 26.8],
                         {
                             name: '欠费',
                             y: 12.8,
@@ -106,26 +102,124 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                     type: 'pie',
                     name: 'Browser share',
                     data: [
-                        ['无欠费',   35.0],
-                        ['0%-5%',       26.8],
+                        ['无欠费', 35.0],
+                        ['0%-5%', 26.8],
                         {
                             name: '5%-10%',
                             y: 12.8,
                             sliced: true,
                             selected: true
                         },
-                        ['10%-15%',    8.5],
-                        ['15%-20%',     6.2],
-                        ['20%-25%',   0.7],
-                        ['25%-30%',5.0],
-                        ['>30%',5.0]
+                        ['10%-15%', 8.5],
+                        ['15%-20%', 6.2],
+                        ['20%-25%', 0.7],
+                        ['25%-30%', 5.0],
+                        ['>30%', 5.0]
+                    ]
+                }]
+            });
+        }
+        showChartOnClipOne();
+        function showChartOnClipOne() {
+            $('#pieContainerOne').highcharts({
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 60,
+                        beta: 0
+                    }
+                },
+                title: {
+                    text: '开、关、欠费机总数比例'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: [
+                        ['开机', 45.0],
+                        ['关机', 26.8],
+                        {
+                            name: '欠费',
+                            y: 12.8,
+                            sliced: true,
+                            selected: true
+                        }
+                    ]
+                }]
+            });
+            $('#pieContainerTwo').highcharts({
+                chart: {
+                    type: 'pie',
+                    options3d: {
+                        enabled: true,
+                        alpha: 60,
+                        beta: 0
+                    }
+                },
+                title: {
+                    text: '欠费率'
+                },
+                tooltip: {
+                    pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
+                },
+                plotOptions: {
+                    pie: {
+                        allowPointSelect: true,
+                        cursor: 'pointer',
+                        depth: 35,
+                        dataLabels: {
+                            enabled: true,
+                            format: '{point.name}'
+                        }
+                    }
+                },
+                series: [{
+                    type: 'pie',
+                    name: 'Browser share',
+                    data: [
+                        ['无欠费', 35.0],
+                        ['0%-5%', 26.8],
+                        {
+                            name: '5%-10%',
+                            y: 12.8,
+                            sliced: true,
+                            selected: true
+                        },
+                        ['10%-15%', 8.5],
+                        ['15%-20%', 6.2],
+                        ['20%-25%', 0.7],
+                        ['25%-30%', 5.0],
+                        ['>30%', 5.0]
                     ]
                 }]
             });
         }
 
-        $scope.showPieChartTwo = function() {
-            alreadyPdtList(1);
+        $scope.showPieChartTwo = function () {
+            $("#ContainerTwo").css({
+                "display": "block"
+            })
+            $("#ContainerOne").css({
+                "display": "none"
+            })
+            $("#ContainerThree").css({
+                "display": "none"
+            })
             $('#columnContainerOne').highcharts({
 
                 chart: {
@@ -250,8 +344,16 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             });
         }
 
-        $scope.showPieChartThree = function() {
-            alreadyPdtList(2);
+        $scope.showPieChartThree = function () {
+            $("#ContainerThree").css({
+                "display": "block"
+            })
+            $("#ContainerOne").css({
+                "display": "none"
+            })
+            $("#ContainerTwo").css({
+                "display": "none"
+            })
         }
 
         //function requestTotalNumOfDeviceStatus() {
@@ -263,16 +365,16 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         //        });
         //}
 
-        //function requestArrearagePercentage(){
-        //    $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' + type)
-        //        .success(function (data) {
-        //            for(i = 0; i < data.length; i++){
-        //                arrearagePercentageArray.push([data[i].lessee, data[i].percantage]);
-        //            }
-        //            showPieChartTwo();
-        //        });
-        //
-        //}
+        function requestArrearagePercentage() {
+            $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' + type)
+                .success(function (data) {
+                    for (i = 0; i < data.length; i++) {
+                        arrearagePercentageArray.push([data[i].lessee, data[i].percantage]);
+                    }
+                    showPieChartTwo();
+                });
+
+        }
 
 
         //function requestLesseeDeviceInfo() {
@@ -323,7 +425,6 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 })
         }
     }
-
 })
 
 
