@@ -8,7 +8,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     onDevice = [];
     offDevice = [];
     arrearagePercentageArray = [];
-    $scope.pdtOnSale = new Array(false, false, false);
+    $scope.pdtOnSale = new Array(true, false, false);
 
     if (accountId) {
     $scope.allPdtList = function (t) {
@@ -18,32 +18,14 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             i--;
         }
         $scope.pdtOnSale[t] = true;
+       }
 
-    }
-    $scope.alreadyPdtList = function (t) {
-        var i = 2;
-        while (i >= 0) {
-            $scope.pdtOnSale[i] = false;
-            i--;
+        $scope.showPieChartOne = function() {            alreadyPdtList(0);
+            showChartOnClipOne();
         }
-        $scope.pdtOnSale[t] = true;
-    }
-  
-
-        $scope.showPieChartOne = function() {
-            $("#ContainerOne").css({
-                "display" : "block"
-            })
-            $("#ContainerOneMonthCheck").css({
-                "display" : "block"
-            })
-            $("#ContainerTwo").css({
-                "display" : "none"
-            })
-            $("#ContainerThree").css({
-                "display" : "none"
-            })
-                $('#pieContainerOne').highcharts({
+        showChartOnClipOne();
+        function showChartOnClipOne(){
+            $('#pieContainerOne').highcharts({
                 chart: {
                     type: 'pie',
                     options3d: {
