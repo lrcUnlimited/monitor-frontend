@@ -12,6 +12,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     $scope.arrearagePercentage = 0;
     $scope.arrearagePercentageType = -1;
     $scope.arrearageTime = 1;
+    $scope.arrearageTitle = {'1':'月欠费率', '4' : '季度欠费率', '6' : '半年欠费率', '12' : '年欠费率'};
     if (accountId) {
         $scope.alreadyPdtList = function (t) {
             var i = 2;
