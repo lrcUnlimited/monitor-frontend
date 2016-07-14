@@ -38,6 +38,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         function showChartOnClipOne() {
             $http.get(HTTP_BASE + 'device/e_queryTotalNumOfDeviceStatus?accountId=' + accountId + '&type=' +　type)
                 .success(function (data) {
+                    console.log(data);
                     $('#pieContainerOne').highcharts({
                         chart: {
                             type: 'pie',
@@ -66,7 +67,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         },
                         series: [{
                             type: 'pie',
-                            name: 'Browser share',
+                            name: '占比',
                             data: [
                                 ['开机', data[0][0]],
                                 ['关机', data[1][0] - data[2][0]],
@@ -91,17 +92,17 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                                 //console.log(data[i].percentage);
                                 if (data[i].percentage ==  parseFloat("0")) {
                                     ArrearPercentageNum[0] += 1;
-                                } else if ((data[i].percentage > parseFloat("0")) && (data[i].percentage < parseFloat("0.05"))) {
+                                } else if ((data[i].percentage >= parseFloat("0")) && (data[i].percentage < parseFloat("0.05"))) {
                                     ArrearPercentageNum[1] += 1;
-                                } else if ((data[i].percentage > parseFloat("0.05")) && (data[i].percentage <parseFloat("0.1"))) {
+                                } else if ((data[i].percentage >= parseFloat("0.05")) && (data[i].percentage <parseFloat("0.1"))) {
                                     ArrearPercentageNum[2] += 1;
-                                } else if ((data[i].percentage > parseFloat("0.1")) && (data[i].percentage < parseFloat("0.15"))) {
+                                } else if ((data[i].percentage >= parseFloat("0.1")) && (data[i].percentage < parseFloat("0.15"))) {
                                     ArrearPercentageNum[3] += 1;
-                                } else if ((data[i].percentage > parseFloat("0.15")) && (data[i].percentage < parseFloat("0.20"))) {
+                                } else if ((data[i].percentage >= parseFloat("0.15")) && (data[i].percentage < parseFloat("0.20"))) {
                                     ArrearPercentageNum[4] += 1;
-                                } else if ((data[i].percentage > parseFloat("0.20")) && (data[i].percentage < parseFloat("0.25"))) {
+                                } else if ((data[i].percentage >= parseFloat("0.20")) && (data[i].percentage < parseFloat("0.25"))) {
                                     ArrearPercentageNum[5] += 1;
-                                } else if ((data[i].percentage > parseFloat("0.25")) && (data[i].percentage < parseFloat("0.30"))) {
+                                } else if ((data[i].percentage >= parseFloat("0.25")) && (data[i].percentage < parseFloat("0.30"))) {
                                     ArrearPercentageNum[6] += 1;
                                 } else {
                                     ArrearPercentageNum[7] += 1;
@@ -118,6 +119,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                                 }
                             }
                             console.log(ArrearTemp);
+
                 $('#pieContainerTwo').highcharts({
                         chart: {
                             type: 'pie',
@@ -130,9 +132,12 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         title: {
                             text: '欠费率'
                         },
-                        tooltip: {
-                            pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
-                        },
+                    tooltip: {
+                        formatter: function() {
+                            return '<b>'+ '租赁商个数' +'</b>: '+''+
+                                Highcharts.numberFormat(this.y, 0, ',') ;
+                        }
+                    },
                         plotOptions: {
                             pie: {
                                 allowPointSelect: true,
@@ -146,7 +151,6 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         },
                         series: [{
                             type: 'pie',
-                            name: 'Browser share',
                             data: resultArrearageArray,
                         }]
                     });
