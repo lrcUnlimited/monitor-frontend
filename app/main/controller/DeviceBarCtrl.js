@@ -106,7 +106,8 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                         offDevice.push(temp[2]);
                         offAndArrearageDevice.push(temp[3]);
                     }
-
+                    $scope.printList = data;
+                    console.log($scope.printList)
                     showBarChar();
                 });
         }
@@ -204,6 +205,98 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                         content: data.message
                     });
                 })
+        }
+
+        //设备打印
+        function convertJsonToArray(jsonArray) {
+            var infos_array = [];
+            for (var i in jsonArray) {
+                var info = jsonArray[i];
+                var info_array = [];
+                var index = 0;
+                for (var j in info) {
+                    console.log(j);
+                    if (j == 'provice') {
+                        info_array[index++] = user[j] + '';
+                    }
+
+                    if (j == 'lesseeName') {
+                        info_array[index++] = user[j];
+                    }
+                    if (j == 'deviceName') {
+                        info_array[index++] = lineWrap(user[j], 9);
+                    }
+                    if (j == 'deviceStatus') {
+                        info_array[index++] = user[j];
+                    }
+
+                }
+                console.log(user_array)
+                infos_array.push(info_array);
+            }
+            return infos_array;
+        }
+
+        //打印换行控制函数
+        function lineWrap(data, partLen) {
+            if (data == null || data.length == 0) {
+                return '暂无数据';
+            }
+            if (data.length <= 6) {
+                return data;
+            }
+            var index = data.length / partLen;
+            var i = 0;
+            var newStr = [];
+            while (i < index) {
+                newStr.push(data.substr(i * partLen, partLen));
+                i++;
+            }
+            return newStr.join('\n');
+        }
+
+        $scope.printData = function () {
+            var headerName = "";
+            var printData = convertJsonToArray($scope.printList);
+            if (statisticClip[1]) {
+                headerName = '结点分布列表';
+                printData.unshift(['省份', '租赁商', '设备名', '状态'])
+            }
+
+            pdfMake.fonts = {
+                msyh: {
+                    normal: 'msyh.ttf'
+                }
+            }
+            var docDefinition = {
+                styles: {
+                    header: {
+                        fontSize: 22
+                    }
+                },
+                header: {
+                    columns: [
+                        {text: '打印时间:' + $scope.dateFilter(new Date(), 'yyyy-MM-dd'), alignment: 'right',margin: [ 0, 15, 20, 0 ]}
+                    ]
+                },
+                footer: function(currentPage, pageCount) { return {text:"第"+currentPage.toString()+"页",alignment: 'center'}; },
+                content: [
+                    {text: headerName, alignment: 'center',margin: [ 0, 0, 0, 0 ]},
+                    {text: "\n", alignment: 'center',margin: [ 0, 0, 0, 0 ]},
+
+                    {
+                        table: {
+                            headerRows: 1,
+                            widths: ['auto', 'auto', 'auto', 'auto'],
+                            body: printData
+                        }
+                    }
+                ],
+                defaultStyle: {
+                    font: 'msyh'
+                }
+            };        // open the PDF in a new window
+            pdfMake.createPdf(docDefinition).open();
         }
     }
 });
