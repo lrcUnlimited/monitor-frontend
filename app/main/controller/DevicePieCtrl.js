@@ -475,6 +475,11 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 })
         }
     }
+}).filter("arrearagePercentageFilter", function () {
+    return function (arrearagePercentage) {
+
+        return (arrearagePercentage * 100).toFixed(2);
+    };
 })
 
 
