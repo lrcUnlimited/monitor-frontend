@@ -11,6 +11,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     $scope.pdtOnSale = new Array(true, false, false);
     $scope.arrearagePercentage = 0;
     $scope.arrearagePercentageType = -1;
+    $scope.arrearageTime = 1;
     if (accountId) {
         $scope.alreadyPdtList = function (t) {
             var i = 2;
@@ -36,6 +37,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         }
         showChartOnClipOne();
         function showChartOnClipOne() {
+
             $http.get(HTTP_BASE + 'device/e_queryTotalNumOfDeviceStatus?accountId=' + accountId + '&type=' +　type)
                 .success(function (data) {
                     console.log(data);
@@ -81,7 +83,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         }]
                     });
                 });
-            $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' +　type)
+            $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' +　type + '&month=' + $scope.arrearageTime)
                 .success(function (data) {
                             console.log(data);
 
@@ -167,7 +169,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             $("#ContainerThree").css({
                 "display": "none"
             })
-            $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' +　type)
+            $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' +　type + '&month=' + $scope.arrearageTime)
                 .success(function (data) {
                     $scope.arrearagePercentageInformationList = data;
 
@@ -304,7 +306,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             $("#ContainerTwo").css({
                 "display": "none"
             })
-            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3')
+            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3&month=' + $scope.arrearageTime)
                 .success(function (data) {
                     console.log(data);
                     $scope.deviceDetailList = data.items;
@@ -315,7 +317,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         totalPages: data.totalPage,
                         bootstrapMajorVersion: 3,
                         onPageClicked: function (e, originalEvent, type, page) {
-                            $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=' + page + '&type=3')
+                            $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=' + page + '&type=3&month=' + $scope.arrearageTime)
                                 .success(function (data) {
                                     $scope.deviceDetailList = data.items;
                                     $scope.nowDeviceDetailTotalCount = data.totalCount;
@@ -342,7 +344,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             } else {
                 lesseeName = $scope.searchExceptionLessName;
             }
-            var params = "&lesseeName=" + lesseeName + "&arrearagePercentageType=" + $scope.arrearagePercentageType;
+            var params = "&lesseeName=" + lesseeName + "&arrearagePercentageType=" + $scope.arrearagePercentageType + "&month=" + $scope.arrearageTime;
             console.log(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1' + params);
             $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
                 .success(function (data) {
@@ -383,16 +385,16 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         //        });
         //}
 
-        function requestArrearagePercentage() {
-            $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' + type)
-                .success(function (data) {
-                    for (i = 0; i < data.length; i++) {
-                        arrearagePercentageArray.push([data[i].lessee, data[i].percantage]);
-                    }
-                    showPieChartTwo();
-                });
-
-        }
+        //function requestArrearagePercentage() {
+        //    $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' + type)
+        //        .success(function (data) {
+        //            for (i = 0; i < data.length; i++) {
+        //                arrearagePercentageArray.push([data[i].lessee, data[i].percantage]);
+        //            }
+        //            showPieChartTwo();
+        //        });
+        //
+        //}
 
 
         //function requestLesseeDeviceInfo() {
