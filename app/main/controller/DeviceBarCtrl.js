@@ -299,4 +299,15 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
             pdfMake.createPdf(docDefinition).open();
         }
     }
-});
+}).filter("deviceStatusFilter", function () {
+    return function (type) {
+        var operateName = null;
+        if (type == 0) {
+            operateName = "关闭";
+        } else {
+            operateName = "开启";
+
+        }
+        return operateName;
+    };
+})
