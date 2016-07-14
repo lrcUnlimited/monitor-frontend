@@ -16,10 +16,25 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
         function showBarChar() {
             $('#barChart').highcharts({
                 chart: {
-                    type: 'column'
+                    type: 'column',
+                    options3d: {
+                        enabled: true,
+                        alpha: 15,
+                        beta: 15,
+                        viewDistance: 25,
+                        depth: 40
+                    },
+                    marginTop: 80,
+                    marginRight: 40
                 },
                 title: {
                     text: '各省结点分布'
+                },
+                credits: {
+                    enabled: false
+                },
+                exporting: {
+                    enabled:false
                 },
                 xAxis: {
                     categories: province
@@ -30,6 +45,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                         text: '各省结点总数'
                     },
                     stackLabels: {
+                        allowDecimals: false,
                         enabled: true,
                         style: {
                             fontWeight: 'bold',
@@ -70,11 +86,11 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                     data: onDevice
                 }, {
                     name: '离线',
-                    color: '#ff2E33',
+                    color: '#ff7575',
                     data: offDevice
                 }, {
                     name: '欠费',
-                    color: '#ffff93',
+                    color: '#ffffAA',
                     data: offAndArrearageDevice
                 }]
             });

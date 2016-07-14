@@ -53,6 +53,12 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         title: {
                             text: '开、关、欠费机总数比例'
                         },
+                        credits: {
+                            enabled: false
+                        },
+                        exporting: {
+                            enabled:false
+                        },
                         tooltip: {
                             pointFormat: '{series.name}: <b>{point.percentage:.1f}%</b>'
                         },
@@ -134,29 +140,35 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         title: {
                             text: '欠费率'
                         },
-                    tooltip: {
-                        formatter: function() {
-                            return '<b>'+ '租赁商个数' +'</b>: '+''+
-                                Highcharts.numberFormat(this.y, 0, ',') ;
-                        }
-                    },
-                        plotOptions: {
-                            pie: {
-                                allowPointSelect: true,
-                                cursor: 'pointer',
-                                depth: 35,
-                                dataLabels: {
-                                    enabled: true,
-                                    format: '{point.name}'
-                                }
+                        credits: {
+                            enabled: false
+                        },
+                        exporting: {
+                            enabled:false
+                        },
+                        tooltip: {
+                            formatter: function() {
+                                return '<b>'+ '租赁商个数' +'</b>: '+''+
+                                    Highcharts.numberFormat(this.y, 0, ',') ;
                             }
                         },
-                        series: [{
-                            type: 'pie',
-                            data: resultArrearageArray,
-                        }]
+                            plotOptions: {
+                                pie: {
+                                    allowPointSelect: true,
+                                    cursor: 'pointer',
+                                    depth: 35,
+                                    dataLabels: {
+                                        enabled: true,
+                                        format: '{point.name}'
+                                    }
+                                }
+                            },
+                            series: [{
+                                type: 'pie',
+                                data: resultArrearageArray,
+                            }]
+                        });
                     });
-                });
         }
 
         $scope.showPieChartTwo = function () {
@@ -182,7 +194,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                     columnDataOne = resultArray.slice(0, 9);
                     for(i = 0; i < columnDataOne.length; i++){
                         lesseeNameArray.push(columnDataOne[i].lessee);
-                        arrearagePercentageArray.push(columnDataOne[i].percentage);
+                        arrearagePercentageArray.push(columnDataOne[i].percentage * 100);
                     }
 
                     $('#columnContainerOne').highcharts({
@@ -199,11 +211,15 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                             marginTop: 80,
                             marginRight: 40
                         },
-
+                        credits: {
+                            enabled: false
+                        },
                         title: {
                             text: '前10名欠费率（低）'
                         },
-
+                        exporting: {
+                            enabled:false
+                        },
                         xAxis: {
                             categories: lesseeNameArray
                         },
@@ -211,13 +227,20 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         yAxis: {
                             allowDecimals: false,
                             min: 0,
+                            max:100,
                             title: {
-                                text: '欠费率'
+                                text: '欠费率(%)'
                             }
                         },
-
+                        credits: {
+                            enabled: false
+                        },
+                        exporting: {
+                            enabled:false
+                        },
                         tooltip: {
                             headerFormat: '<b>{point.key}</b><br>',
+                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + '<td style="padding:0"><b>{point.y:.1f}%</b></td></tr>',
                         },
 
                         plotOptions: {
@@ -228,7 +251,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         },
 
                         series: [{
-                            name:'租赁商',
+                            name:'欠费率',
                             data: arrearagePercentageArray
                         }]
                     });
@@ -242,7 +265,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                     columnDataOne = resultArray.slice(0, 9);
                     for(i = 0; i < columnDataOne.length; i++){
                         lesseeNameArray.push(columnDataOne[i].lessee);
-                        arrearagePercentageArray.push(columnDataOne[i].percentage);
+                        arrearagePercentageArray.push(columnDataOne[i].percentage * 100);
                     }
 
                     $('#columnContainerTwo').highcharts({
@@ -259,7 +282,12 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                             marginTop: 80,
                             marginRight: 40
                         },
-
+                        credits: {
+                            enabled: false
+                        },
+                        exporting: {
+                            enabled:false
+                        },
                         title: {
                             text: '前10名欠费率（高）'
                         },
@@ -271,14 +299,15 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         yAxis: {
                             allowDecimals: false,
                             min: 0,
+                            max:100,
                             title: {
-                                text: '欠费率'
+                                text: '欠费率(%)'
                             }
                         },
 
                         tooltip: {
                             headerFormat: '<b>{point.key}</b><br>',
-                            pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} / {point.stackTotal}'
+                            pointFormat: '<tr><td style="color:{series.color};padding:0">{series.name}: </td>' + '<td style="padding:0"><b>{point.y:.1f}%</b></td></tr>'
                         },
 
                         plotOptions: {
