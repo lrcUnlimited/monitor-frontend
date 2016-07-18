@@ -10,8 +10,12 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
     offDevice = [];
     offAndArrearageDevice = [];
     resultArray = [];
+    //设置搜索类型
     $scope.searchType=3;
+    //设置前端显示数组
     $scope.statisticClip = new Array(true, false);
+    //初始化日期控件
+    $scope.dateFilter = $filter('date');
     if (accountId) {
         function showBarChar() {
             $('#barChart').highcharts({
@@ -123,7 +127,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                         offAndArrearageDevice.push(temp[3]);
                     }
                     $scope.printList = data;
-                    console.log($scope.printList)
+
                     showBarChar();
                 });
         }
@@ -133,9 +137,10 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
         function requestDeviceDetailInfo(){
             $http.get(HTTP_BASE + 'devicerecord/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3')
                 .success(function (data) {
-                    console.log(data);
                     $scope.deviceDetailList = data.items;
                     $scope.nowDeviceDetailTotalCount = data.totalCount;
+                    $scope.printList = data.items;
+
                     $('#page1').bootstrapPaginator({
                         currentPage: 1,
                         size: "normal",
@@ -146,6 +151,8 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                                 .success(function (data) {
                                     $scope.deviceDetailList = data.items;
                                     $scope.nowDeviceDetailTotalCount = data.totalCount;
+                                    //test
+
                                 }).error(function (data) {
                                     $.teninedialog({
                                         title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -178,6 +185,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
             }
             $scope.statisticClip[1] = true;
 
+
             requestDeviceDetailInfo()
         }
 
@@ -190,7 +198,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
             var province =  encodeURI(encodeURI($scope.searchProvice));
             var params = "&provice=" + province + "&searchLessName=" + $scope.searchLessName +
                 "&type=" + $scope.searchType;
-            console.log(params);
+
             $http.get(HTTP_BASE + 'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
                 .success(function (data) {
                     $scope.deviceDetailList = data.items;
@@ -207,6 +215,9 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                                 .success(function (data) {
                                     $scope.deviceDetailList = data.items;
                                     $scope.nowDeviceTotalCount = data.totalCount;
+                                    $scope.printList = data.items;
+                                    //test
+
                                 }).error(function (data) {
                                     $.teninedialog({
                                         title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -228,28 +239,22 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
             var infos_array = [];
             for (var i in jsonArray) {
                 var info = jsonArray[i];
+
                 var info_array = [];
                 var index = 0;
-                for (var j in info) {
-                    console.log(j);
-                    if (j == 'provice') {
-                        info_array[index++] = user[j] + '';
-                    }
 
-                    if (j == 'lesseeName') {
-                        info_array[index++] = user[j];
-                    }
-                    if (j == 'deviceName') {
-                        info_array[index++] = lineWrap(user[j], 9);
-                    }
-                    if (j == 'deviceStatus') {
-                        info_array[index++] = user[j];
-                    }
-
+                info_array[index++] = info['provice'];
+                info_array[index++] = info['lesseeName'];
+                info_array[index++] = info['deviceName'];
+                if(info['deviceStatus'] == 1) {
+                    info_array[index++] = '开机';
+                } else {
+                    info_array[index++] = '关机';
                 }
-                console.log(user_array)
+
                 infos_array.push(info_array);
             }
+
             return infos_array;
         }
 
@@ -273,8 +278,10 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
 
         $scope.printData = function () {
             var headerName = "";
+
             var printData = convertJsonToArray($scope.printList);
-            if (statisticClip[1]) {
+
+            if ($scope.statisticClip[1]) {
                 headerName = '结点分布列表';
                 printData.unshift(['省份', '租赁商', '设备名', '状态'])
             }
