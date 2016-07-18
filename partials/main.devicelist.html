@@ -5,63 +5,65 @@
             <h3 style="font-weight:bold;">设备操作</h3>
         </div>
     </div>
-    <div class="col-md-12" style="background:url('../img/deciveloaction.png');float: right;display: inline">
-        <button type="button"  class="btn btn-primary" style="height: 30px;float: right" ng-click="timerRefresh()">自动刷新</button>
-        <select  style="height: 30px; float: right;position: relative;right: 5px"  ng-model="timerDefine">
-            <option value="1">手动刷新</option>
-            <option value="300">5分钟</option>
-            <option value="600">10分钟</option>
-            <option value="1800">30分钟</option>
-        </select>
-    </div>
-    </div>
-    <form style="background:url('../img/deciveloaction.png');padding-bottom: 5px;" class="form-inline" ng-show="pdtOnSale[0]||pdtOnSale[1]||pdtOnSale[2]" >
-        <div class="form-group">
-            <label>设备名</label>
-            <input type="text" style="width: 135px" class="form-control" id="searchDeviceName" name="searchDeviceName" ng-model="searchDeviceName">
-        </div>
-        <div class="form-group">
-            <label>租凭商</label>
-            <input type="text" style="width: 135px" class="form-control" id="searchLessName" name="searchLessName" ng-model="searchLessName">
-        </div>
-        <!--<div class="form-group">-->
-            <!--<label>录入时间</label>-->
-            <!--<div class="input-group date" id="startdatepicker">-->
-                <!--<input class="form-control" type="text"   placeholder="开始日期" id="startSearchDate">-->
-                <!--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>-->
-            <!--</div>-->
-            <!--<div class="input-group date" id="enddatepicker">-->
-                <!--<input class="form-control" type="text"   placeholder="截止日期" id="endSearchDate">-->
-                <!--<span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>-->
-            <!--</div>-->
-        <!--</div>-->
 
-        <div class="form-group">
-            <label>有效期</label>
-            <div class="input-group date" id="startvaliddatepicker">
-                <input class="form-control" style="width: 135px" type="text"   placeholder="开始日期" id="startValidSearchDate">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+    <div style="height: 39px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;" class="form-inline">
+        <form style="float:right;background:url('../img/deciveloaction.png');padding-bottom: 5px;" class="form-inline" ng-show="pdtOnSale[0]||pdtOnSale[1]||pdtOnSale[2]" >
+            <div class="form-group">
+                <label>设备名</label>
+                <input type="text" style="width: 135px" class="form-control" id="searchDeviceName" name="searchDeviceName" ng-model="searchDeviceName">
             </div>
-            <div class="input-group date" id="endvaliddatepicker">
-                <input class="form-control" style="width: 135px" type="text"   placeholder="截止日期" id="endValidSearchDate">
-                <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+            <div class="form-group">
+                <label>租凭商</label>
+                <input type="text" style="width: 135px" class="form-control" id="searchLessName" name="searchLessName" ng-model="searchLessName">
+            </div>
+
+            <div class="form-group">
+                <label>有效期</label>
+                <div class="input-group date" id="startvaliddatepicker">
+                    <input class="form-control" style="width: 135px" type="text"   placeholder="开始日期" id="startValidSearchDate">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <div class="input-group date" id="endvaliddatepicker">
+                    <input class="form-control" style="width: 135px" type="text"   placeholder="截止日期" id="endValidSearchDate">
+                    <span class="input-group-addon"><span class="glyphicon glyphicon-calendar"></span></span>
+                </div>
+                <button type="button"  class="btn btn-primary" ng-click="searchDevice()">搜索</button>
+                <button type="button"  class="btn btn-primary" ng-click="printData()">打印</button>
+            </div>
+            <div class="form-group">
+            <button type="button"  class="btn btn-primary" style="float: right" ng-click="timerRefresh()">自动刷新</button>
+            <select  style="height:30px;float: right;position: relative;"  ng-model="timerDefine">
+                <option value="1">手动刷新</option>
+                <option value="300">5分钟</option>
+                <option value="600">10分钟</option>
+                <option value="1800">30分钟</option>
+            </select>
+    </div>
+        </form>
+        <form class="form-inline" style="float: right;" ng-show="pdtOnSale[3]||pdtOnSale[4]">
+            <div class="form-group">
+                <label>设备名</label>
+                <input type="text" class="form-control" id="searchExceptionDeviceName" name="searchExceptionDeviceName" ng-model="searchExceptionDeviceName">
+            </div>
+            <div class="form-group">
+                <label>租赁商</label>
+                <input type="text" class="form-control" id="searchExceptionLessName" name="searchExceptionLessName" ng-model="searchExceptionLessName">
             </div>
             <button type="button"  class="btn btn-primary" ng-click="searchDevice()">搜索</button>
             <button type="button"  class="btn btn-primary" ng-click="printData()">打印</button>
-        </div>
-    </form>
-    <form class="form-inline" ng-show="pdtOnSale[3]||pdtOnSale[4]">
-        <div class="form-group">
-            <label>设备名</label>
-            <input type="text" class="form-control" id="searchExceptionDeviceName" name="searchExceptionDeviceName" ng-model="searchExceptionDeviceName">
-        </div>
-        <div class="form-group">
-            <label>租赁商</label>
-            <input type="text" class="form-control" id="searchExceptionLessName" name="searchExceptionLessName" ng-model="searchExceptionLessName">
-        </div>
-        <button type="button"  class="btn btn-primary" ng-click="searchDevice()">搜索</button>
-        <button type="button"  class="btn btn-primary" ng-click="printData()">打印</button>
-    </form>
+            <div class="form-group">
+                <button type="button"  class="btn btn-primary" style="float: right" ng-click="timerRefresh()">自动刷新</button>
+                <select  style="height:30px;float: right;position: relative;"  ng-model="timerDefine">
+                    <option value="1">手动刷新</option>
+                    <option value="300">5分钟</option>
+                    <option value="600">10分钟</option>
+                    <option value="1800">30分钟</option>
+                </select>
+            </div>
+        </form>
+    </div>
+    </div>
+
 
 
 

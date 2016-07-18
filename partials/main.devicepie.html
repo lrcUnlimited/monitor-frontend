@@ -5,44 +5,102 @@
                 <h3 style="font-weight:bold;">租赁统计</h3>
             </div>
         </div>
-        <div class="col-md-12" style="background:url('../img/deciveloaction.png');float: right;display: inline">
-            <button type="button"  class="btn btn-primary" style="height: 30px;float: right" ng-click="showPieChartOne()" ng-show="pdtOnSale[0]">修改时间</button>
-            <button type="button"  class="btn btn-primary" style="height: 30px;float: right" ng-click="showPieChartTwo()" ng-show="pdtOnSale[1]">修改时间</button>
-            <button type="button"  class="btn btn-primary" style="height: 30px;float: right" ng-click="searchArrearageLesseeInfo()" ng-show="pdtOnSale[2]">修改时间</button>
-            <select  style="height: 30px; float: right;position: relative;right: 5px"  ng-model="arrearageTime">
-                <option value="1">月欠费率</option>
-                <option value="4">季度欠费率</option>
-                <option value="6">半年欠费率</option>
-                <option value="12">年欠费率</option>
-            </select>
+        <div style="height: 39px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;" class="form-inline">
+            <div ng-show="pdtOnSale[0]||pdtOnSale[1]">
+                <button type="button"  class="btn btn-primary" style="float: right" ng-click="showPieChartOne()" ng-show="pdtOnSale[0]">修改时间</button>
+                <button type="button"  class="btn btn-primary" style=";float: right" ng-click="showPieChartTwo()" ng-show="pdtOnSale[1]">修改时间</button>
+                <button type="button"  class="btn btn-primary" style="float: right" ng-click="searchArrearageLesseeInfo()" ng-show="pdtOnSale[2]">修改时间</button>
+                <select  style="height: 30px; float: right;position: relative;"  ng-model="arrearageTime">
+                    <option value="1">月欠费率</option>
+                    <option value="4">季度欠费率</option>
+                    <option value="6">半年欠费率</option>
+                    <option value="12">年欠费率</option>
+                </select>
+            </div>
+            <form class="form-inline" style="float:right;background:url('../img/deciveloaction.png');" ng-show="pdtOnSale[2]">
+                <div class="form-group">
+                    <label>欠费率</label>
+                    <select  style="height: 30px;position: relative;"  ng-model="arrearagePercentageType">
+                        <option value="-1">所有记录</option>
+                        <option value="0">无欠费</option>
+                        <option value="1">0-5%</option>
+                        <option value="2">5%-10%</option>
+                        <option value="3">10%-15%</option>
+                        <option value="4">15%-20%</option>
+                        <option value="5">20%-25%</option>
+                        <option value="6">25%-30%</option>
+                        <option value="7">>30%</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>租赁商</label>
+                    <input type="text" class="form-control" name="searchExceptionLessName" ng-model="searchExceptionLessName">
+                </div>
+                <div class="form-group">
+                    <label>开始日期</label>
+                    <select id="firstYearDate" style="height: 30px;"  ng-model="searchType">
+                        <option value="0" selected="true">2016年</option>
+                        <option value="1">2012年</option>
+                        <option value="2">2013年</option>
+                        <option value="3">2014年</option>
+                        <option value="4">2015年</option>
+                    </select>
+                    <select id="firstMonthDate" style="height: 30px;"  ng-model="searchType">
+                        <option value="1" selected="true">1月</option>
+                        <option value="2">2月</option>
+                        <option value="3">3月</option>
+                        <option value="4">4月</option>
+                        <option value="5">5月</option>
+                        <option value="6">6月</option>
+                        <option value="7">7月</option>
+                        <option value="8">8月</option>
+                        <option value="9">9月</option>
+                        <option value="10">10月</option>
+                        <option value="11">11月</option>
+                        <option value="12">12月</option>
+                    </select>
+                    <label>截止日期</label>
+                    <select style="height: 30px;"  ng-model="searchType">
+                        <option value="0" selected="true">2016年</option>
+                        <option value="1">2012年</option>
+                        <option value="2">2013年</option>
+                        <option value="3">2014年</option>
+                        <option value="4">2015年</option>
+                    </select>
+                    <select style="height: 30px;"  ng-model="searchType">
+                        <option value="1" selected="true">1月</option>
+                        <option value="2">2月</option>
+                        <option value="3">3月</option>
+                        <option value="4">4月</option>
+                        <option value="5">5月</option>
+                        <option value="6">6月</option>
+                        <option value="7">7月</option>
+                        <option value="8">8月</option>
+                        <option value="9">9月</option>
+                        <option value="10">10月</option>
+                        <option value="11">11月</option>
+                        <option value="12">12月</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                <button type="button"  class="btn btn-primary" ng-click="searchArrearageLesseeInfo()">搜索</button>
+                <button type="button"  class="btn btn-primary">打印</button>
+                </div>
+                <div class="form-group">
+                    <button type="button"  class="btn btn-primary" style="float: right" ng-click="showPieChartOne()" ng-show="pdtOnSale[0]">修改时间</button>
+                    <button type="button"  class="btn btn-primary" style=";float: right" ng-click="showPieChartTwo()" ng-show="pdtOnSale[1]">修改时间</button>
+                    <button type="button"  class="btn btn-primary" style="float: right" ng-click="searchArrearageLesseeInfo()" ng-show="pdtOnSale[2]">修改时间</button>
+                    <select  style="height: 30px; float: right;position: relative;left: 5px;"  ng-model="arrearageTime">
+                        <option value="1">月欠费率</option>
+                        <option value="4">季度欠费率</option>
+                        <option value="6">半年欠费率</option>
+                        <option value="12">年欠费率</option>
+                    </select>
+                </div>
+            </form>
         </div>
     </div>
 
-    <form class="form-inline" style="background:url('../img/deciveloaction.png');" ng-show="pdtOnSale[2]">
-        <div class="form-group">
-            <label>欠费率</label>
-            <select  style="height: 30px;"  ng-model="arrearagePercentageType">
-                <option value="-1">所有记录</option>
-                <option value="0">无欠费</option>
-                <option value="1">0-5%</option>
-                <option value="2">5%-10%</option>
-                <option value="3">10%-15%</option>
-                <option value="4">15%-20%</option>
-                <option value="5">20%-25%</option>
-                <option value="6">25%-30%</option>
-                <option value="7">>30%</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label>租赁商</label>
-            <input type="text" class="form-control" name="searchExceptionLessName" ng-model="searchExceptionLessName">
-        </div>
-        <button type="button"  class="btn btn-primary" ng-click="searchArrearageLesseeInfo()">搜索</button>
-        <button type="button"  class="btn btn-primary">打印</button>
-    </form>
-    <div  class="col-md-12" style="height: 35px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;" class="form-inline" ng-show="pdtOnSale[0] || pdtOnSale[1]">
-
-    </div>
     <div class="clearfix"></div>
     <div class="row" style="margin-top: 5px;margin-left: 0px" cg-busy="{promise:loadDevicePromise,message:'加载中',backdrop:false}">
         <ul class="nav nav-tabs">
@@ -64,35 +122,31 @@
 
         <div id="ContainerTwo" style="display: none;">
 
-            <div style="float: left;width:50%;">
-                <div>
-                    <table class="table table-bordered" style="width:100%;position: relative;margin:0px;padding:0px;">
-                        <thead>
-                        <tr>
-                            <th >{{arrearageTitle[arrearageTime]}}(%)</th>
-                            <th >租赁商</th>
-                            <th >欠费设备数</th>
-                            <th >正常设备数</th>
-                        </tr>
-                        </thead>
-                        <tbody ng-repeat="arrearagePercentageInfo in arrearagePercentageInformationList">
-                        <tr>
-                            <td >{{arrearagePercentageInfo.percentage | arrearagePercentageFilter}}</td>
-                            <td >{{arrearagePercentageInfo.lessee}}</td>
-                            <td >{{arrearagePercentageInfo.arrearageDeviceNum}}</td>
-                            <td >{{arrearagePercentageInfo.normalDeviceNum}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-              <div style="width: 50%;float: right;">
-                    <div style="float:left;width:0.2%;background-color:#D0D0D0;height: 802px;"></div>
-                    <div style="float: right;width: 99.8%;">
-                        <div id="columnContainerOne"></div>
-                        <div style="height:2px;background-color:#D0D0D0;"></div>
-                        <div id="columnContainerTwo"></div>
-                    </div>
+            <!--<div style="float: left;width:50%;">-->
+                <!--<div>-->
+                    <!--<table class="table table-bordered" style="width:100%;position: relative;margin:0px;padding:0px;">-->
+                        <!--<thead>-->
+                        <!--<tr>-->
+                            <!--<th >{{arrearageTitle[arrearageTime]}}(%)</th>-->
+                            <!--<th >租赁商</th>-->
+                            <!--<th >欠费设备数</th>-->
+                            <!--<th >正常设备数</th>-->
+                        <!--</tr>-->
+                        <!--</thead>-->
+                        <!--<tbody ng-repeat="arrearagePercentageInfo in arrearagePercentageInformationList">-->
+                        <!--<tr>-->
+                            <!--<td >{{arrearagePercentageInfo.percentage | arrearagePercentageFilter}}</td>-->
+                            <!--<td >{{arrearagePercentageInfo.lessee}}</td>-->
+                            <!--<td >{{arrearagePercentageInfo.arrearageDeviceNum}}</td>-->
+                            <!--<td >{{arrearagePercentageInfo.normalDeviceNum}}</td>-->
+                        <!--</tr>-->
+                        <!--</tbody>-->
+                    <!--</table>-->
+                <!--</div>-->
+            <!--</div>-->
+              <div style="width:100%;">
+                        <div id="columnContainerOne" style="float: left;width: 50%;"></div>
+                        <div id="columnContainerTwo" style="float: left;width: 50%;"></div>
               </div>
         </div>
 
@@ -106,18 +160,16 @@
                             <th >租赁商</th>
                             <th >租赁商电话</th>
                             <th >欠费设备数</th>
-                            <th >正常设备数</th>
+                            <th >积累欠费台次</th>
+                            <th >设备总数</th>
                         </tr>
                         </thead>
-                    </table>
-                </div>
-                <div style="width:100%;height:200px;overflow: scroll;overflow-x:hidden;overflow-y:auto;position: relative;margin:0px;padding:0px;">
-                    <table class="table table-bordered" style="min-width:100%;position: relative;margin:0px;padding:0px;">
                         <tbody ng-repeat="deviceInfo in deviceDetailList">
                         <tr>
                             <td >{{deviceInfo.percentage | arrearagePercentageFilter}}</td>
                             <td >{{deviceInfo.lessee}}</td>
                             <td >{{deviceInfo.lesseePhone}}</td>
+                            <td >{{deviceInfo.arrearageDeviceNum}}</td>
                             <td >{{deviceInfo.arrearageDeviceNum}}</td>
                             <td >{{deviceInfo.normalDeviceNum}}</td>
                         </tr>
