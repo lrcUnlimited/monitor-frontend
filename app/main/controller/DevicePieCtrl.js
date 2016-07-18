@@ -41,7 +41,12 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
 
             $http.get(HTTP_BASE + 'device/e_queryTotalNumOfDeviceStatus?accountId=' + accountId + '&type=' +　type)
                 .success(function (data) {
-                    console.log(data);
+                   // console.log(data);
+                    var all =data[0][0]+data[1][0];
+                    var onDevicePercentage = (data[0][0]/all)*100;
+                    var offDevicePercentage = ((data[1][0] - data[2][0])/all)*100;
+                    var arrearDevicePercentage = (data[2][0]/all)*100;
+
                     $('#pieContainerOne').highcharts({
                         chart: {
                             type: 'pie',
@@ -78,14 +83,9 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                             type: 'pie',
                             name: '占比',
                             data: [
-                                ['开机', data[0][0]],
-                                ['关机', data[1][0] - data[2][0]],
-                                {
-                                    name: '欠费',
-                                    y: data[2][0],
-                                    sliced: true,
-                                    selected: true
-                                }
+                                ['开机'+'('+onDevicePercentage+'%)', data[0][0]],
+                                ['关机'+'('+offDevicePercentage+'%)', data[1][0] - data[2][0]],
+                                ['欠费'+'('+arrearDevicePercentage+'%)', data[2][0]]
                             ]
                         }]
                     });
@@ -139,7 +139,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                             }
                         },
                         title: {
-                            text: '欠费率'
+                            text: '租赁欠费率'
                         },
                         credits: {
                             enabled: false
@@ -216,7 +216,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                             enabled: false
                         },
                         title: {
-                            text: '前10名欠费率（低）'
+                            text: '最差租赁商TOP10'
                         },
                         exporting: {
                             enabled:false
@@ -290,7 +290,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                             enabled:false
                         },
                         title: {
-                            text: '前10名欠费率（高）'
+                            text: '优质租赁商TOP10'
                         },
 
                         xAxis: {
