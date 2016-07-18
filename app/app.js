@@ -71,6 +71,10 @@ myApp.constant('HTTP_BASE', 'http://localhost:8080/monitor/')
                 url: "/devicepie",
                 templateUrl: "../partials/main.devicepie.html",
                 controller: "DevicePieCtrl"
+            }).state('main.debug', {
+                url: "/debug",
+                templateUrl: "../partials/main.debug.html",
+                controller: "DebugCtrl"
             });
     }).factory('authHttpResponseInterceptor', ['$rootScope', '$q', '$location', '$cookieStore', function ($rootScope, $q, $location, $cookieStore) {
         //拦截器配置
