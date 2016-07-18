@@ -13,6 +13,25 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     $scope.arrearagePercentageType = -1;
     $scope.arrearageTime = 1;
     $scope.arrearageTitle = {'1':'月欠费率', '4' : '季度欠费率', '6' : '半年欠费率', '12' : '年欠费率'};
+
+    $scope.dateFilter = $filter('date');
+    $scope.YearDate = $scope.dateFilter(new Date(),  'yyyy');
+    $scope.MonthDate = $scope.dateFilter(new Date(),  'MM');
+    if($scope.MonthDate<10){
+        var temp = $scope.MonthDate.toString();
+        $scope.MonthDate = temp[1];
+    }
+
+    function show(){
+        var y = document.getElementById("years");
+        var m = document.getElementById("months");
+        var d = new Date();
+        // alert(d.getFullYear());
+        // alert(d.getMonth());
+        $("#years").attr("value", d.getFullYear());
+        $("#months").attr("value", d.getMonth() + 1);
+    }
+
     if (accountId) {
         $scope.alreadyPdtList = function (t) {
             var i = 2;

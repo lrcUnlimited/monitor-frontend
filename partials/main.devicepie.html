@@ -38,15 +38,15 @@
                 </div>
                 <div class="form-group">
                     <label>开始日期</label>
-                    <select id="firstYearDate" style="height: 30px;"  ng-model="searchType">
-                        <option value="0" selected="true">2016年</option>
-                        <option value="1">2012年</option>
-                        <option value="2">2013年</option>
-                        <option value="3">2014年</option>
-                        <option value="4">2015年</option>
+                    <select id="firstYearDate" style="height: 30px;">
+                        <option value="2012">2012年</option>
+                        <option value="2013">2013年</option>
+                        <option value="2014">2014年</option>
+                        <option value="2015">2015年</option>
+                        <option value="2016">2016年</option>
                     </select>
-                    <select id="firstMonthDate" style="height: 30px;"  ng-model="searchType">
-                        <option value="1" selected="true">1月</option>
+                    <select id="firstMonthDate" style="height: 30px;">
+                        <option value="1">1月</option>
                         <option value="2">2月</option>
                         <option value="3">3月</option>
                         <option value="4">4月</option>
@@ -59,16 +59,21 @@
                         <option value="11">11月</option>
                         <option value="12">12月</option>
                     </select>
+                    </div>
+                <div id="lastDate" class="form-group">
                     <label>截止日期</label>
-                    <select style="height: 30px;"  ng-model="searchType">
-                        <option value="0" selected="true">2016年</option>
-                        <option value="1">2012年</option>
-                        <option value="2">2013年</option>
-                        <option value="3">2014年</option>
-                        <option value="4">2015年</option>
+                    <select style="height: 30px;" ng-model="YearDate">
+                        <option value="0" selected="true"></option>
+                        <option value="2012">2012年</option>
+                        <option value="2013">2013年</option>
+                        <option value="2014">2014年</option>
+                        <option value="2015">2015年</option>
+                        <option value="2016">2016年</option>
                     </select>
-                    <select style="height: 30px;"  ng-model="searchType">
-                        <option value="1" selected="true">1月</option>
+                    </select>
+                    <select style="height: 30px;"  ng-model="MonthDate">
+                        <option value="0" selected="true"></option>
+                        <option value="1">1月</option>
                         <option value="2">2月</option>
                         <option value="3">3月</option>
                         <option value="4">4月</option>
