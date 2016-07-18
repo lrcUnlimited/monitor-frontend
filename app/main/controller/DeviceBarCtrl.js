@@ -280,7 +280,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
             var headerName = "";
 
             var printData = convertJsonToArray($scope.printList);
-
+            console.log(printData);
             if ($scope.statisticClip[1]) {
                 headerName = '结点分布列表';
                 printData.unshift(['省份', '租赁商', '设备名', '状态'])
