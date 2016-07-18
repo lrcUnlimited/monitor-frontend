@@ -348,6 +348,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             $("#ContainerTwo").css({
                 "display": "none"
             })
+
             $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3&month=' + $scope.arrearageTime)
                 .success(function (data) {
                     //console.log(data);
@@ -388,8 +389,35 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             } else {
                 lesseeName = $scope.searchExceptionLessName;
             }
-            var params = "&lesseeName=" + lesseeName + "&arrearagePercentageType=" + $scope.arrearagePercentageType + "&month=" + $scope.arrearageTime;
-            //console.log(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1' + params);
+
+            if($scope.StartYear == null) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: "时间范围有误"
+                });
+                return;
+            } else if($scope.StartYear < $scope.YearDate ) {
+
+            } else if($scope.StartYear == $scope.YearDate &&　$scope.StartMonth < $scope.MonthDate){
+
+            } else if($scope.StartYear > $scope.YearDate) {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: "时间范围有误"
+                });
+                return;
+            } else {
+                $.teninedialog({
+                    title: '<h3 style="font-weight:bold">系统提示</h3>',
+                    content: "时间范围有误"
+                });
+                return;
+            }
+
+
+            var params = "&lesseeName=" + lesseeName + "&arrearagePercentageType=" + $scope.arrearagePercentageType + "&month=" + $scope.arrearageTime + '&startYear=' + $scope.StartYear +　"&startMonth=" + $scope.StartMonth + "&endYear=" + $scope.YearDate + "&endMonth=" + $scope.MonthDate;
+
+            console.log(params);
             $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
                 .success(function (data) {
                    // console.log(data);
