@@ -29,7 +29,7 @@
                     <li id="0" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a class="hand" ng-click="alreadyPdtList(0);showListOne()">日志管理</a>
                     </li>
                     <li id="1" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[1]}"><a class="hand"
-                                                                                                   ng-click="alreadyPdtList(1);showListTwo();">Debug
+                                                                                                   ng-click="showListTwo();alreadyPdtList(1);getDebugInfo();">Debug
                         <span class="count">{{odTotalCount}}</span></a></li>
                 </ul>
 
@@ -70,7 +70,20 @@
                         </div>
                     </div>
                     <div id="listTwo" ng-show="pdtOnSale[1]">
-
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>编号</th>
+                                <th>信息</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="record in RecordList">
+                                <td>{{ record.id }}</td>
+                                <td>{{ record.addValidNote }}</td>
+                            </tr>
+                            </tbody>
+                        </table>
                     </div>
                 </div>
             </div>

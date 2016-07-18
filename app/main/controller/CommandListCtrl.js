@@ -75,6 +75,39 @@ recordListModule.controller("CommandListCtrl", function ($scope, $http, $cookieS
 
         }
 
+        $scope.getDebugInfo = function () {
+
+            $http.get(HTTP_BASE + 'commandrecord/e_debug?accountId=' + accountId) //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
+                .success(function (data){
+                    console.log(data.items);
+                    $scope.RecordList = data.items;
+                    $scope.TotalCount = data.totalCount;
+                    $('#page1').bootstrapPaginator({
+                        currentPage: 1,
+                        size: "normal",
+                        totalPages: data.totalPage,
+                        bootstrapMajorVersion: 3,
+                        onPageClicked: function (e, originalEvent, type, page) {
+                            $scope.loadRecordPromise = $http.get(HTTP_BASE + 'commandrecord/e_query?accountId=' + accountId + '&pageSize=12&pageNo=' + page)
+                                .success(function (data) {
+                                    $scope.RecordList = data.items;
+                                    $scope.TotalCount = data.totalCount;
+                                }).error(function (data) {
+                                    $.teninedialog({
+                                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                        content: data.message
+                                    });
+                                })
+                        }
+                    })
+                }).error(function (data) {
+                    $.teninedialog({
+                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                        content: data.message
+                    });
+                });
+        }
+
 
     }
 
