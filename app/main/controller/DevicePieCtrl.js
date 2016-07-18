@@ -15,6 +15,16 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     $scope.arrearageTitle = {'1':'月欠费率', '4' : '季度欠费率', '6' : '半年欠费率', '12' : '年欠费率'};
     // 初始化日期控件
     $scope.dateFilter = $filter('date');
+
+    $scope.dateFilter = $filter('date');
+    $scope.YearDate = $scope.dateFilter(new Date(),  'yyyy');
+    $scope.MonthDate = $scope.dateFilter(new Date(),  'MM');
+    if($scope.MonthDate<10){
+        var temp = $scope.MonthDate.toString();
+        $scope.MonthDate = temp[1];
+    }
+    
+
     if (accountId) {
         $scope.alreadyPdtList = function (t) {
             var i = 2;
@@ -94,7 +104,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 });
             $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' +　type + '&month=' + $scope.arrearageTime)
                 .success(function (data) {
-                            //console.log(data);
+                            console.log(data);
 
                             ArrearPercentageNum = [0, 0, 0, 0, 0, 0, 0, 0];
                             ArrearPercentageStatus = ['无欠费','0%-5%', '5%-10%', '10%-15%', '15%-20%', '20%-25%', '25%-30%', '>30%'];
