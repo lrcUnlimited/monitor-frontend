@@ -13,6 +13,8 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     $scope.arrearagePercentageType = -1;
     $scope.arrearageTime = 1;
     $scope.arrearageTitle = {'1':'月欠费率', '4' : '季度欠费率', '6' : '半年欠费率', '12' : '年欠费率'};
+    // 初始化日期控件
+    $scope.dateFilter = $filter('date');
 
     $scope.dateFilter = $filter('date');
     $scope.YearDate = $scope.dateFilter(new Date(),  'yyyy');
@@ -21,16 +23,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         var temp = $scope.MonthDate.toString();
         $scope.MonthDate = temp[1];
     }
-
-    function show(){
-        var y = document.getElementById("years");
-        var m = document.getElementById("months");
-        var d = new Date();
-        // alert(d.getFullYear());
-        // alert(d.getMonth());
-        $("#years").attr("value", d.getFullYear());
-        $("#months").attr("value", d.getMonth() + 1);
-    }
+    
 
     if (accountId) {
         $scope.alreadyPdtList = function (t) {
@@ -146,7 +139,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                                     resultArrearageArray.push(ArrearTemp[i]);
                                 }
                             }
-                            console.log(ArrearTemp);
+                            //console.log(ArrearTemp);
 
                 $('#pieContainerTwo').highcharts({
                         chart: {
@@ -357,9 +350,11 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             })
             $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3&month=' + $scope.arrearageTime)
                 .success(function (data) {
-                    console.log(data);
+                    //console.log(data);
                     $scope.deviceDetailList = data.items;
                     $scope.nowDeviceDetailTotalCount = data.totalCount;
+                    $scope.printList = data.items;
+                    //console.log($scope.printList);
                     $('#page1').bootstrapPaginator({
                         currentPage: 1,
                         size: "normal",
@@ -394,10 +389,10 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 lesseeName = $scope.searchExceptionLessName;
             }
             var params = "&lesseeName=" + lesseeName + "&arrearagePercentageType=" + $scope.arrearagePercentageType + "&month=" + $scope.arrearageTime;
-            console.log(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1' + params);
+            //console.log(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1' + params);
             $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
                 .success(function (data) {
-                    console.log(data);
+                   // console.log(data);
                     $scope.deviceDetailList = data.items;
                     $scope.nowDeviceDetailTotalCount = data.totalCount;
                     $('#page1').bootstrapPaginator({
@@ -461,7 +456,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
         $scope.searchLesseeDeviceInfo = function () {
             //var province =  encodeURI(encodeURI($scope.searchProvice));
             var params = "";
-            console.log(params);
+           // console.log(params);
             $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformation?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
                 .success(function (data) {
                     $scope.deviceDetailList = data.items;
@@ -493,6 +488,103 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                     });
                 })
         }
+
+        //设备打印
+        function convertJsonToArray(jsonArray) {
+            var infos_array = [];
+            for (var i in jsonArray) {
+                var info = jsonArray[i];
+
+                var info_array = [];
+                var index = 0;
+
+                info_array[index++] = info['percentage'].toString();
+                info_array[index++] = info['lessee'];
+                info_array[index++] = info['lesseePhone'];
+                info_array[index++] = info['arrearageDeviceNum'].toString();
+                info_array[index++] = info['arrearageDeviceNum'].toString();
+                info_array[index++] = info['arrearageDeviceNum'].toString();
+
+                infos_array.push(info_array);
+            }
+
+            return infos_array;
+        }
+
+        //打印换行控制函数
+        function lineWrap(data, partLen) {
+            if (data == null || data.length == 0) {
+                return '暂无数据';
+            }
+            if (data.length <= 6) {
+                return data;
+            }
+            var index = data.length / partLen;
+            var i = 0;
+            var newStr = [];
+            while (i < index) {
+                newStr.push(data.substr(i * partLen, partLen));
+                i++;
+            }
+            return newStr.join('\n');
+        }
+
+        $scope.printData = function () {
+            var headerName = "";
+
+            var printData = convertJsonToArray($scope.printList);
+            //console.log(printData);
+            if ($scope.pdtOnSale[2]) {
+                headerName = '租赁商欠费率统计表';
+                if($scope.arrearageTime == 1){
+                    arrearageType = "月欠费率"
+                } else if ($scope.arrearageTime == 4) {
+                    arrearageType = "季度欠费率"
+                } else if ($scope.arrearageTime == 6) {
+                    arrearageType = "半年欠费率"
+                } else if ($scope.arrearageTime == 12) {
+                    arrearageType = "年欠费率"
+                }
+
+                printData.unshift([arrearageType, '租赁商', '租赁商电话', '欠费设备数', '欠费累计台次', '设备总数'])
+            }
+
+            pdfMake.fonts = {
+                msyh: {
+                    normal: 'msyh.ttf'
+                }
+            }
+            var docDefinition = {
+                styles: {
+                    header: {
+                        fontSize: 22
+                    }
+                },
+                header: {
+                    columns: [
+                        {text: '打印时间:' + $scope.dateFilter(new Date(), 'yyyy-MM-dd'), alignment: 'right',margin: [ 0, 15, 20, 0 ]}
+                    ]
+                },
+                footer: function(currentPage, pageCount) { return {text:"第"+currentPage.toString()+"页",alignment: 'center'}; },
+                content: [
+                    {text: headerName, alignment: 'center',margin: [ 0, 0, 0, 0 ]},
+                    {text: "\n", alignment: 'center',margin: [ 0, 0, 0, 0 ]},
+
+                    {
+                        table: {
+                            headerRows: 1,
+                            widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+                            body: printData
+                        }
+                    }
+                ],
+                defaultStyle: {
+                    font: 'msyh'
+                }
+            };        // open the PDF in a new window
+            pdfMake.createPdf(docDefinition).open();
+        }
+
     }
 }).filter("arrearagePercentageFilter", function () {
     return function (arrearagePercentage) {
