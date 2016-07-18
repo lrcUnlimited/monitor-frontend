@@ -5,7 +5,34 @@ var recordListModule = angular.module("monitor-frontend.commandListModule", ['cg
 recordListModule.controller("CommandListCtrl", function ($scope, $http, $cookieStore, $location,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");
 
+    $scope.pdtOnSale = new Array(true, false);
     if (accountId) {
+            $scope.alreadyPdtList = function (t) {
+                var i = 2;
+                while (i >= 0) {
+                    $scope.pdtOnSale[i] = false;
+                    i--;
+                }
+                $scope.pdtOnSale[t] = true;
+            }
+
+        $scope.showListOne = function () {
+            $("#listOne").css({
+                "display": "block"
+            })
+            $("#listTwo").css({
+                "display": "none"
+            })
+        }
+
+        $scope.showListTwo = function () {
+            $("#listTwo").css({
+                "display": "block"
+            })
+            $("#listOne").css({
+                "display": "none"
+            })
+        }
         function queryDataWithSearchParams(params) {
             $http.get(HTTP_BASE + 'commandrecord/e_query?accountId=' + accountId + '&pageSize=12&pageNo=1'+params) //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
                 .success(function (data) {

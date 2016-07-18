@@ -14,7 +14,6 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
     $scope.arrearageTime = 1;
     $scope.arrearageTitle = {'1':'月欠费率', '4' : '季度欠费率', '6' : '半年欠费率', '12' : '年欠费率'};
     // 初始化日期控件
-    $scope.dateFilter = $filter('date');
 
     $scope.dateFilter = $filter('date');
     $scope.YearDate = $scope.dateFilter(new Date(),  'yyyy');
@@ -351,11 +350,13 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
 
             $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3&month=' + $scope.arrearageTime)
                 .success(function (data) {
-                    //console.log(data);
+                    console.log(data);
+
                     $scope.deviceDetailList = data.items;
                     $scope.nowDeviceDetailTotalCount = data.totalCount;
                     $scope.printList = data.items;
                     //console.log($scope.printList);
+
                     $('#page1').bootstrapPaginator({
                         currentPage: 1,
                         size: "normal",

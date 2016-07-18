@@ -1,62 +1,80 @@
-<div>
-    <div class="page-title" style="background:url('../img/deciveloaction.png');">
-        <div class="title_left" style="padding-bottom: 10px;padding-top: 50px;">
-            <h3 style="font-weight:bold;">日志管理</h3>
+<div style="margin-left:0px;">
+    <div style="background:url('../img/deciveloaction.png');">
+        <div class="page-title" style="padding-bottom: 10px;padding-top: 10px">
+            <div class="title_left" >
+                <h3 style="font-weight:bold;">日志管理</h3>
+            </div>
+        </div>
+        <div style="height: 39px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;" class="form-inline">
+            <form class="form-inline"  style="float: right;background:url('../img/deciveloaction.png');" ng-show="pdtOnSale[0]">
+                <div class="form-group" >
+                    <label>操作人员</label>
+                    <input type="text" class="form-control" style="width: 135px" id="searchUser" name="searchUser" ng-model="searchUser">
+                </div>
+                <div class="form-group"  style="margin-left: 10px">
+                    <label>操作分类</label>
+                    <select  style="margin-left: 2px width: 200px"  class="form-control"   name="searchType" ng-model="searchType">
+                        <option value="0">用户管理操作</option>
+                        <option value="2">设备管理操作</option>
+                        <option value="3">设备更新操作</option>
+                        <option value="4">设备充值操作</option>
+                    </select>
+                </div>
+                <button type="button"  class="btn btn-primary" ng-click="searchCommand()">搜索</button>
+            </form>
         </div>
     </div>
-    <form class="form-inline"  style="float: right">
-        <div class="form-group" >
-            <label>操作人员</label>
-            <input type="text" class="form-control" style="width: 135px" id="searchUser" name="searchUser" ng-model="searchUser">
-        </div>
-        <div class="form-group"  style="margin-left: 10px">
-            <label>操作分类</label>
-            <select  style="margin-left: 2px width: 200px"  class="form-control"   name="searchType" ng-model="searchType">
-                <option value="0">用户管理操作</option>
-                <option value="2">设备管理操作</option>
-                <option value="3">设备更新操作</option>
-                <option value="4">设备充值操作</option>
-            </select>
-        </div>
-        <button type="button"  class="btn btn-primary" ng-click="searchCommand()">搜索</button>
-    </form>
-    <div class="clearfix" style="background:url('../img/deciveloaction.png');"></div>
-    <div class="row" style="margin-top: 5px" cg-busy="{promise:loadRecordPromise,message:'加载中',backdrop:false}">
-        <div class="panel-group" role="tablist" aria-multiselectable="true">
-            <div class="panel panel-default">
-                <div class="panel-heading row" role="tab">
-                    <!--<div class="col-md-1"><h4 class="panel-title" align="center">记录Id</h4></div>-->
-                    <div class="col-md-2"><h4 class="panel-title" align="center">操作人员</h4></div>
-                    <div class="col-md-2"><h4 class="panel-title" align="center">操作时间</h4></div>
-                    <div class="col-md-3"><h4 class="panel-title" align="center">操作分类</h4></div>
-                    <div class="col-md-4"><h4 class="panel-title" align="center">操作内容</h4></div>
-                </div>
-            </div>
+            <div class="row" style="margin-top: 5px;margin-left: 0px" cg-busy="{promise:loadDevicePromise,message:'加载中',backdrop:false}">
+                <ul class="nav nav-tabs">
+                    <li id="0" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[0]}"><a class="hand" ng-click="alreadyPdtList(0);showListOne()">日志管理</a>
+                    </li>
+                    <li id="1" role="presentation" ng-class="{'hand': 1,'active':pdtOnSale[1]}"><a class="hand"
+                                                                                                   ng-click="alreadyPdtList(1);showListTwo();">Debug
+                        <span class="count">{{odTotalCount}}</span></a></li>
+                </ul>
 
-            <div class="panel panel-default" ng-repeat="commandRecord in commandRecordList">
-                <div class="panel-heading row" role="tab">
-                    <!--<div class="col-md-1"><h4 class="panel-title" align="center">{{commandRecord.id}}</h4></div>-->
-                    <div class="col-md-2"><h4 class="panel-title" align="center">{{commandRecord.accountName}}</h4>
+                <div class="clearfix" style="background:url('../img/deciveloaction.png');"></div>
+                <div class="row" style="margin-top: 5px" cg-busy="{promise:loadRecordPromise,message:'加载中',backdrop:false}">
+                    <div class="panel-group" role="tablist" aria-multiselectable="true">
+                        <div id="listOne" ng-show="pdtOnSale[0]">
+                            <div class="panel panel-default">
+                                <div class="panel-heading row" role="tab">
+                                    <!--<div class="col-md-1"><h4 class="panel-title" align="center">记录Id</h4></div>-->
+                                    <div class="col-md-2"><h4 class="panel-title" align="center">操作人员</h4></div>
+                                    <div class="col-md-2"><h4 class="panel-title" align="center">操作时间</h4></div>
+                                    <div class="col-md-3"><h4 class="panel-title" align="center">操作分类</h4></div>
+                                    <div class="col-md-4"><h4 class="panel-title" align="center">操作内容</h4></div>
+                                </div>
+                            </div>
+
+                        <div class="panel panel-default" ng-repeat="commandRecord in commandRecordList">
+                            <div class="panel-heading row" role="tab">
+                                <!--<div class="col-md-1"><h4 class="panel-title" align="center">{{commandRecord.id}}</h4></div>-->
+                                <div class="col-md-2"><h4 class="panel-title" align="center">{{commandRecord.accountName}}</h4>
+                                </div>
+
+                                <div class="col-md-2"><h4 class="panel-title" align="center">{{commandRecord.recordTime | date:'yyyy-MM-dd'}}</h4></div>
+                                <div class="col-md-3"><h4 class="panel-title" align="center">{{commandRecord.type |
+                                    operateNameFilter}}</h4></div>
+                                <div class="col-md-4"><h4 class="panel-title" align="center">{{commandRecord.content}}</h4></div>
+                            </div>
+                        </div>
+                        <div style="text-align: right;">
+                            <div style="float: right">
+                                <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
+                            </div>
+                            <div style="height: 40px;line-height: 40px; font-size: 18px ">
+                                记录总数：{{commandTotalCount}}
+                                <label style="margin-left: 10px;font-weight:normal;">页码:</label>
+                            </div>
+                        </div>
                     </div>
+                    <div id="listTwo" ng-show="pdtOnSale[1]">
 
-                    <div class="col-md-2"><h4 class="panel-title" align="center">{{commandRecord.recordTime | date:'yyyy-MM-dd'}}</h4></div>
-                    <div class="col-md-3"><h4 class="panel-title" align="center">{{commandRecord.type |
-                        operateNameFilter}}</h4></div>
-                    <div class="col-md-4"><h4 class="panel-title" align="center">{{commandRecord.content}}</h4></div>
+                    </div>
                 </div>
             </div>
-            <div style="text-align: right;">
-                <div style="float: right">
-                    <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
-                </div>
-                <div style="height: 40px;line-height: 40px; font-size: 18px ">
-                    记录总数：{{commandTotalCount}}
-                    <label style="margin-left: 10px;font-weight:normal;">页码:</label>
-                </div>
-            </div>
-        </div>
     </div>
-
 
     <!-- /修改拓展员信息Modal-->
 </div>

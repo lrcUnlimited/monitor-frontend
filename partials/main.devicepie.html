@@ -60,9 +60,9 @@
                         <option value="12">12月</option>
                     </select>
                     </div>
-                <div id="lastDate" class="form-group">
+                <div class="form-group">
                     <label>截止日期</label>
-                    <select style="height: 30px;" ng-model="YearDate">
+                    <select id="lastYearDate" style="height: 30px;" ng-model="YearDate">
                         <option value="0" selected="true"></option>
                         <option value="2012">2012年</option>
                         <option value="2013">2013年</option>
@@ -71,7 +71,7 @@
                         <option value="2016">2016年</option>
                     </select>
                     </select>
-                    <select style="height: 30px;"  ng-model="MonthDate">
+                    <select id="lastMonthDate" style="height: 30px;"  ng-model="MonthDate">
                         <option value="0" selected="true"></option>
                         <option value="1">1月</option>
                         <option value="2">2月</option>
@@ -126,29 +126,6 @@
         </div>
 
         <div id="ContainerTwo" style="display: none;">
-
-            <!--<div style="float: left;width:50%;">-->
-                <!--<div>-->
-                    <!--<table class="table table-bordered" style="width:100%;position: relative;margin:0px;padding:0px;">-->
-                        <!--<thead>-->
-                        <!--<tr>-->
-                            <!--<th >{{arrearageTitle[arrearageTime]}}(%)</th>-->
-                            <!--<th >租赁商</th>-->
-                            <!--<th >欠费设备数</th>-->
-                            <!--<th >正常设备数</th>-->
-                        <!--</tr>-->
-                        <!--</thead>-->
-                        <!--<tbody ng-repeat="arrearagePercentageInfo in arrearagePercentageInformationList">-->
-                        <!--<tr>-->
-                            <!--<td >{{arrearagePercentageInfo.percentage | arrearagePercentageFilter}}</td>-->
-                            <!--<td >{{arrearagePercentageInfo.lessee}}</td>-->
-                            <!--<td >{{arrearagePercentageInfo.arrearageDeviceNum}}</td>-->
-                            <!--<td >{{arrearagePercentageInfo.normalDeviceNum}}</td>-->
-                        <!--</tr>-->
-                        <!--</tbody>-->
-                    <!--</table>-->
-                <!--</div>-->
-            <!--</div>-->
               <div style="width:100%;">
                         <div id="columnContainerOne" style="float: left;width: 50%;"></div>
                         <div id="columnContainerTwo" style="float: left;width: 50%;"></div>

@@ -44,18 +44,11 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                     categories: province
                 },
                 yAxis: {
+                    allowDecimals: false,
                     min: 0,
                     title: {
                         text: '各省结点总数'
                     },
-                    stackLabels: {
-                        allowDecimals: false,
-                        enabled: true,
-                        style: {
-                            fontWeight: 'bold',
-                            color: (Highcharts.theme && Highcharts.theme.textColor) || 'gray'
-                        }
-                    }
                 },
                 legend: {
                     align: 'right',
@@ -69,11 +62,8 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                     shadow: false
                 },
                 tooltip: {
-                    formatter: function () {
-                        return '<b>' + this.x + '</b><br/>' +
-                            this.series.name + ': ' + this.y + '<br/>' +
-                            'Total: ' + this.point.stackTotal;
-                    }
+                    headerFormat: '<b>{point.key}</b><br>',
+                    pointFormat: '<span style="color:{series.color}">\u25CF</span> {series.name}: {point.y} '
                 },
                 plotOptions: {
                     column: {
