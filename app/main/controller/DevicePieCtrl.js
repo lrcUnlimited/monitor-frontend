@@ -193,6 +193,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             $("#ContainerThree").css({
                 "display": "none"
             })
+
             $http.get(HTTP_BASE + 'device/e_queryArrearagePercentage?accountId=' + accountId + '&type=' +　type + '&month=' + $scope.arrearageTime)
                 .success(function (data) {
                     $scope.arrearagePercentageInformationList = data;
@@ -348,7 +349,9 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 "display": "none"
             })
 
-            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3&month=' + $scope.arrearageTime)
+            // $scope.YearDate = $scope.dateFilter(new Date(),  'yyyy');
+            //$scope.MonthDate = $scope.dateFilter(new Date(),  'MM');
+            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1&month=' + $scope.arrearageTime + "&endYear=" + $scope.dateFilter(new Date(),  'yyyy') + "&endMonth=" + $scope.dateFilter(new Date(),  'MM').toString())
                 .success(function (data) {
                     console.log(data);
 
@@ -398,9 +401,9 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 });
                 return;
             } else if($scope.StartYear < $scope.YearDate ) {
-
+                month = ($scope.StartYear - $scope.YearDate) * 12 + $scope.MonthDate - $scope.StartMonth;
             } else if($scope.StartYear == $scope.YearDate &&　$scope.StartMonth < $scope.MonthDate){
-
+                month = $scope.MonthDate - $scope.StartMonth;
             } else if($scope.StartYear > $scope.YearDate) {
                 $.teninedialog({
                     title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -415,8 +418,8 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 return;
             }
 
-
-            var params = "&lesseeName=" + lesseeName + "&arrearagePercentageType=" + $scope.arrearagePercentageType + "&month=" + $scope.arrearageTime + '&startYear=' + $scope.StartYear +　"&startMonth=" + $scope.StartMonth + "&endYear=" + $scope.YearDate + "&endMonth=" + $scope.MonthDate;
+            var params = "&lesseeName=" + lesseeName + "&arrearagePercentageType=" + $scope.arrearagePercentageType + "&month=" + month + '&startYear=' + $scope.StartYear +　"&startMonth="
+                + $scope.StartMonth + "&endYear=" + $scope.YearDate + "&endMonth=" + $scope.MonthDate + "&type=1";
 
             console.log(params);
             $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
