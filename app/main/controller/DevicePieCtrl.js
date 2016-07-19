@@ -228,7 +228,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                             enabled: false
                         },
                         title: {
-                            text: '最差租赁商TOP10'
+                            text: '优质租赁商TOP10'
                         },
                         exporting: {
                             enabled:false
@@ -302,7 +302,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                             enabled:false
                         },
                         title: {
-                            text: '优质租赁商TOP10'
+                            text: '最差租赁商TOP10'
                         },
 
                         xAxis: {
