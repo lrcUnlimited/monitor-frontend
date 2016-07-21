@@ -7,6 +7,7 @@
 var addDeviceModule = angular.module("monitor-frontend.addDeviceModule", ['cgBusy'])
 addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookieStore, $http,$state,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");//获取用户登录id
+   
     $('#datepicker').datepicker({
         autoclose: true,
         startDate:new Date(),
@@ -25,6 +26,10 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
             var data = {
                 deviceName: $scope.deviceName,
                 validTime:$scope.validTime,
+                registerProvince:$scope.registerProvince,
+                registerCity:$scope.registerCity,
+                registerAddr:$scope.registerAddr,
+                registerDistrict:$scope.registerDistrict,
                 lesseeName:$scope.lesseeName,
                 lesseePhone:$scope.lesseePhone
             };
@@ -40,6 +45,22 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
                 dialogShow("请输入租赁商电话")
                 return
             }
+            if(!data.registerProvince && !data.registerCity){
+                dialogShow("请选择租赁商所在地区")
+                return
+            }
+            if(!data.registerAddr){
+                dialogShow("请输入租赁商详细地址")
+                return
+            }
+
+            for(var i=0;i<data.registerAddr.length;i++){
+                if(data.registerAddr[i] == '市'){
+                    return i;
+                }
+                data.registerDistict = data.registerAddr.substr(i);
+            }
+
             $scope.addDevicePromise = $http.post(HTTP_BASE+"device/e_add?accountId=" + accountId, data)
                 .success(function (data) {
                     $.teninedialog({

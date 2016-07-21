@@ -54,9 +54,9 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 .success(function (data) {
                    // console.log(data);
                     var all =data[0][0]+data[1][0];
-                    var onDevicePercentage = (data[0][0]/all)*100;
-                    var offDevicePercentage = ((data[1][0] - data[2][0])/all)*100;
-                    var arrearDevicePercentage = (data[2][0]/all)*100;
+                    var onDevicePercentage = ((data[0][0]/all)*100).toFixed(2);
+                    var offDevicePercentage = (((data[1][0] - data[2][0])/all)*100).toFixed(2);
+                    var arrearDevicePercentage = ((data[2][0]/all)*100).toFixed(2);
 
                     $('#pieContainerOne').highcharts({
                         chart: {
