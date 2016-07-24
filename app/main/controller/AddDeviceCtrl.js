@@ -91,6 +91,5 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
         });
     }
 
-
 })
 
