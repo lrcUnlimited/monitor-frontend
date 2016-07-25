@@ -49,7 +49,7 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
                 return
             }
             if(!data.registerDistrict){
-                dialogShow("请输入租赁商街区。地址")
+                dialogShow("请输入租赁商街区地址")
                 return
             }
 
