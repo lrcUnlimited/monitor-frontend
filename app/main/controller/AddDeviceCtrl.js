@@ -53,12 +53,12 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
                 return
             }
 
-            for(var i=0;i<data.registerDistrict.length;i++){
-                if(data.registerDistrict[i] == '市'){
-                    return i;
-                }
-                data.registerDistict = data.registerDistrict.substr(i);
-            }
+            //for(var i=0;i<data.registerDistrict.length;i++){
+            //    if(data.registerDistrict[i] == '市'|| '区' || '州' || '县'){
+            //        return i;
+            //    }
+            //    data.registerDistict = data.registerDistrict.substr(i);
+            //}
 
             $scope.addDevicePromise = $http.post(HTTP_BASE+"device/e_add?accountId=" + accountId, data)
                 .success(function (data) {

@@ -19,7 +19,7 @@ var myApp = angular.module('monitor-frontend', [
     "monitor-frontend.devicePieModule"
 ]);
 
-myApp.constant('HTTP_BASE', 'http://139.129.202.165:8080/monitor/')
+myApp.constant('HTTP_BASE', 'http://localhost:8080/monitor/')
     .config(function ($stateProvider, $urlRouterProvider) {
         $stateProvider
             .state('signin', {

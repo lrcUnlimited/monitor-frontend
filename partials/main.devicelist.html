@@ -84,28 +84,53 @@
                     ng-click="communicationErrorList(4)">通信异常设备<span class="count">{{commuTotalCount}}</span></a></li>
         </ul>
         <div class="panel-group">
-            <div class="panel panel-default" ng-show="!pdtOnSale[4]">
+            <div class="panel panel-default" ng-show="pdtOnSale[0]||pdtOnSale[1]">
                 <div class="panel-heading row">
                     <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">租凭商</h4>
                     </div>
-                    <div class="col-md-2" ng-show="deviceErrorType"><h4 class="panel-title" align="center">租赁商 </h4>
-                    </div>
-                    <div class="col-md-2"><h4 class="panel-title" align="center">设备名称</h4></div>
+                    <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">设备名称1</h4></div>
                     <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">设备有效期</h4>
                     </div>
                     <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">录入时间</h4>
                     </div>
-                    <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">租凭商电话</h4>
+                    <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">租凭商电话</h4>
                     </div>
                     <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">设备状态</h4>
                     </div>
                     <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">设备操作</h4>
                     </div>
-                    <div class="col-md-1" ng-show="!deviceErrorType&&!deviceManageType"><h4 class="panel-title" align="center">增加有效期</h4>
+                    <div class="col-md-2" ng-show="!deviceErrorType&&!deviceManageType"><h4 class="panel-title" align="center">增加有效期</h4>
                     </div>
-                    <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">证书文件</h4>
+                    <!--<div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">证书文件</h4>-->
+                    <!--</div>-->
                     </div>
-                    <div class="col-md-1" ng-show="deviceErrorType"><h4 class="panel-title" align="center">租赁商电话</h4>
+                </div>
+
+            <div class="panel panel-default" ng-show="pdtOnSale[2]">
+                <div class="panel-heading row">
+                    <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">租凭商</h4>
+                    </div>
+                    <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">设备名称</h4></div>
+                    <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">设备有效期</h4>
+                    </div>
+                    <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">录入时间</h4>
+                    </div>
+                    <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">租凭商电话</h4>
+                    </div>
+                    <div class="col-md-1" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">设备状态</h4>
+                    </div>
+                    <div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">设备操作</h4>
+                    </div>
+                    <!--<div class="col-md-2" ng-show="!deviceErrorType"><h4 class="panel-title" align="center">证书文件</h4>-->
+                    <!--</div>-->
+                </div>
+            </div>
+            <div class="panel panel-default" ng-show="pdtOnSale[3]">
+                <div class="panel-heading row">
+                    <div class="col-md-2" ng-show="deviceErrorType"><h4 class="panel-title" align="center">租凭商</h4>
+                    </div>
+                    <div class="col-md-2" ng-show="deviceErrorType"><h4 class="panel-title" align="center">设备名称</h4></div>
+                    <div class="col-md-2" ng-show="deviceErrorType"><h4 class="panel-title" align="center">租赁商电话</h4>
                     </div>
                     <div class="col-md-1" ng-show="deviceErrorType"><h4 class="panel-title" align="center">开始时间</h4>
                     </div>
@@ -113,13 +138,14 @@
                     </div>
                     <div class="col-md-1" ng-show="deviceErrorType"><h4 class="panel-title" align="center">异常次数</h4>
                     </div>
-                    <div class="col-md-2" ng-show="deviceErrorType"><h4 class="panel-title" align="center">操作</h4></div>
+                    <div class="col-md-1" ng-show="deviceErrorType"><h4 class="panel-title" align="center">操作</h4></div>
                     <div class="col-md-2" ng-show="deviceErrorType"><h4 class="panel-title" align="center">设备异常位置</h4>
                     </div>
+
                 </div>
             </div>
 
-            <div class="panel panel-default" ng-show="!deviceErrorType&&!pdtOnSale[4]" ng-repeat="device in deviceList">
+            <div class="panel panel-default" ng-show="!deviceErrorType&&(pdtOnSale[0]||pdtOnSale[1])" ng-repeat="device in deviceList">
                 <div class="panel-heading row" role="tab">
                     <div class="col-md-2"><h4 class="panel-title" align="center">{{device.lesseeName}}</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center"><a href=""
@@ -127,7 +153,7 @@
                         {{device.deviceName}}</a></h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{device.validTime | date:'yyyy-MM-dd'}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{device.regTime | date:'yyyy-MM-dd'}}</h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">{{device.lesseePhone}}</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{device.lesseePhone}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center" >{{device.deviceStatus |deviceStatusFilter}}</h4></div>
 
                     <div class="col-md-1">
@@ -138,7 +164,7 @@
                             </button>
                         </h4>
                     </div>
-                    <div class="col-md-1" ng-show="!deviceManageType">
+                    <div class="col-md-2" ng-show="!deviceManageType">
                         <h4 class="panel-title" align="center">
                             <button class="btn btn-primary"
                                     ng-click="modify(device.deviceId,device.deviceName,device.validTime)" loading="">
@@ -146,18 +172,48 @@
                             </button>
                         </h4>
                     </div>
-                    <div class="col-md-2">
-                        <h4 class="panel-title" align="center">
-                            <button class="btn btn-primary" loading="" ng-click="downloadFile(device.deviceId)">下载
-                            </button>
-                            <button class="btn btn-primary" ng-disabled="device.updateCRT" ng-click="updateDeviceCRT(device.deviceId)">更新
-                            </button>
-                        </h4>
-                    </div>
+                    <!--<div class="col-md-2">-->
+                        <!--<h4 class="panel-title" align="center">-->
+                            <!--<button class="btn btn-primary" loading="" ng-click="downloadFile(device.deviceId)">下载-->
+                            <!--</button>-->
+                            <!--<button class="btn btn-primary" ng-disabled="device.updateCRT" ng-click="updateDeviceCRT(device.deviceId)">更新-->
+                            <!--</button>-->
+                        <!--</h4>-->
+                    <!--</div>-->
 
                 </div>
             </div>
 
+            <div class="panel panel-default" ng-show="!deviceErrorType&&pdtOnSale[2]" ng-repeat="device in deviceList">
+                <div class="panel-heading row" role="tab">
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{device.lesseeName}}</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center"><a href=""
+                                                                                    ng-click="getDeviceHisDataById(device.deviceId,device.deviceName)">
+                        {{device.deviceName}}</a></h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">{{device.validTime | date:'yyyy-MM-dd'}}</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{device.regTime | date:'yyyy-MM-dd'}}</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{device.lesseePhone}}</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center" >{{device.deviceStatus |deviceStatusFilter}}</h4></div>
+
+                    <div class="col-md-2">
+                        <h4 class="panel-title" align="center">
+                            <button class="btn btn-danger"
+                                    ng-click="changeDeviceManageStatus(device.deviceId,device.deviceName,device.validTime)"
+                                    loading="">{{deviceMangeName}}
+                            </button>
+                        </h4>
+                    </div>
+                    <!--<div class="col-md-2">-->
+                    <!--<h4 class="panel-title" align="center">-->
+                    <!--<button class="btn btn-primary" loading="" ng-click="downloadFile(device.deviceId)">下载-->
+                    <!--</button>-->
+                    <!--<button class="btn btn-primary" ng-disabled="device.updateCRT" ng-click="updateDeviceCRT(device.deviceId)">更新-->
+                    <!--</button>-->
+                    <!--</h4>-->
+                    <!--</div>-->
+
+                </div>
+            </div>
 
             <div class="panel panel-default" ng-show="deviceErrorType&&pdtOnSale[3]" ng-repeat="deviceError in deviceErrorList">
                 <div class="panel-heading row" role="tab">
@@ -165,13 +221,13 @@
                     <div class="col-md-2"><h4 class="panel-title" align="center"><a href=""
                                                                                     ng-click="getDeviceHisDataById(deviceError.deviceId,deviceError.deviceName)">
                         {{deviceError.deviceName}}</a></h4></div>
-                    <div class="col-md-1"><h4 class="panel-title" align="center">{{deviceError.lesseePhone}}</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">{{deviceError.lesseePhone}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{deviceError.startTime |
                         date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{deviceError.endTime |
                         date:'yyyy-MM-dd HH:mm:ss'}}</h4></div>
                     <div class="col-md-1"><h4 class="panel-title" align="center">{{deviceError.errorNumber}}</h4></div>
-                    <div class="col-md-2">
+                    <div class="col-md-1">
                         <h4 class="panel-title" align="center">
                             <button class="btn btn-success" loading=""
                                     ng-click="errorConfirm(deviceError.deviceId,deviceError.startTime,deviceError.endTime)">
@@ -196,11 +252,12 @@
             <!--通信异常列表-->
             <div class="panel panel-default" ng-show="pdtOnSale[4]">
                 <div class="panel-heading row">
-                    <div class="col-md-2"><h4 class="panel-title" align="center">设备名称</h4></div>
+                    <div class="col-md-2"><h4 class="panel-title" align="center">租凭商</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">设备名称</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">最后通信时间</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">有效期</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">录入时间</h4></div>
-                    <div class="col-md-2"><h4 class="panel-title" align="center">租用商</h4></div>
+                    <div class="col-md-1"><h4 class="panel-title" align="center">租用商</h4></div>
                     <div class="col-md-2"><h4 class="panel-title" align="center">租用商电话</h4></div>
 
                 </div>

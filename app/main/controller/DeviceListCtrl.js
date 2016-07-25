@@ -478,6 +478,7 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.deviceMangeName = "开启";
         $scope.deviceManageType = 1;
         $scope.deviceErrorType = 0;
+        $scope.deviceOffDevive = 0;
         $http.get(HTTP_BASE + 'device/e_query?accountId=' + accountId + '&type=2&pageSize=8&pageNo=1'+params)
             .success(function (data) {
                 $scope.deviceList = data.items;
