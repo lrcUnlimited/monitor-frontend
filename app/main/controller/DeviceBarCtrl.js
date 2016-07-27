@@ -127,8 +127,9 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
         function requestDeviceDetailInfo(){
             $http.get(HTTP_BASE + 'devicerecord/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3')
                 .success(function (data) {
+                    console.log(data.totalCount);
                     $scope.deviceDetailList = data.items;
-                    $scope.nowDeviceDetailTotalCount = data.totalCount;
+                    $scope.nowDeviceTotalCount = data.totalCount;
                     $scope.printList = data.items;
 
                     $('#page1').bootstrapPaginator({
@@ -140,7 +141,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                             $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_query?accountId=' + accountId + '&pageSize=8&pageNo=' + page + '&type=3')
                                 .success(function (data) {
                                     $scope.deviceDetailList = data.items;
-                                    $scope.nowDeviceDetailTotalCount = data.totalCount;
+                                    $scope.nowDeviceTotalCount = data.totalCount;
                                     //test
 
                                 }).error(function (data) {
@@ -300,13 +301,14 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                     {
                         table: {
                             headerRows: 1,
-                            widths: ['auto', 'auto', 'auto', 'auto'],
+                            widths: ['auto',200, 200, 'auto'],
                             body: printData
                         }
                     }
                 ],
                 defaultStyle: {
-                    font: 'msyh'
+                    font: 'msyh',
+                    alignment: 'center'
                 }
             };        // open the PDF in a new window
             pdfMake.createPdf(docDefinition).open();

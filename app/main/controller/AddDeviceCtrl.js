@@ -7,6 +7,8 @@
 var addDeviceModule = angular.module("monitor-frontend.addDeviceModule", ['cgBusy'])
 addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookieStore, $http,$state,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");//获取用户登录id
+    $scope.registerProvince = '省份';
+    $scope.registerCity = '地级市';
 
     $('#datepicker').datepicker({
         autoclose: true,
@@ -26,6 +28,7 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
             var data = {
                 deviceName: $scope.deviceName,
                 validTime:$scope.validTime,
+                machineId:$scope.machineId,
                 registerProvince:$scope.registerProvince,
                 registerCity:$scope.registerCity,
                 registerDistrict:$scope.registerDistrict,
@@ -34,6 +37,10 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
             };
             if(!data.deviceName){
                 dialogShow("请输入设备名");
+                return
+            }
+            if(!data.machineId){
+                dialogShow("请输入设备编号");
                 return
             }
             if(!data.lesseeName){
@@ -91,5 +98,8 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
         });
     }
 
+    document.getElementById("s_city").onchange = function(){
+            document.getElementById("s_district").value = document.getElementById("s_province").value+document.getElementById("s_city").value;
+        }
 })
 

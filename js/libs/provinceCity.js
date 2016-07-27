@@ -82,9 +82,3 @@ function _init_area(){ //初始化函数
     }
     change(0);
 }
-
-window.onload = function(){
-    document.getElementById("s_city").onchange = function(){
-        document.getElementById("s_district").value = document.getElementById("s_province").value+document.getElementById("s_city").value;
-    }
-}

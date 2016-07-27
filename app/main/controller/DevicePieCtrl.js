@@ -201,15 +201,16 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                     arrearagePercentageArray = [];
                     lesseeNameArray = [];
                     resultArray = data;
-                    resultArray.sort(function(a, b){
-                        return a.percentage > b.percentage;
-                     });
-                    columnDataOne = resultArray.slice(0, 9);
+                    r = resultArray.sort(function(a, b){
+                                return a.percentage - b.percentage||resultArray.indexOf(a) - resultArray.indexOf(b);
+                            });
+                    columnDataOne = r.slice(0, 10);
                     for(i = 0; i < columnDataOne.length; i++){
                         lesseeNameArray.push(columnDataOne[i].lessee);
                         arrearagePercentageArray.push(columnDataOne[i].percentage * 100);
                     }
 
+                    console.log(columnDataOne);
                     $('#columnContainerOne').highcharts({
 
                         chart: {
@@ -264,23 +265,24 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         },
 
                         series: [{
-                            name:'欠费率',
+                            name:'租赁商',
                             data: arrearagePercentageArray
                         }]
                     });
 
-                    arrearagePercentageArray = [];
-                    lesseeNameArray = [];
-                    resultArray = data;
-                    resultArray.sort(function(a, b){
-                        return a.percentage < b.percentage;
+                    arrearagePercentageArrayTwo = [];
+                    lesseeNameArrayTwo = [];
+                    resultArrayTwo = data;
+                    resultArrayTwo.sort(function(a, b){
+                        return b.percentage - a.percentage || resultArrayTwo.indexOf(b) - resultArrayTwo.indexOf(a);
                     });
-                    columnDataOne = resultArray.slice(0, 9);
-                    for(i = 0; i < columnDataOne.length; i++){
-                        lesseeNameArray.push(columnDataOne[i].lessee);
-                        arrearagePercentageArray.push(columnDataOne[i].percentage * 100);
+                    columnDataTwo = resultArrayTwo.slice(0, 10);
+                    for(i = 0; i < columnDataTwo.length; i++){
+                        lesseeNameArrayTwo.push(columnDataTwo[i].lessee);
+                        arrearagePercentageArrayTwo.push(columnDataTwo[i].percentage * 100);
                     }
 
+                    console.log(columnDataTwo);
                     $('#columnContainerTwo').highcharts({
 
                         chart: {
@@ -306,7 +308,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         },
 
                         xAxis: {
-                            categories: lesseeNameArray
+                            categories: lesseeNameArrayTwo
                         },
 
                         yAxis: {
@@ -332,7 +334,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
 
                         series: [{
                             name:'租赁商',
-                            data: arrearagePercentageArray,
+                            data: arrearagePercentageArrayTwo,
                         }]
                     });
                 });
@@ -356,7 +358,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                     console.log(data);
 
                     $scope.deviceDetailList = data.items;
-                    $scope.nowDeviceDetailTotalCount = data.totalCount;
+                    $scope.nowDeviceTotalCount = data.totalCount;
                     $scope.printList = data.items;
                     //console.log($scope.printList);
 
@@ -369,7 +371,7 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                             $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=' + page + '&type=3&month=' + $scope.arrearageTime)
                                 .success(function (data) {
                                     $scope.deviceDetailList = data.items;
-                                    $scope.nowDeviceDetailTotalCount = data.totalCount;
+                                    $scope.nowDeviceTotalCount = data.totalCount;
                                 }).error(function (data) {
                                     $.teninedialog({
                                         title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -452,6 +454,42 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                     });
                 })
         }
+
+        $scope.searchArrearageLesseeInfoByMonth = function (){
+            var endYear = $scope.dateFilter(new Date(),  'yyyy');
+            var endMonth = $scope.dateFilter(new Date(),  'MM');
+            var params = "&lesseeName=&arrearagePercentageType=" + $scope.arrearagePercentageType + "&month=" + $scope.arrearageTime + '&startYear=' + '1000' +　"&startMonth="
+                + '01' + "&endYear=" + endYear + "&endMonth=" + endMonth + "&type=1";
+            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
+                .success(function (data) {
+                    // console.log(data);
+                    $scope.deviceDetailList = data.items;
+                    $scope.nowDeviceDetailTotalCount = data.totalCount;
+                    $('#page1').bootstrapPaginator({
+                        currentPage: 1,
+                        size: "normal",
+                        totalPages: data.totalPage,
+                        bootstrapMajorVersion: 3,
+                        onPageClicked: function (e, originalEvent, type, page) {
+                            $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=' + page + params)
+                                .success(function (data) {
+                                    $scope.deviceDetailList = data.items;
+                                    $scope.nowDeviceDetailTotalCount = data.totalCount;
+                                }).error(function (data) {
+                                    $.teninedialog({
+                                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                                        content: data.message
+                                    });
+                                })
+                        }
+                    })
+                }).error(function (data) {
+                    $.teninedialog({
+                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                        content: data.message
+                    });
+                })
+        }
         //function requestTotalNumOfDeviceStatus() {
         //    $http.get(HTTP_BASE + 'device/e_queryTotalNumOfDeviceStatus?accountId=' + accountId + '&type=' + type)
         //        .success(function (data) {
@@ -489,11 +527,12 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             //var province =  encodeURI(encodeURI($scope.searchProvice));
             var params = "";
            // console.log(params);
-            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformation?accountId=' + accountId + '&pageSize=8&pageNo=1' + params)
+            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformation?accountId=' + accountId + '&type=2&pageSize=8&pageNo=1' + params)
                 .success(function (data) {
-                    $scope.deviceDetailList = data.items;
-                    $scope.totolCount = data.totalCount;
+                    $scope.deviceList = data.items;
+                    console.log( data.items);
                     $scope.nowDeviceTotalCount = data.totalCount;
+                    console.log(data.totalCount);
                     $('#page1').bootstrapPaginator({
                         currentPage: 1,
                         size: "normal",
@@ -501,9 +540,9 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                         bootstrapMajorVersion: 3,
                         numberOfPages: 5,
                         onPageClicked: function (e, originalEvent, type, page) {
-                            $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformation?accountId=' + accountId + '&pageSize=8&pageNo=' + page + params)
+                            $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_query?accountId=' + accountId + '&type=2&pageSize=8&pageNo=' + page+params)
                                 .success(function (data) {
-                                    $scope.deviceDetailList = data.items;
+                                    $scope.deviceList = data.items;
                                     $scope.nowDeviceTotalCount = data.totalCount;
                                 }).error(function (data) {
                                     $.teninedialog({
@@ -605,13 +644,14 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                     {
                         table: {
                             headerRows: 1,
-                            widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+                            widths: ['auto', 150, 'auto', 'auto', 'auto', 'auto'],
                             body: printData
                         }
                     }
                 ],
                 defaultStyle: {
-                    font: 'msyh'
+                    font: 'msyh',
+                    alignment: 'center'
                 }
             };        // open the PDF in a new window
             pdfMake.createPdf(docDefinition).open();

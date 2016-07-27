@@ -34,7 +34,7 @@ recordListModule.controller("CommandListCtrl", function ($scope, $http, $cookieS
             })
         }
         function queryDataWithSearchParams(params) {
-            $http.get(HTTP_BASE + 'commandrecord/e_query?accountId=' + accountId + '&pageSize=12&pageNo=1'+params) //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
+            $http.get(HTTP_BASE + 'commandrecord/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1'+params) //file:///C:/Users/z/Desktop/testcode/brand/data/agentlist.json
                 .success(function (data) {
                     $scope.commandRecordList = data.items;
                     $scope.commandTotalCount = data.totalCount;
@@ -44,7 +44,7 @@ recordListModule.controller("CommandListCtrl", function ($scope, $http, $cookieS
                         totalPages: data.totalPage,
                         bootstrapMajorVersion: 3,
                         onPageClicked: function (e, originalEvent, type, page) {
-                            $scope.loadRecordPromise = $http.get(HTTP_BASE + 'commandrecord/e_query?accountId=' + accountId + '&pageSize=12&pageNo=' + page)
+                            $scope.loadRecordPromise = $http.get(HTTP_BASE + 'commandrecord/e_query?accountId=' + accountId + '&pageSize=8&pageNo=' + page)
                                 .success(function (data) {
                                     $scope.commandRecordList = data.items;
                                     $scope.commandTotalCount = data.totalCount;

@@ -4,8 +4,8 @@
             <h3 style="font-weight:bold;">设备统计</h3>
         </div>
     </div>
-    <div style="height: 0px" ng-show="statisticClip[0]"></div>
-    <div style="height: 39px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;" class="form-inline" ng-show="statisticClip[1]">
+    <div style="height: 0px;" ng-show="statisticClip[0]"></div>
+    <div style="height: 39px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;margin-right: 5px;" class="form-inline" ng-show="statisticClip[1]">
         <form style="height: 39px;float:right;background:url('../img/deciveloaction.png');padding-bottom: 5px;" class="form-inline" ng-show="statisticClip[1]" >
             <div class="form-group">
                 <label>省份</label>
@@ -27,7 +27,7 @@
             </div>
             <div class="form-group">
                 <button type="button"  class="btn btn-primary" ng-click="searchDeviceInfoDetail()">搜索</button>
-                <button type="button"  class="btn btn-primary" ng-click="printProvinceDeviceData()">打印</button>
+                <button type="button"  class="btn btn-primary" ng-click="printData()">打印</button>
             </div>
         </form>
     </div>
@@ -70,7 +70,7 @@
             <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
         </div>
         <div style="height: 40px;line-height: 40px; font-size: 18px ">
-            记录总数：{{nowDeviceTotalCount}}
+            <label style="margin-right: -10px;font-weight:normal;">记录总数：</label>{{nowDeviceTotalCount}}
             <label style="margin-left: 10px;font-weight:normal;">页码:</label>
         </div>
 

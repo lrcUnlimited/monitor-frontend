@@ -5,7 +5,7 @@
         </div>
     </div>
     <div style="height: 39px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;" class="form-inline">
-        <form class="form-inline" style="float:right;background:url('../img/deciveloaction.png');">
+        <form class="form-inline" style="float:right;background:url('../img/deciveloaction.png');margin-right: 5px;">
             <div class="form-group">
                 <label>用户名</label>
                 <input type="text" style="width: 135px" class="form-control" id="searchUserName" name="searchUserName" ng-model="searchUserName">
@@ -69,7 +69,8 @@
                     <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
                 </div>
                 <div style="height: 40px;line-height: 40px; font-size: 18px ">
-                    记录总数：{{userTotalCount}}<label style="margin-left: 10px;font-weight:normal;">页码:</label>
+                    <label style="margin-right: -10px;font-weight:normal;">记录总数：</label>{{userTotalCount}}
+                    <label style="margin-left: 10px;font-weight:normal;">页码:</label>
                 </div>
             </div>
         </div>

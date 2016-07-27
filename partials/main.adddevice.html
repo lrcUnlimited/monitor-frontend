@@ -23,7 +23,7 @@
                             <div style="height: 34px;text-align: center;vertical-align: middle;float: left;padding-top: 7px;">
                                 <label>设备编号:</label>
                             </div>
-                            <input class="form-control" style="width: 317.283px;" type="text" name="deviceID"  required ng-model="deviceID"/>
+                            <input class="form-control" style="width: 317.283px;" type="text" name="machineId"  required ng-model="machineId"/>
                         </div>
                         <div class="col-md-6 field-box">
                             <div style="height: 34px;text-align: center;vertical-align: middle;float: left;padding-top: 7px;">
@@ -56,8 +56,8 @@
                                 <label>租赁商所在地区:</label>
                             </div>
                             <div>
-                                <select id="s_province" name="s_province"></select>
-                                <select id="s_city" name="s_city" ></select>
+                                <select id="s_province" name="s_province" ng-model="registerProvince"></select>
+                                <select id="s_city" name="s_city" ng-model="registerCity"></select>
                                 <script type="text/javascript">_init_area();</script>
                             </div>
                             </div>

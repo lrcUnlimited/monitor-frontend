@@ -5,10 +5,10 @@
                 <h3 style="font-weight:bold;">租赁统计</h3>
             </div>
         </div>
-        <div style="height: 39px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;" class="form-inline">
-            <div ng-show="pdtOnSale[0]||pdtOnSale[1]">
+        <div style="height: 39px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;margin-right: 5px;" class="form-inline">
+            <div class="form-group" style="float:right;" ng-show="pdtOnSale[0]||pdtOnSale[1]">
                 <button type="button"  class="btn btn-primary" style="float: right" ng-click="showPieChartOne()" ng-show="pdtOnSale[0]">修改时间</button>
-                <button type="button"  class="btn btn-primary" style=";float: right" ng-click="showPieChartTwo()" ng-show="pdtOnSale[1]">修改时间</button>
+                <button type="button"  class="btn btn-primary" style="float: right" ng-click="showPieChartTwo()" ng-show="pdtOnSale[1]">修改时间</button>
                 <button type="button"  class="btn btn-primary" style="float: right" ng-click="searchArrearageLesseeInfo()" ng-show="pdtOnSale[2]">修改时间</button>
                 <select  style="height: 30px; float: right;position: relative;"  ng-model="arrearageTime">
                     <option value="1">月欠费率</option>
@@ -17,7 +17,7 @@
                     <option value="12">年欠费率</option>
                 </select>
             </div>
-            <form class="form-inline" style="float:right;background:url('../img/deciveloaction.png');" ng-show="pdtOnSale[2]">
+            <form class="form-inline" style="float:right;background:url('../img/deciveloaction.png');margin-right: 5px;" ng-show="pdtOnSale[2]">
                 <div class="form-group">
                     <label>欠费率</label>
                     <select  style="height: 30px;position: relative;"  ng-model="arrearagePercentageType">
@@ -92,9 +92,9 @@
                 <button type="button"  class="btn btn-primary" ng-click="printData()">打印</button>
                 </div>
                 <div class="form-group">
-                    <button type="button"  class="btn btn-primary" style="float: right" ng-click="showPieChartOne()" ng-show="pdtOnSale[0]">修改时间</button>
+                    <button type="button"  class="btn btn-primary" style="float: right;" ng-click="showPieChartOne()" ng-show="pdtOnSale[0]">修改时间</button>
                     <button type="button"  class="btn btn-primary" style=";float: right" ng-click="showPieChartTwo()" ng-show="pdtOnSale[1]">修改时间</button>
-                    <button type="button"  class="btn btn-primary" style="float: right" ng-click="searchArrearageLesseeInfo()" ng-show="pdtOnSale[2]">修改时间</button>
+                    <button type="button"  class="btn btn-primary" style="float: right" ng-click="searchArrearageLesseeInfoByMonth()" ng-show="pdtOnSale[2]">修改时间</button>
                     <select  style="height: 30px; float: right;position: relative;left: 5px;"  ng-model="arrearageTime">
                         <option value="1">月欠费率</option>
                         <option value="4">季度欠费率</option>
@@ -165,7 +165,7 @@
                     <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
                 </div>
                 <div style="height: 40px;line-height: 40px; font-size: 18px ">
-                    记录总数：{{nowDeviceTotalCount}}
+                    <label style="margin-right: -10px;font-weight:normal;">记录总数：</label>{{nowDeviceTotalCount}}
                     <label style="margin-left: 10px;font-weight:normal;">页码:</label>
                 </div>
 
