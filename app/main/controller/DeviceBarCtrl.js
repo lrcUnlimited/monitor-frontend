@@ -126,7 +126,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
         //发送查询设备详细信息的请求
         function requestDeviceDetailInfo(){
             //设备打印请求
-            $http.get(HTTP_BASE + 'device/e_queryPrint?accountId=' + accountId)
+            $http.get(HTTP_BASE + 'device/e_queryPrint?accountId=' + accountId + '&type=3')
                 .success(function (data) {
                     $scope.printList = data;
 
@@ -246,7 +246,12 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                 var info_array = [];
                 var index = 0;
 
-                info_array[index++] = info['provice'];
+                if(info['provice'] == null) {
+                    info_array[index++] = info['registerProvince']; 
+                } else {
+                    info_array[index++] = info['provice'];    
+                }
+                
                 info_array[index++] = info['lesseeName'];
                 info_array[index++] = info['deviceName'];
                 if(info['deviceStatus'] == 1) {

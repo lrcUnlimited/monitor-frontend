@@ -354,7 +354,6 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
             $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPrint?accountId=' + accountId + '&month=' + $scope.arrearageTime + "&endYear=" + $scope.dateFilter(new Date(),  'yyyy') + "&endMonth=" + $scope.dateFilter(new Date(),  'MM').toString())
                 .success(function (data) {  
                     $scope.printList = data;
-                    //console.log($scope.printList);
                 }).error(function (data) {
                     $.teninedialog({
                         title: '<h3 style="font-weight:bold">系统提示</h3>',
@@ -366,7 +365,6 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 .success(function (data) {  
                     $scope.deviceDetailList = data.items;
                     $scope.nowDeviceTotalCount = data.totalCount;
-                    $scope.printList = data.items;
                     //console.log($scope.printList);
 
                     $('#page1').bootstrapPaginator({
