@@ -70,7 +70,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                         stacking: 'normal',
                         dataLabels: {
                             enabled: true,
-                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'white'
+                            color: (Highcharts.theme && Highcharts.theme.dataLabelsColor) || 'black'
                         },
                     }
                 },
@@ -173,6 +173,12 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
         }
 
         $scope.showDeviceLocationBarChart = function () {
+            $("#barChart").css({
+                "display": "block"
+            })
+            $("#barList").css({
+                "display": "none"
+            })
             for(i = 0; i < 2; i++){
                 $scope.statisticClip[i] = false;
             }
@@ -182,7 +188,13 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
 
         //展示设备在线状况详细信息
         $scope.showDeviceLocationInfoDetail = function () {
-            $("#barChart").html('');
+            //$("#barChart").html('');
+            $("#barChart").css({
+                "display": "none"
+            })
+            $("#barList").css({
+                "display": "block"
+            })
             for(i = 0; i < 2; i++){
                 $scope.statisticClip[i] = false;
             }

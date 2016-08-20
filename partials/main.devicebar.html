@@ -38,41 +38,42 @@
     <li role="presentation" ng-class="{'hand': 1,'active':statisticClip[0]}"><a class="hand" ng-click="showDeviceLocationBarChart()">结点分布</a></li>
     <li role="presentation" ng-class="{'hand': 1,'active':statisticClip[1]}"><a class="hand" ng-click="showDeviceLocationInfoDetail()">详细列表</a></li>
 </ul>
-<div id="container" style="min-width:700px;height:400px;">
-    <div id="barChart">
+<div id="container" style="min-width:700px;height:540px;">
+    <div id="barChart" style="height:540px;">
 
     </div>
 
-
-    <table class="table table-bordered" ng-show="statisticClip[1]">
-        <thead>
+    <div id="barList">
+        <table class="table table-bordered" ng-show="statisticClip[1]">
+            <thead>
             <tr>
                 <th>省份</th>
                 <th>租赁商</th>
                 <th>设备名</th>
                 <th>状态</th>
             </tr>
-        </thead>
+            </thead>
 
-        <tbody>
+            <tbody>
             <tr ng-repeat="deviceDetail in deviceDetailList">
                 <td>{{deviceDetail.provice}}</td>
                 <td>{{deviceDetail.lesseeName}}</td>
                 <td>{{deviceDetail.deviceName}}</td>
                 <td>{{deviceDetail.deviceStatus |deviceStatusFilter}}</td>
             </tr>
-        </tbody>
-    </table>
+            </tbody>
+        </table>
 
-    <!--分页工具栏-->
-    <div style="text-align: right" ng-show="statisticClip[1]">
-        <div style="float: right">
-            <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
-        </div>
-        <div style="height: 40px;line-height: 40px; font-size: 18px ">
-            <label style="margin-right: -10px;font-weight:normal;">记录总数：</label>{{nowDeviceTotalCount}}
-            <label style="margin-left: 10px;font-weight:normal;">页码:</label>
-        </div>
+        <!--分页工具栏-->
+        <div style="text-align: right" ng-show="statisticClip[1]">
+            <div style="float: right">
+                <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
+            </div>
+            <div style="height: 40px;line-height: 40px; font-size: 18px ">
+                <label style="margin-right: -10px;font-weight:normal;">记录总数：</label>{{nowDeviceTotalCount}}
+                <label style="margin-left: 10px;font-weight:normal;">页码:</label>
+            </div>
 
+        </div>
     </div>
 </div>
