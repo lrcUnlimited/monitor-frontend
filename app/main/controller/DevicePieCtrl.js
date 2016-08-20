@@ -351,12 +351,19 @@ devicePieModule.controller("DevicePieCtrl", function ($scope, $http, $rootScope,
                 "display": "none"
             })
 
-            // $scope.YearDate = $scope.dateFilter(new Date(),  'yyyy');
-            //$scope.MonthDate = $scope.dateFilter(new Date(),  'MM');
-            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1&month=' + $scope.arrearageTime + "&endYear=" + $scope.dateFilter(new Date(),  'yyyy') + "&endMonth=" + $scope.dateFilter(new Date(),  'MM').toString())
-                .success(function (data) {
-                    console.log(data);
+            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPrint?accountId=' + accountId + '&month=' + $scope.arrearageTime + "&endYear=" + $scope.dateFilter(new Date(),  'yyyy') + "&endMonth=" + $scope.dateFilter(new Date(),  'MM').toString())
+                .success(function (data) {  
+                    $scope.printList = data;
+                    //console.log($scope.printList);
+                }).error(function (data) {
+                    $.teninedialog({
+                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                        content: data.message
+                    });
+                })
 
+            $http.get(HTTP_BASE + 'device/e_queryLesseeDeviceInformationPager?accountId=' + accountId + '&pageSize=8&pageNo=1&month=' + $scope.arrearageTime + "&endYear=" + $scope.dateFilter(new Date(),  'yyyy') + "&endMonth=" + $scope.dateFilter(new Date(),  'MM').toString())
+                .success(function (data) {  
                     $scope.deviceDetailList = data.items;
                     $scope.nowDeviceTotalCount = data.totalCount;
                     $scope.printList = data.items;
