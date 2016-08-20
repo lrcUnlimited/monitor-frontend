@@ -116,7 +116,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                         offDevice.push(temp[2]);
                         offAndArrearageDevice.push(temp[3]);
                     }
-                    $scope.printList = data;
+                    // $scope.printList = data;
 
                     showBarChar();
                 });
@@ -125,12 +125,24 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
 
         //发送查询设备详细信息的请求
         function requestDeviceDetailInfo(){
+            //设备打印请求
+            $http.get(HTTP_BASE + 'device/e_queryPrint?accountId=' + accountId)
+                .success(function (data) {
+                    $scope.printList = data;
+
+                }).error(function (data) {
+                    $.teninedialog({
+                        title: '<h3 style="font-weight:bold">系统提示</h3>',
+                        content: data.message
+                    });
+                })
+
+
             $http.get(HTTP_BASE + 'devicerecord/e_query?accountId=' + accountId + '&pageSize=8&pageNo=1&type=3')
                 .success(function (data) {
                     console.log(data.totalCount);
                     $scope.deviceDetailList = data.items;
                     $scope.nowDeviceTotalCount = data.totalCount;
-                    $scope.printList = data.items;
 
                     $('#page1').bootstrapPaginator({
                         currentPage: 1,
@@ -206,7 +218,7 @@ deviceBarModule.controller("DeviceBarCtrl", function ($scope, $http, $rootScope,
                                 .success(function (data) {
                                     $scope.deviceDetailList = data.items;
                                     $scope.nowDeviceTotalCount = data.totalCount;
-                                    $scope.printList = data.items;
+                                    // $scope.printList = data.items;
                                     //test
 
                                 }).error(function (data) {
