@@ -7,6 +7,9 @@
 var addDeviceModule = angular.module("monitor-frontend.addDeviceModule", ['cgBusy'])
 addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookieStore, $http,$state,HTTP_BASE) {
     var accountId = $cookieStore.get("USER_ID");//获取用户登录id
+    $scope.registerProvince = '省份';
+    $scope.registerCity = '地级市';
+
     $('#datepicker').datepicker({
         autoclose: true,
         startDate:new Date(),
@@ -25,11 +28,19 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
             var data = {
                 deviceName: $scope.deviceName,
                 validTime:$scope.validTime,
+                machineId:$scope.machineId,
+                registerProvince:$scope.registerProvince,
+                registerCity:$scope.registerCity,
+                registerDistrict:$scope.registerDistrict,
                 lesseeName:$scope.lesseeName,
                 lesseePhone:$scope.lesseePhone
             };
             if(!data.deviceName){
                 dialogShow("请输入设备名");
+                return
+            }
+            if(!data.machineId){
+                dialogShow("请输入设备编号");
                 return
             }
             if(!data.lesseeName){
@@ -40,6 +51,22 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
                 dialogShow("请输入租赁商电话")
                 return
             }
+            if(!data.registerProvince && !data.registerCity){
+                dialogShow("请选择租赁商所在地区")
+                return
+            }
+            if(!data.registerDistrict){
+                dialogShow("请输入租赁商街区地址")
+                return
+            }
+
+            //for(var i=0;i<data.registerDistrict.length;i++){
+            //    if(data.registerDistrict[i] == '市'|| '区' || '州' || '县'){
+            //        return i;
+            //    }
+            //    data.registerDistict = data.registerDistrict.substr(i);
+            //}
+
             $scope.addDevicePromise = $http.post(HTTP_BASE+"device/e_add?accountId=" + accountId, data)
                 .success(function (data) {
                     $.teninedialog({
@@ -71,6 +98,8 @@ addDeviceModule.controller("AddDeviceCtrl", function ($scope, $location, $cookie
         });
     }
 
-
+    document.getElementById("s_city").onchange = function(){
+            document.getElementById("s_district").value = document.getElementById("s_province").value+document.getElementById("s_city").value;
+        }
 })
 

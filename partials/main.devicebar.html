@@ -1,3 +1,79 @@
-<div id="container" style="min-width:700px;height:400px">
+<div style="background:url('../img/deciveloaction.png');">
+    <div class="page-title" style="padding-bottom: 10px;padding-top: 10px;">
+        <div class="title_left" >
+            <h3 style="font-weight:bold;">设备统计</h3>
+        </div>
+    </div>
+    <div style="height: 0px;" ng-show="statisticClip[0]"></div>
+    <div style="height: 39px;background:url('../img/deciveloaction.png'); padding-bottom: 5px;margin-right: 5px;" class="form-inline" ng-show="statisticClip[1]">
+        <form style="height: 39px;float:right;background:url('../img/deciveloaction.png');padding-bottom: 5px;" class="form-inline" ng-show="statisticClip[1]" >
+            <div class="form-group">
+                <label>省份</label>
+                <input type="text" style="width: 135px" class="form-control" id="searchProvice" name="searchProvice" ng-model="searchProvice">
+            </div>
+            <div class="form-group">
+                <label>租赁商</label>
+                <input type="text" style="width: 135px" class="form-control" id="searchLessName" name="searchLessName" ng-model="searchLessName">
+            </div>
+            <div class="form-group">
+                <label>状态</label>
+                <select style="height: 30px;"  ng-model="searchType">
+                    <option value="3" selected="true">所有设备</option>
+                    <option value="0">正常设备</option>
+                    <option value="2">关闭设备</option>
+                    <option value="4">欠费设备</option>
+                    <option value="1">即将过期设备</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <button type="button"  class="btn btn-primary" ng-click="searchDeviceInfoDetail()">搜索</button>
+                <button type="button"  class="btn btn-primary" ng-click="printData()">打印</button>
+            </div>
+        </form>
+    </div>
 
+</div>
+
+<ul class="nav nav-tabs">
+    <li role="presentation" ng-class="{'hand': 1,'active':statisticClip[0]}"><a class="hand" ng-click="showDeviceLocationBarChart()">结点分布</a></li>
+    <li role="presentation" ng-class="{'hand': 1,'active':statisticClip[1]}"><a class="hand" ng-click="showDeviceLocationInfoDetail()">详细列表</a></li>
+</ul>
+<div id="container" style="min-width:700px;height:540px;">
+    <div id="barChart" style="height:540px;">
+
+    </div>
+
+    <div id="barList">
+        <table class="table table-bordered" ng-show="statisticClip[1]">
+            <thead>
+            <tr>
+                <th>省份</th>
+                <th>租赁商</th>
+                <th>设备名</th>
+                <th>状态</th>
+            </tr>
+            </thead>
+
+            <tbody>
+            <tr ng-repeat="deviceDetail in deviceDetailList">
+                <td>{{deviceDetail.provice}}</td>
+                <td>{{deviceDetail.lesseeName}}</td>
+                <td>{{deviceDetail.deviceName}}</td>
+                <td>{{deviceDetail.deviceStatus |deviceStatusFilter}}</td>
+            </tr>
+            </tbody>
+        </table>
+
+        <!--分页工具栏-->
+        <div style="text-align: right" ng-show="statisticClip[1]">
+            <div style="float: right">
+                <ul id="page1" style="padding-right: 20px; margin: 5px;"></ul>
+            </div>
+            <div style="height: 40px;line-height: 40px; font-size: 18px ">
+                <label style="margin-right: -10px;font-weight:normal;">记录总数：</label>{{nowDeviceTotalCount}}
+                <label style="margin-left: 10px;font-weight:normal;">页码:</label>
+            </div>
+
+        </div>
+    </div>
 </div>

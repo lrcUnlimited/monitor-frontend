@@ -253,13 +253,14 @@ userListModule.controller("UserListCtrl", function ($scope, $http, $cookieStore,
                     {
                         table: {
                             headerRows: 1,
-                            widths: [100, 'auto', 'auto', 100, 50],
+                            widths: [100,80, 'auto', 150, 'auto'],
                             body: printData
                         }
                     }
                 ],
                 defaultStyle: {
-                    font: 'msyh'
+                    font: 'msyh',
+                    alignment: 'center'
                 }
             };        // open the PDF in a new window
             pdfMake.createPdf(docDefinition).open();

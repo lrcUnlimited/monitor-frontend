@@ -241,10 +241,12 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             var index = 0;
             for (var j in user) {
                 console.log(j);
-                if (j == 'deviceId' || j == 'errorNumber') {
+                //if (j == 'deviceId' || j == 'errorNumber') {
+                //    user_array[index++] = user[j] + '';
+                //}
+                if (j == 'errorNumber') {
                     user_array[index++] = user[j] + '';
                 }
-
                 if (j == 'lesseePhone') {
                     if (user[j] == null || user[j].length == 0) {
                         user[j] = '无';
@@ -299,19 +301,19 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         var printData = convertJsonToArray($scope.printList);
         if (i == 0) {
             headerName = '正常设备列表';
-            printData.unshift(['设备Id', '设备名称', '租用商', '租用商电话', '录入时间', '当前状态', '过期时间'])
+            printData.unshift([ '设备名称', '租赁商', '租赁商电话', '录入时间', '当前状态', '过期时间'])
         } else if (i == 1) {
             headerName = '即将过期设备列表';
-            printData.unshift(['设备Id', '设备名称', '租用商', '租用商电话', '录入时间', '当前状态', '过期时间'])
+            printData.unshift([ '设备名称', '租赁商', '租赁商电话', '录入时间', '当前状态', '过期时间'])
         } else if (i == 2) {
             headerName = '关闭设备列表';
-            printData.unshift(['设备Id', '设备名称', '租用商', '租用商电话', '录入时间', '当前状态', '过期时间'])
+            printData.unshift([ '设备名称', '租赁商', '租赁商电话', '录入时间', '当前状态', '过期时间'])
         } else if (i == 3) {
             headerName = "位置异常设备列表";
-            printData.unshift(['设备Id', '设备名称', '异常开始时间', '异常截止时间', '租用商', '租用商电话', '异常次数'])
+            printData.unshift([ '设备名称', '租赁商', '租赁商电话', '异常开始时间', '异常截止时间', '异常次数'])
         } else {
             headerName = "通信异常设备列表";
-            printData.unshift(['设备Id', '设备名称', '最后通信时间', '租用商', '租用商电话', '过期时间', '录入时间'])
+            printData.unshift([ '设备名称', '租赁商', '租赁商电话',  '最后通信时间', '过期时间', '录入时间'])
         }
 
         pdfMake.fonts = {
@@ -332,19 +334,20 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
             },
             footer: function(currentPage, pageCount) { return {text:"第"+currentPage.toString()+"页",alignment: 'center'}; },
             content: [
-                {text: headerName, alignment: 'center',margin: [ 0, 0, 0, 0 ]},
+                {text: headerName, alignment: 'center',margin: [ 0,0, 0, 0 ]},
                 {text: "\n", alignment: 'center',margin: [ 0, 0, 0, 0 ]},
 
                 {
                     table: {
                         headerRows: 1,
-                        widths: ['auto', 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
+                        widths: [ 'auto', 'auto', 'auto', 'auto', 'auto', 'auto'],
                         body: printData
                     }
                 }
             ],
             defaultStyle: {
-                font: 'msyh'
+                font: 'msyh',
+                alignment: 'center'
             }
         };        // open the PDF in a new window
         pdfMake.createPdf(docDefinition).open();
@@ -478,12 +481,12 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $scope.deviceMangeName = "开启";
         $scope.deviceManageType = 1;
         $scope.deviceErrorType = 0;
+        $scope.deviceOffDevive = 0;
         $http.get(HTTP_BASE + 'device/e_query?accountId=' + accountId + '&type=2&pageSize=8&pageNo=1'+params)
             .success(function (data) {
                 $scope.deviceList = data.items;
                 console.log( data.items);
                 $scope.nowDeviceTotalCount = data.totalCount;
-
                 $('#page1').bootstrapPaginator({
                     currentPage: 1,
                     size: "normal",
@@ -834,13 +837,13 @@ deviceListModule.controller("DeviceListCtrl", function ($scope, $http, $rootScop
         $('#devicehistorymodal').modal('toggle');
     }
 
-    //更新证书文件
+    //升级设备
     $scope.updateDeviceCRT = function (deviceId) {
         $scope.loadDevicePromise = $http.get(HTTP_BASE + 'device/e_updateCRT?accountId=' + accountId + '&deviceId=' + deviceId + '&status=1')
             .success(function (data) {
                 $.teninedialog({
                     title: '<h3 style="font-weight:bold">系统提示</h3>',
-                    content: '更新设备证书成功，设备下次连接时将自动更新',
+                    content: '设备升级设置成功，设备将自动升级',
                     dialogShown: function () {
                         setTimeout(function () {
                             $state.go($state.current, {}, {reload: true})

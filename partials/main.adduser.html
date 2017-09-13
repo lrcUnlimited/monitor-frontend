@@ -1,65 +1,75 @@
 <div>
-    <div id="pad-wrapper" class="new-user" >
-        <div class="row header">
-            <div class="col-md-12" style="padding-bottom: 40px;padding-top: 50px;background:url('../img/deciveloaction.png');">
-                <h3 style="font-weight:bold; margin-left: 10px;margin-left: 50px;margin-top: -40px;">用户注册</h3>
+        <div style="background:url('../img/deciveloaction.png');">
+            <div class="page-title" style="padding-bottom: 10px;padding-top: 10px">
+                <div class="title_left" >
+                    <h3 style="font-weight:bold; padding-left: 10px">用户注册</h3>
+                </div>
             </div>
         </div>
-
-        <div class="row form-wrapper">
-            <!-- left column -->
-            <div class="col-md-6 with-sidebar">
-                <div class="container">
+        <div class="new-user" style="margin-left:150px;margin-top: 30px; ">
+            <div class="row form-wrapper">
+                <!-- left column -->
+                <div class="col-md-6 with-sidebar">
                     <form class="new_user_form" name="useradd" novalidate ng-submit="addUser()"
                           cg-busy="{promise:addUserPromise,message:'加载中',backdrop:false}">
                         <div class="col-md-6 field-box">
-                            <label>用户名:</label>
-                            <input class="col-md-9 form-control" ng-minlength="2" ng-maxlength="10" type="text" name="userName" user-check="userName" required ng-model="userName"
+                            <div style="height: 34px;text-align: center;vertical-align: middle;float: left;padding-top: 7px;">
+                                <label>用户名:</label>
+                            </div>
+                            <input class="col-md-9 form-control" style="width: 317.283px;" ng-minlength="2" ng-maxlength="10" type="text" name="userName" user-check="userName" required ng-model="userName"
                                    placeholder="用户名不能低于2位，不能多于10位">
-                            <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;float: right"
-                                  ng-show="useradd.userName.$error.userUnique">该用户名被使用</span>
+                                <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;float: right"
+                                      ng-show="useradd.userName.$error.userUnique">该用户名被使用</span>
                         </div>
 
                         <div class="col-md-6 field-box">
-                            <label>用户手机:</label>
-                            <input class="col-md-9 form-control" type="text" name="userPhone"
+                            <div style="height: 34px;text-align: center;vertical-align: middle;float: left;padding-top: 7px;">
+                                <label>用户手机:</label>
+                            </div>
+                            <input class="col-md-9 form-control" style="width: 317.283px;" type="text" name="userPhone"
                                    placeholder="请输入手机号"
                                    ng-pattern="/^[1][3458][0-9]{9}$/" required ng-model="userPhone"/>
-                                <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;float: right"
-                                      ng-show="useradd.userPhone.$error.pattern">请输入正确号码</span>
+                                    <span style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;float: right"
+                                          ng-show="useradd.userPhone.$error.pattern">请输入正确号码</span>
 
                         </div>
                         <div class="col-md-6 field-box">
-                            <label>密码:</label>
-                            <input class="col-md-9 form-control" type="password" id="passWord" name="passWord" required
+                            <div style="height: 34px;text-align: center;vertical-align: middle;float: left;padding-top: 7px;">
+                                <label>密码:</label>
+                            </div>
+                            <input class="col-md-9 form-control" style="width: 317.283px;" type="password" id="passWord" name="passWord" required
                                    ng-model="passWord"/>
                             <!--<input class="col-md-9 form-control" type="password" name="passWord" required ng-model="passWord"/>-->
                         </div>
                         <div class="col-md-6 field-box">
-                            <label>确认密码:</label>
-                            <input class="col-md-9 form-control" type="password" id="pw2" name="pw2" required
+                            <div style="height: 34px;text-align: center;vertical-align: middle;float: left;padding-top: 7px;">
+                                <label>确认密码:</label>
+                            </div>
+                            <input class="col-md-9 form-control" style="width: 317.283px;" type="password" id="pw2" name="pw2" required
                                    ng-model="pw2" pw-check="pw2"/>
-                            <span class="msg-error"
-                                  style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;float: right;margin-right: 10px"
-                                  ng-show="useradd.pw2.$error.pwmatch">密码不匹配</span>
+                                <span class="msg-error"
+                                      style="color: #a5393a; line-height: 30px; font-weight: bold; font-size: 12px;float: right;margin-right: 10px"
+                                      ng-show="useradd.pw2.$error.pwmatch">密码不匹配</span>
                         </div>
-                        <div class="col-md-6 field-box textarea">
-                            <label>备注:</label>
-                            <textarea class="col-md-9" maxlength="20" name="note" ng-model="note"></textarea>
-                            <span class="charactersleft">最多输入20字符</span>
+                        <div class="col-md-6 field-box">
+                            <div style="height: 34px;text-align: center;vertical-align: middle;float: left;padding-top: 7px;">
+                                <label>备注:</label>
+                            </div>
+                            <input class="form-control" style="width: 317.283px;" placeholder="最多输入20个字符" type="text" maxlength="20" name="note" ng-model="note"/>
                         </div>
-                        <div class="col-md-8" field-box>
-                            <label>用户权限:</label>
+                        <div class="col-md-8 field-box">
+                            <div style="height: 34px;text-align: center;vertical-align: middle;float: left;padding-top: 2px;">
+                                <label>用户权限:</label>
+                            </div>
                             <input type="radio" name="optradio" value="1" ng-model="userType">管理员权限</label>
                             <input type="radio" name="optradio" value="0" ng-model="userType">普通用户权限</label>
                         </div>
                         <div class="col-md-6 field-box actions">
-                            <input type="submit" class="btn-glow primary"   style="float: right" ng-disabled="useradd.$invalid" value="增加用户"
-                                   loading="">
+                            <input type="submit" class="btn btn-primary"   style="position:relative;right:300px;" ng-disabled="useradd.$invalid" value="增加用户" loading="">
                         </div>
+
                     </form>
                 </div>
             </div>
         </div>
-    </div>
 </div>

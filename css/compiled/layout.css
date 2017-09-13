@@ -55,6 +55,14 @@ input.search {
   top: 11px;
 }
 
+tr th{
+  text-align: center;
+}
+
+tr td{
+  text-align: center;
+}
+
 .header {
   margin-bottom: 60px;
 }
@@ -271,7 +279,7 @@ input.search {
 /* Sidebar */
 #sidebar-nav {
   position: absolute;
-  width: 176px;/* Ô­íé180px */
+  width: 176px;/* Ô­ï¿½ï¿½ï¿½180px */
   height:100%;
   float: left;
   margin: 0em;
@@ -293,7 +301,7 @@ input.search {
   margin-bottom: 5px;
   border-bottom: 1px solid #dae1e8;
   box-shadow: 0 2px 1px -1px #FFFFFF;
-  color: #000000;/* Ô­íé#6e829b,¼ÓÉÏ±³¾°ˆDÆ¬ºó¿´²»Çå³ş */
+  color: #000000;/* Ô­ï¿½ï¿½ï¿½#6e829b,ï¿½ï¿½ï¿½Ï±ï¿½ï¿½ï¿½ï¿½DÆ¬ï¿½ó¿´²ï¿½ï¿½ï¿½ï¿½ */
   outline: 0px;
   line-height: 21px;
 }
