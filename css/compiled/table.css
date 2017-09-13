@@ -1,0 +1,59 @@
+/* table 样式 */
+table {
+    border-collapse: collapse;
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+
+}
+
+th, td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+
+
+}
+
+tr:nth-child(even){background-color: #f2f2f2}
+
+th {
+    background-color: #4CAF50;
+    color: white;
+    border-bottom: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+
+
+}
+
+/* blockquote 样式 */
+blockquote {
+    display: block;
+    border-left: 8px solid #d0e5f2;
+    padding: 5px 10px;
+    margin: 10px 0;
+    line-height: 1.4;
+    font-size: 100%;
+    background-color: #f1f1f1;
+}
+
+/* code 样式 */
+code {
+    display: inline-block;
+    *display: inline;
+    *zoom: 1;
+    background-color: #292929;
+    border-radius: 3px;
+    padding: 3px 5px;
+    margin: 0 3px;
+    color: white;
+}
+pre code {
+    display: block;
+}
+
+/* ul ol 样式 */
+ul, ol {
+    margin: 10px 0 10px 20px;
+}

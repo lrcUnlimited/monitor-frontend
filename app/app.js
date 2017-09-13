@@ -16,7 +16,8 @@ var myApp = angular.module('monitor-frontend', [
     "monitor-frontend.deviceListModule",
     "monitor-frontend.deviceLocationModule",
     "monitor-frontend.deviceBarModule",
-    "monitor-frontend.devicePieModule"
+    "monitor-frontend.devicePieModule",
+    "monitor-frontend.problemModule"
 ]);
 
 myApp.constant('HTTP_BASE', 'http://localhost:8080/monitor/')
@@ -30,6 +31,11 @@ myApp.constant('HTTP_BASE', 'http://localhost:8080/monitor/')
             .state('signup', {
                 url: "/signup",
                 templateUrl: "../partials/signup.html",
+            }).state('problem', {
+                url: "/problem",
+                templateUrl: "../partials/problem.html",
+                controller: "ProblemCtrl"
+
             })
             .state('main', {
                 url: "/main",
@@ -79,7 +85,7 @@ myApp.constant('HTTP_BASE', 'http://localhost:8080/monitor/')
             responseError: function (rejection) {
                 if (rejection.status == 412) {
                     console.log(rejection.data.message);
-                    if (rejection.data !== null && (rejection.data.message == "请重新登录"||rejection.data.message=="请重新登陆")) {
+                    if (rejection.data !== null && (rejection.data.message == "请重新登录" || rejection.data.message == "请重新登陆")) {
                         console.log("remove");
                         $cookieStore.remove("USER_ID");
                         $cookieStore.remove("USER_NAME");
@@ -112,4 +118,8 @@ myApp.constant('HTTP_BASE', 'http://localhost:8080/monitor/')
             }
         };
 
+    }]).filter('trustedHtml', ['$sce', function ($sce) {
+        return function (text) {
+            return $sce.trustAsHtml(text);
+        };
     }]);
